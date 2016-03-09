@@ -1,0 +1,22 @@
+---
+title: "Teste 2"
+subtitle: ME613 - Análise de Regressão
+output: 
+   html_document:
+     keep_md: true
+---
+
+
+Envie todas as demonstrações indicadas na Parte 2 dos slides (Mostre que...).
+
+Encontre estimadores para $\beta_0$, $\beta_1$ e $\sigma^2$ através do método de máxima verossimilhança, utilizando a suposição de normalidade dos erros.
+
+Resolva os exercícios A e B do capítulo 3 do livro [Draper, N. R., Smith, H. Applied Regression Analysis, 3rd Edition](http://onlinelibrary.wiley.com/doi/10.1002/9781118625590.ch3/pdf). Utilize apenas a calculadora.
+
+Essa atividade deverá ser entregue em grupo.
+
+Envie SOMENTE arquivo(s) pdf com sua solução (digitada ou foto legível). 
+
+Arquivos ilegíveis, de ponta-cabeça ou em outros formatos receberão nota 0.
+
+

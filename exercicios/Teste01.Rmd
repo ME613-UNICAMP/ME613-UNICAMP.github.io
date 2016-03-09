@@ -1,0 +1,18 @@
+---
+title: "Teste 1"
+subtitle: ME613 - Análise de Regressão
+output: 
+   html_document:
+     keep_md: true
+---
+
+
+Envie todas as demonstrações indicadas na Parte 1 dos slides (Mostre que...)
+
+Essa atividade deverá ser entregue em grupo.
+
+Envie SOMENTE arquivo(s) pdf com sua solução (digitada ou foto legível). 
+
+Arquivos ilegíveis, de ponta-cabeça ou em outros formatos receberão nota 0.
+
+
