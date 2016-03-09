@@ -45,3 +45,10 @@ Se MG >= 7, o aluno estará aprovado e MF=MG
 Se MG < 7 o aluno deverá fazer exame e MF=(MG+NE)/2.
 
 Último dia para desistência de matrícula em disciplinas - 03/05/2016
+
+### Tutoriais
+
+* [Datacamp](https://www.datacamp.com/courses)
+* [R Markdown](http://rmarkdown.rstudio.com/)
+* [Curso Online - Reporting with R Markdown](https://www.datacamp.com/courses/reporting-with-r-markdown)
+
