@@ -20,4 +20,6 @@ Essa atividade deverá ser entregue em grupo.
 
 * Resolva os problemas 2.1, 2.2, 2.3, 2.4, 2.13, 2.15 do livro [Weisberg, S. Applied Linear Regression, 4th Edition](http://site.ebrary.com/lib/unicamp/reader.action?docID=10867127&ppg=58)
 
+Lembre-se que seu código deve ser reprodutível. Por exemplo, caso alguém deseje mudar apenas uma linha no banco de dados, os resultados e o texto devem refletir esta alteração automaticamente.
+
 
