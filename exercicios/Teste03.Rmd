@@ -9,7 +9,9 @@ output:
 
 Os problemas a seguir devem ser entregues através do Moodle no formato .Rmd (anexe também conjuntos de dados, ou arquivos complementares, caso haja necessidade).
 
-Arquivo .Rmd que não gerar .pdf ou .html corretamente não será avaliado e receberá nota 0.
+Arquivo .Rmd que não gerar .pdf ou .html corretamente não será avaliado e receberá nota 0. 
+
+Os arquivos .Rmd DEVEM estar com *encoding* UTF-8 (menu *global options*).
 
 Essa atividade deverá ser entregue em grupo.
 
