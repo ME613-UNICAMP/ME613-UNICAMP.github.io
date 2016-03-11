@@ -1,10 +1,4 @@
----
-title: "Teste 3"
-subtitle: ME613 - Análise de Regressão
-output: 
-   html_document:
-     keep_md: true
----
+# Teste 3
 
 
 Os problemas a seguir devem ser entregues através do Moodle no formato .Rmd (anexe também conjuntos de dados, ou arquivos complementares, caso haja necessidade).
