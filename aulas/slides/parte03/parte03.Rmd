@@ -31,7 +31,9 @@ Como saber se a função de regressão é adequada para explicar a relação ent
 
 > Caso a função de regressão não seja adequada, o que fazer?
 
-> * Transformação de variáveis
+> * Transformação de variáveis.
+
+> * Outro tipo de modelo.
 
 ## Diagnósticos para a variável preditora
 
@@ -47,7 +49,7 @@ stripchart(dados$V1,xlab="Tamanho do lote",method="stack",pch=19,at=.15)
 
 ## Diagnósticos para a variável preditora
 
-```{r,echo=FALSE,fig.hegiht=4,fig.align='center'}
+```{r,echo=FALSE,fig.hegiht=3,fig.align='center'}
 plot(dados$V1,ylab="Tamanho do lote",pch=19,type="l",xlab="Ordem de produção")
 ```
 
@@ -108,17 +110,17 @@ $$e_i^*=\frac{e_i}{\sqrt{QME}}$$
 
 Podemos utilizar análise de resíduos para verificar se:
 
-> 1-- a função de regressão não é linear
+1. a função de regressão não é linear
 
-> 2-- erros não possuem variância constante (heterocedasticidade)
+2. erros não possuem variância constante (heterocedasticidade)
 
-> 3-- erros não são independentes
+3. erros não são independentes
 
-> 4-- o modelo ajustado é adequado, com exceção de algumas observações outliers
+4. o modelo ajustado é adequado, com exceção de algumas observações outliers
 
-> 5-- erros não seguem distribuição normal
+5. erros não seguem distribuição normal
 
-> 6-- uma ou mais variáveis preditoras foram omitidas no modelo
+6. uma ou mais variáveis preditoras foram omitidas no modelo
 
 ## Análise de Resíduos: gráficos {.build}
 
