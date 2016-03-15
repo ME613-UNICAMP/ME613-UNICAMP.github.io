@@ -250,12 +250,12 @@ $$Y_i^{\lambda}=\beta_0+\beta_1X_i+\varepsilon_i$$
 
 ## Leitura
 
-* Applied Linear Statistical Models: 3.8-3.10.
+* Applied Linear Statistical Models: 3.8-3.11.
 
 * Weisberg - [Applied Linear Regression](http://unicampbr.summon.serialssolutions.com/2.0.0/link/0/eLvHCXMwrV1NSwMxEB1EDyoFv22tSs5Ca5JdN9mTWLX0oljwXqZJCh5cy3YF_fdmku0KhXryGCZfhCQzTN57AUhkn_dW7oQURSaFUUamqDBVM41CckyN0M5wNOFP23w8Vs8jUs0Z_PWASqSJ9_m1_TAPAWXZjwyAW1sHtaTYJolf7l0ZHdW7QfKbdeH0DMjDl0F-M-vM166Fn5Zl3VCOIiIyOJrh3n_MaR-2HFEYDmDDFYew-9Qosy6O4CpcA4ySYm7B3gr2UvoTHRCy3wwLyyj6jOLNx3A5fHy9H_XiNCbzKEwxWY6TnEALCSBfVIFIZ9vAfCiHWjlhUU0pm6YxkQptluezG8wV78Dpmt460F2xVF9VYz1b264LOz66qGEu57BZlZ_uArbrtZqWP8hqnhA
 ): Capítulo 8.
 
 * Faraway - [Linear Models with R](http://www.maths.bath.ac.uk/~jjf23/LMR/): Capítulo 9.
 
-<center><img src="figuras/Outlier.jpg" width=400></center>
+<center><img src="figuras/gm_bivarstat_tusche.jpg" width=300></center>
 
