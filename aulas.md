@@ -15,6 +15,8 @@ permalink: /aulas/
 * Intervalos de confiança
 * Predição
 * Análise de Variância
+* Diagnóstico
+* Transformação
 
 [Parte 1](slides/parte01/parte01.html)
 [Parte 2](slides/parte02/parte02.html)
