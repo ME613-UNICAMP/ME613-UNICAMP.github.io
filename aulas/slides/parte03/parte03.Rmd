@@ -500,7 +500,7 @@ $SQF_a$ é a soma de quadrados da falta de ajuste, representando a falta de ajus
 
 $SQE$ é o numerador de $s^2$ e $SQE_p$ é o numerador de $s^2_p$.
 
-Valores relativamente altos de $SQF_a$ indicam discrepância entre esses dois estimadores e, consequentemente, indicam evidˆncia contra a adequação do modelo de regressão linear simples.
+Valores relativamente altos de $SQF_a$ indicam discrepância entre esses dois estimadores e, consequentemente, indicam evidência contra a adequação do modelo de regressão linear simples.
 
 Quanto mais alto o valor de $SQF_a$, pior é o ajuste do modelo, pois, se o modelo fosse perfeito, teríamos que $SQF_a=0$.
 
@@ -581,7 +581,7 @@ library(lmf)
 extract2a <- lm.extract(y ~ -1 + factor(x))
 extract1a <- lm.extract(y ~ x)
 ```
-$s_{e}=`r round(extract2a$sigma.djt,2)`$ enquanto que, usando o modelo anterior, temos que $s=`r round(extract1a$sigma.djt,2)`$.
+$s=`r round(extract1a$sigma.djt,2)`$ enquanto que, usando o modelo anterior, temos que $s_e=`r round(extract2a$sigma.djt,2)`$.
 
 
 

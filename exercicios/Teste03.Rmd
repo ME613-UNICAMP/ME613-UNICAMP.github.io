@@ -6,6 +6,8 @@ output:
      keep_md: true
 ---
 
+Envie todas as demonstrações indicadas na Parte 3 dos slides (Mostre que...). Estes devem ser enviados em arquivo .pdf através do Moodle.
+
 
 Os problemas a seguir devem ser entregues através do Moodle no formato .Rmd (anexe também conjuntos de dados, ou arquivos complementares, caso haja necessidade).
 
