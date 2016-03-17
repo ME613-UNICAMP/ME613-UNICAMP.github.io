@@ -466,15 +466,15 @@ $$\frac{1}{n_1-1}\sum_{j=1}^{n_1}(Y_{1j}-\bar{Y}_1)^2$$
 
 Combinando todas as observações (não apenas as replicações para um dado nível de $X$), temos o seguinte estimador para $\sigma^2$:
 
-$$s_e^2=\frac{\sum_{j=1}^m\sum_{u=1}^{n_j}(Y_{ju}-\bar{Y}_j)^2}{\sum_{j=1}^m(n_j-1)}$$
+$$s_p^2=\frac{\sum_{j=1}^m\sum_{u=1}^{n_j}(Y_{ju}-\bar{Y}_j)^2}{\sum_{j=1}^m(n_j-1)}$$
 
 ## Teste F para falta de ajuste {.build}
 
 $$SQE_p=\sum_{j=1}^m\sum_{u=1}^{n_j}=(Y_{ju}-\bar{Y}_j)^2$$
 
-com graus de liberdade $n_e=\sum_{j=1}^m(n_j-1)=\sum_{j=1}^mn_j-m$.
+com graus de liberdade $n_p=\sum_{j=1}^m(n_j-1)=\sum_{j=1}^mn_j-m$.
 
-$$QME_{puro}=s_e^2=\frac{\sum_{j=1}^m\sum_{u=1}^{n_j}(Y_{ju}-\bar{Y}_j)^2}{\sum_{j=1}^mn_j-m}$$
+$$QME_{puro}=s_p^2=\frac{\sum_{j=1}^m\sum_{u=1}^{n_j}(Y_{ju}-\bar{Y}_j)^2}{\sum_{j=1}^mn_j-m}$$
 
 ## Teste F para falta de ajuste {.build}
 
@@ -482,7 +482,7 @@ Relembrando:
 
 $$SQE=\sum_{j=1}^m\sum_{u=1}^{n_j}(Y_{ju}-\hat{Y}_j)^2$$
 
-**Mostre$^1$** que a $SQE$ pode ser particinada da seguinte forma:
+**Mostre$^1$** que a $SQE$ pode ser particionada da seguinte forma:
 
 $$\sum_{j=1}^m\sum_{u=1}^{n_j}(Y_{ju}-\hat{Y}_j)^2 = \sum_{j=1}^m\sum_{u=1}^{n_j}(Y_{ju}-\bar{Y}_j)^2 + \sum_{j=1}^mn_j(\hat{Y}_j-\bar{Y}_j)^2$$
 
@@ -513,7 +513,7 @@ $H_1$: o MRLS não é adequado
 
 Estatística do teste:
 
-$$F^*=\frac{SQF_a/(m-2)}{SQE_p/(n-m)}$$
+$$F^*=\frac{SQF_a/(m-2)}{SQE_p/(n-m)}\overset{\mbox{sob }H_0}{\sim} F_{m-2,n-m}$$
 
 ## Teste F para falta de ajuste {.build}
 
