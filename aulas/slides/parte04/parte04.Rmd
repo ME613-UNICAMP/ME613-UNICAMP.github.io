@@ -257,5 +257,5 @@ $$Y_i^{\lambda}=\beta_0+\beta_1X_i+\varepsilon_i$$
 
 * Faraway - [Linear Models with R](http://www.maths.bath.ac.uk/~jjf23/LMR/): Capítulo 9.
 
-<center><img src="figuras/gm_bivarstat_tusche.jpg" width=300></center>
+<center><img src="figuras/happy.jpg" width=250></center>
 
