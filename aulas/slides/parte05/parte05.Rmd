@@ -282,6 +282,42 @@ Var(\hat{\boldsymbol\beta})&=&Var\left[(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T
 &=&\sigma^2(\mathbf{X}^T\mathbf{X})^{-1}
 \end{eqnarray}$$
 
+$\mathbf{H}$ é a matriz de projeção ortogonal no espaço coluna de $\mathbf{X}$.
+
+$$\hat{\mathbf{Y}}=\mathbf{X}\hat{\boldsymbol\beta}=\underbrace{\mathbf{X}(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}^T}_{\mathbf{H}}\mathbf{Y}$$
+
+$$\mathbf{e}=\mathbf{Y}-\hat{\mathbf{Y}}=\mathbf{Y}-\mathbf{H}\mathbf{Y}=(\mathbf{I}-\mathbf{H})\mathbf{Y}$$
+
+## Interpretação geométrica 
+
+<center>
+<img src="figuras/proj.png" width=650>
+</center>
+
+
+## Interpretação geométrica
+
+
+<center>
+<img src="figuras/proj2.png" width=650>
+</center>
+
+## Interpretação geométrica
+
+$$\sum_{i=1}^n(Y_i-\bar{Y})^2=\sum_{i=1}^n(\hat{Y}_i-\bar{Y})^2+\sum_{i=1}^n(Y_i-\hat{Y}_i)^2$$
+
+Pitágoras:
+
+$$ ||\mathbf{Y}-\bar{Y}\mathbf{1}_n||^2 = ||\mathbf{Y}-\hat{\mathbf{Y}}||^2+||\hat{\mathbf{Y}}-\bar{Y}\mathbf{1}_n||^2$$
+
+
+$$R^2=1-
+\frac{SQE}{SQT}=1-\frac{||\mathbf{Y}-\hat{\mathbf{Y}}||^2}{||\mathbf{Y}-\bar{Y}\mathbf{1}_n||^2}=\frac{SQReg}{SQT}=\frac{||\hat{\mathbf{Y}}-\bar{Y}\mathbf{1}_n||^2}{||\mathbf{Y}-\bar{Y}\mathbf{1}_n||^2}$$
+
+
+$$R=\cos(\theta)=\frac{||\hat{\mathbf{Y}}-\bar{Y}\mathbf{1}_n||}{||\mathbf{Y}-\bar{Y}\mathbf{1}_n||}$$
+
+
 ## Exercício {.smaller}
 
 $X$: temperatura ($^{\circ} F$).
@@ -309,7 +345,7 @@ Utilizando a notação matricial para o modelo de regressão, obtenha:
 
 * Applied Linear Statistical Models: 4.1-4.3, Capítulo 5.
 
-* Draper & Smith - [Applied Regression Analysis](http://onlinelibrary.wiley.com/book/10.1002/9781118625590): Capítulo 4.
+* Draper & Smith - [Applied Regression Analysis](http://onlinelibrary.wiley.com/book/10.1002/9781118625590): Capítulos 4 e 20.
 
 
 * Faraway - [Linear Models with R](http://www.maths.bath.ac.uk/~jjf23/LMR/): Capítulo 2.
