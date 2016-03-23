@@ -350,8 +350,10 @@ Utilizando a notação matricial para o modelo de regressão, obtenha:
 
 * Faraway - [Linear Models with R](http://www.maths.bath.ac.uk/~jjf23/LMR/): Capítulo 2.
 
+* [The Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf)
+
 <center>
-<img src="figuras/jelly.png" width=300>
+<img src="figuras/jelly.png" width=250>
 
 
 [https://xkcd.com/882/](https://xkcd.com/882/)
