@@ -205,7 +205,7 @@ $$f(\mathbf{Y})=\frac{1}{(2\pi)^{p/2}|\boldsymbol\Sigma|^{1/2}}\exp\left[-\frac{
 
 ## Regressão Linear Simples com notação matricial
 
-$$Y_i=\beta_0+\beta_1X_i\,,\quad\varepsilon_i\sim\mathbf{N}(0,\sigma^2)\,,\quad i=1,2,\ldots,n$$
+$$Y_i=\beta_0+\beta_1X_i\,,\quad\varepsilon_i\overset{iid}{\sim}\mathbf{N}(0,\sigma^2)\,,\quad i=1,2,\ldots,n$$
 
 
 $$\mathbf{Y}_{n\times1}=\mathbf{X}_{n\times2}\boldsymbol\beta_{2\times1}+\boldsymbol\varepsilon_{n\times1}\,,\quad \boldsymbol\varepsilon\sim\mathcal{N}(\mathbf{0},\sigma^2\mathbf{I})$$
@@ -340,12 +340,43 @@ Utilizando a notação matricial para o modelo de regressão, obtenha:
  * matriz de variância-covariância estimada para $\hat{\boldsymbol\beta}$.
 
 
+## ANOVA {.build}
+
+$$
+\underbrace{\sum_{i=1}^n(Y_i-\bar{Y})^2}_{SQT}=\underbrace{\sum_{i=1}^n(\hat{Y}_i-\bar{Y})^2}_{SQReg}
++\underbrace{\sum_{i=1}^n(Y_i-\hat{Y}_i)^2}_{SQE}$$
+
+$$SQT=\sum_{i=1}^n(Y_i-\bar{Y})^2=\sum_{i=1}^nY_i^2-\frac{(\sum_{i=1}^nY_i)^2}{n}$$
+
+$$SQT=\mathbf{Y}^T\mathbf{Y}-\frac{1}{n}\mathbf{Y}^T\mathbf{1}\mathbf{1}^T\mathbf{Y}=\mathbf{Y}^T\left[ \mathbf{I}-\frac{1}{n}\mathbf{1}\mathbf{1}^T \right]\mathbf{Y}$$
+
+## ANOVA {.build}
+
+$$\begin{eqnarray}
+SQE&=&\mathbf{e}^T\mathbf{e}=(\mathbf{Y}-\hat{\mathbf{Y}})^T(\mathbf{Y}-\hat{\mathbf{Y}})\\
+&=&(\mathbf{Y}-\mathbf{HY})^T(\mathbf{Y}-\mathbf{HY})\\
+&=&\mathbf{Y}^T\mathbf{Y}-\mathbf{Y}^T\mathbf{H}\mathbf{Y}-\mathbf{Y}^T\mathbf{H}^T\mathbf{Y}+\mathbf{Y}^T\mathbf{H}^T\mathbf{H}\mathbf{Y}\\
+&=& \mathbf{Y}^T\mathbf{Y}-\mathbf{Y}^T\mathbf{H}\mathbf{Y}\\
+&=&\mathbf{Y}^T(\mathbf{I}-\mathbf{H})\mathbf{Y}
+\end{eqnarray}$$
+
+Obs: $\mathbf{H}^T=\mathbf{H}$ e $\mathbf{H}^T\mathbf{H}=\mathbf{H}$
+
+## ANOVA {.build}
+$$SQReg=\sum_{i=1}^n(\hat{Y}_i-\bar{Y})^2=\sum_{i=1}^n\hat{Y}_i^2-\frac{(\sum_{i=1}^nY_i)^2}{n}$$
+
+$$\begin{eqnarray}
+SQReg&=&(\mathbf{HY})^T\mathbf{HY}-\frac{1}{n}\mathbf{Y}^T\mathbf{1}\mathbf{1}^T\mathbf{Y}\\
+&=&\mathbf{Y}^T\mathbf{H}\mathbf{Y}-\frac{1}{n}\mathbf{Y}^T\mathbf{1}\mathbf{1}^T\mathbf{Y}\\
+&=&\mathbf{Y}^T\left[ \mathbf{H}-\frac{1}{n}\mathbf{1}\mathbf{1}^T \right]\mathbf{Y}
+\end{eqnarray}$$
+
 
 ## Leitura
 
 * Applied Linear Statistical Models: 4.1-4.3, Capítulo 5.
 
-* Draper & Smith - [Applied Regression Analysis](http://onlinelibrary.wiley.com/book/10.1002/9781118625590): Capítulos 4 e 20.
+* Draper & Smith - [Applied Regression Analysis](http://onlinelibrary.wiley.com/book/10.1002/9781118625590): Capítulos 4, 5 e 20.
 
 
 * Faraway - [Linear Models with R](http://www.maths.bath.ac.uk/~jjf23/LMR/): Capítulo 2.

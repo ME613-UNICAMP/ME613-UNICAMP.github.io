@@ -296,7 +296,7 @@ Cov(Y_p,Y_1) &amp; Cov(Y_n,Y_2) &amp; \ldots &amp; Var(Y_p)
 
 </article></slide><slide class=''><hgroup><h2>Regressão Linear Simples com notação matricial</h2></hgroup><article  id="regressao-linear-simples-com-notacao-matricial">
 
-<p>\[Y_i=\beta_0+\beta_1X_i\,,\quad\varepsilon_i\sim\mathbf{N}(0,\sigma^2)\,,\quad i=1,2,\ldots,n\]</p>
+<p>\[Y_i=\beta_0+\beta_1X_i\,,\quad\varepsilon_i\overset{iid}{\sim}\mathbf{N}(0,\sigma^2)\,,\quad i=1,2,\ldots,n\]</p>
 
 <p>\[\mathbf{Y}_{n\times1}=\mathbf{X}_{n\times2}\boldsymbol\beta_{2\times1}+\boldsymbol\varepsilon_{n\times1}\,,\quad \boldsymbol\varepsilon\sim\mathcal{N}(\mathbf{0},\sigma^2\mathbf{I})\]</p>
 
@@ -421,11 +421,43 @@ Var(\hat{\boldsymbol\beta})&amp;=&amp;Var\left[(\mathbf{X}^T\mathbf{X})^{-1}\mat
 <li>matriz de variância-covariância estimada para \(\hat{\boldsymbol\beta}\).</li>
 </ul>
 
+</article></slide><slide class=''><hgroup><h2>ANOVA</h2></hgroup><article  id="anova" class="build">
+
+<p>\[
+\underbrace{\sum_{i=1}^n(Y_i-\bar{Y})^2}_{SQT}=\underbrace{\sum_{i=1}^n(\hat{Y}_i-\bar{Y})^2}_{SQReg}
++\underbrace{\sum_{i=1}^n(Y_i-\hat{Y}_i)^2}_{SQE}\]</p>
+
+<p>\[SQT=\sum_{i=1}^n(Y_i-\bar{Y})^2=\sum_{i=1}^nY_i^2-\frac{(\sum_{i=1}^nY_i)^2}{n}\]</p>
+
+<p>\[SQT=\mathbf{Y}^T\mathbf{Y}-\frac{1}{n}\mathbf{Y}^T\mathbf{1}\mathbf{1}^T\mathbf{Y}=\mathbf{Y}^T\left[ \mathbf{I}-\frac{1}{n}\mathbf{1}\mathbf{1}^T \right]\mathbf{Y}\]</p>
+
+</article></slide><slide class=''><hgroup><h2>ANOVA</h2></hgroup><article  id="anova-1" class="build">
+
+<p>\[\begin{eqnarray}
+SQE&amp;=&amp;\mathbf{e}^T\mathbf{e}=(\mathbf{Y}-\hat{\mathbf{Y}})^T(\mathbf{Y}-\hat{\mathbf{Y}})\\
+&amp;=&amp;(\mathbf{Y}-\mathbf{HY})^T(\mathbf{Y}-\mathbf{HY})\\
+&amp;=&amp;\mathbf{Y}^T\mathbf{Y}-\mathbf{Y}^T\mathbf{H}\mathbf{Y}-\mathbf{Y}^T\mathbf{H}^T\mathbf{Y}+\mathbf{Y}^T\mathbf{H}^T\mathbf{H}\mathbf{Y}\\
+&amp;=&amp; \mathbf{Y}^T\mathbf{Y}-\mathbf{Y}^T\mathbf{H}\mathbf{Y}\\
+&amp;=&amp;\mathbf{Y}^T(\mathbf{I}-\mathbf{H})\mathbf{Y}
+\end{eqnarray}\]</p>
+
+<p>Obs: \(\mathbf{H}^T=\mathbf{H}\) e \(\mathbf{H}^T\mathbf{H}=\mathbf{H}\)</p>
+
+</article></slide><slide class=''><hgroup><h2>ANOVA</h2></hgroup><article  id="anova-2" class="build">
+
+<p>\[SQReg=\sum_{i=1}^n(\hat{Y}_i-\bar{Y})^2=\sum_{i=1}^n\hat{Y}_i^2-\frac{(\sum_{i=1}^nY_i)^2}{n}\]</p>
+
+<p>\[\begin{eqnarray}
+SQReg&amp;=&amp;(\mathbf{HY})^T\mathbf{HY}-\frac{1}{n}\mathbf{Y}^T\mathbf{1}\mathbf{1}^T\mathbf{Y}\\
+&amp;=&amp;\mathbf{Y}^T\mathbf{H}\mathbf{Y}-\frac{1}{n}\mathbf{Y}^T\mathbf{1}\mathbf{1}^T\mathbf{Y}\\
+&amp;=&amp;\mathbf{Y}^T\left[ \mathbf{H}-\frac{1}{n}\mathbf{1}\mathbf{1}^T \right]\mathbf{Y}
+\end{eqnarray}\]</p>
+
 </article></slide><slide class=''><hgroup><h2>Leitura</h2></hgroup><article  id="leitura">
 
 <ul>
 <li><p>Applied Linear Statistical Models: 4.1-4.3, Capítulo 5.</p></li>
-<li><p>Draper &amp; Smith - <a href='http://onlinelibrary.wiley.com/book/10.1002/9781118625590' title=''>Applied Regression Analysis</a>: Capítulos 4 e 20.</p></li>
+<li><p>Draper &amp; Smith - <a href='http://onlinelibrary.wiley.com/book/10.1002/9781118625590' title=''>Applied Regression Analysis</a>: Capítulos 4, 5 e 20.</p></li>
 <li><p>Faraway - <a href='http://www.maths.bath.ac.uk/~jjf23/LMR/' title=''>Linear Models with R</a>: Capítulo 2.</p></li>
 <li><p><a href='https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf' title=''>The Matrix Cookbook</a></p></li>
 </ul>
