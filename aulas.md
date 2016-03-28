@@ -26,6 +26,11 @@ permalink: /aulas/
 [Parte 5](slides/parte05/parte05.html)
 
 
+### Regressão Linear Múltipla
+
+[Parte 6](slides/parte06/parte06.html)
+
+
 
 
 #### Aulas em formato PDF

@@ -205,7 +205,7 @@ $$f(\mathbf{Y})=\frac{1}{(2\pi)^{p/2}|\boldsymbol\Sigma|^{1/2}}\exp\left[-\frac{
 
 ## Regressão Linear Simples com notação matricial
 
-$$Y_i=\beta_0+\beta_1X_i\,,\quad\varepsilon_i\overset{iid}{\sim}\mathbf{N}(0,\sigma^2)\,,\quad i=1,2,\ldots,n$$
+$$Y_i=\beta_0+\beta_1X_i+\varepsilon_i\,,\quad\varepsilon_i\overset{iid}{\sim}\mathbf{N}(0,\sigma^2)\,,\quad i=1,2,\ldots,n$$
 
 
 $$\mathbf{Y}_{n\times1}=\mathbf{X}_{n\times2}\boldsymbol\beta_{2\times1}+\boldsymbol\varepsilon_{n\times1}\,,\quad \boldsymbol\varepsilon\sim\mathcal{N}(\mathbf{0},\sigma^2\mathbf{I})$$
@@ -221,7 +221,7 @@ Y_n
 $$
 
 
-$$\mathbf{X}_{n\times1}=\left(
+$$\mathbf{X}_{n\times 2}=\left(
 \begin{array}{c}
 1 & X_1\\
 1 & X_2\\
