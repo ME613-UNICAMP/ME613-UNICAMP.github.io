@@ -410,7 +410,7 @@ $$Y_i=\beta_0+\beta_1X_{i1}+\beta_2X_{i2}+\varepsilon_i$$
 
 Temos que, se $X_{i2}=0$:
 
-$$Y_i=\beta_0+\beta_1X){i1}+\varepsilon_i$$
+$$Y_i=\beta_0+\beta_1X_{i1}+\varepsilon_i$$
 
 e se $X_{i2}=1$:
 
@@ -426,7 +426,7 @@ Ou seja, temos duas retas paralelas ajustadas (uma para cada categoria de `Catho
 summary(lm(Fertility ~ Agriculture + factor(CatholicBin), data = swiss))$coef
 ```
 
-Segundo o modelo, `r round(coef(lm(Fertility ~ Agriculture + factor(CatholicBin), data = swiss))[3],2)`é a mudança esperada no intercepto da relação linear entre agricultura e fertilidade quando comparamos não-católicos a católicos.
+Segundo o modelo, `r round(coef(lm(Fertility ~ Agriculture + factor(CatholicBin), data = swiss))[3],2)` é a mudança esperada no intercepto da relação linear entre agricultura e fertilidade quando comparamos não-católicos a católicos.
 
 ## Exemplo: conjunto de dados `swiss`
 
@@ -447,7 +447,7 @@ $$Y_i=\beta_0+\beta_1X_{i1}+\beta_2X_{i2}+\beta_3X_{i1}X_{i2}+\varepsilon_i$$
 
 Agora, quando $X_{i2}=0$:
 
-$$Y_i=\beta_0+\beta_1X){i1}+\varepsilon_i$$
+$$Y_i=\beta_0+\beta_1X_{i1}+\varepsilon_i$$
 
 e quando $X_{i2}=1$:
 
@@ -486,9 +486,82 @@ O coeficiente angular da relação entre `Agriculture` e `Fertility` para catól
 é 0.09612.
 
 
+## Formas Quadráticas
+
+$$\mathbf{Y}^T\mathbf{A}\mathbf{Y}=\sum_i\sum_ja_{ij}Y_iY_j\quad\quad a_{ij}=a_{ji}$$
+
+Exemplos:
+
+$$SQT=\mathbf{Y}^T\left[ \mathbf{I}-\frac{1}{n}\mathbf{1}\mathbf{1}^T \right]\mathbf{Y}$$
+
+
+$$
+SQE=\mathbf{Y}^T(\mathbf{I}-\mathbf{H})\mathbf{Y}
+$$
+
+$$SQReg=\mathbf{Y}^T\left[ \mathbf{H}-\frac{1}{n}\mathbf{1}\mathbf{1}^T \right]\mathbf{Y}$$
+
+
+## Teorema de Cochran
+
+Seja $X_i\overset{iid}{\sim}\mathcal{N}(0,\sigma^2)$ e suponha que
+
+$$\sum_{i=1}^nX_i^2=Q_1+Q_2+\ldots+Q_k$$
+
+em que 
+
+
+$$Q_i=\mathbf{X}^T\mathbf{A}_i\mathbf{X}$$
+
+$rank(A_i)=r_i$ e $r_1+r_2+\ldots r_k=n$. Então temos que:
+
+* $Q_1,Q_2,\ldots,Q_k$ são independentes
+
+* $Q_i\sim\sigma^2\chi^2(r_i)$, $i=1,2,\ldots,k$.
+
+## ANOVA: Regressão Linear Múltipla
+
+
+Fonte de Variação  | gl        | SQ                                                                                        | QM
+------------------ | ----------|-------------------------------------------------------------------------------------------|-----
+Regressão          |  $p-1$    | $SQReg=\mathbf{Y}^T\left[ \mathbf{H}-\frac{1}{n}\mathbf{1}\mathbf{1}^T \right]\mathbf{Y}$ | $SQReg/(p-1)$  
+Erro               |  $n-p$    | $SQE=\mathbf{Y}^T(\mathbf{I}-\mathbf{H})\mathbf{Y}$                                       | $SQE/(n-p)$  
+Total (ajustada)   |  $n-1$    | $\mathbf{Y}^T\left[ \mathbf{I}-\frac{1}{n}\mathbf{1}\mathbf{1}^T \right]\mathbf{Y}$       |        
+
+## Teste $F$
+
+* $H_0$: $\beta_1=\beta_2=\ldots=\beta_{p-1}=0$.
+
+* $H_1$: pelo menos um $\beta_k\neq0$, $k=1,2,\ldots,p-1$.
+
+Estatística do teste:
+
+$$F^*=\frac{SQReg/(p-1)}{SQE/(n-p)}\overset{\mbox{sob $H_0$}}{\sim}F_{p-1,n-p}$$
+
+## Intervalo de Confiança pra $\beta_k$
+
+Um intervalo de $100(1-\alpha)\%$ de confiança para $\beta_k$ é dado por:
+
+$$\begin{eqnarray}
+IC(\beta_k, 1-\alpha) &=& \left[\hat{\beta}_k -t_{n-p,\alpha/2}\sqrt{\widehat{Var(\hat{\beta}_k)}};\right.\\
+& &\left. \hat{\beta}_k +t_{n-p,\alpha/2}\sqrt{\widehat{Var(\hat{\beta}_k)}}\right]
+\end{eqnarray}$$
+
+
+## Teste de hipótese para $\beta_k$
+
+* $H_0$: $\beta_k=0$.
+
+* $H_1$: $\beta_k\neq0$.
+
+Estatística do teste:
+
+$$t^*=\frac{\hat{\beta}_k}{\sqrt{\widehat{Var(\hat{\beta}_k)}}}\overset{\mbox{sob $H_0$}}{\sim}t_{n-p}$$
+
+
 ## Leitura
 
-* Applied Linear Statistical Models: 6.1-6.5.
+* Applied Linear Statistical Models: Capítulo 6.
 
 * Weisberg - [Applied Linear Regression](http://unicampbr.summon.serialssolutions.com/2.0.0/link/0/eLvHCXMwrV1NSwMxEB1EDyoFv22tSs5Ca5JdN9mTWLX0oljwXqZJCh5cy3YF_fdmku0KhXryGCZfhCQzTN57AUhkn_dW7oQURSaFUUamqDBVM41CckyN0M5wNOFP23w8Vs8jUs0Z_PWASqSJ9_m1_TAPAWXZjwyAW1sHtaTYJolf7l0ZHdW7QfKbdeH0DMjDl0F-M-vM166Fn5Zl3VCOIiIyOJrh3n_MaR-2HFEYDmDDFYew-9Qosy6O4CpcA4ySYm7B3gr2UvoTHRCy3wwLyyj6jOLNx3A5fHy9H_XiNCbzKEwxWY6TnEALCSBfVIFIZ9vAfCiHWjlhUU0pm6YxkQptluezG8wV78Dpmt460F2xVF9VYz1b264LOz66qGEu57BZlZ_uArbrtZqWP8hqnhA
 ): Capítulos 3, 4 e seção 5.1.
