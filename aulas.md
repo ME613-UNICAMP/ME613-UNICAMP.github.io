@@ -28,7 +28,11 @@ permalink: /aulas/
 
 ### Regressão Linear Múltipla
 
+* Introdução
+* Soma extra de quadrados
+
 [Parte 6](slides/parte06/parte06.html)
+[Parte 7](slides/parte07/parte07.html)
 
 
 
