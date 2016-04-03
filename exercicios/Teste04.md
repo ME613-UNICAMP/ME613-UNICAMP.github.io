@@ -1,10 +1,4 @@
----
-title: "Teste 4"
-subtitle: ME613 - Análise de Regressão
-output: 
-   html_document:
-     keep_md: true
----
+# Teste 4
 
 
 * Envie o exercício indicado na Parte 5 dos slides.
