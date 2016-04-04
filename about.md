@@ -5,8 +5,8 @@ permalink: /about/
 ---
 
 * Professora: [Samara F. Kiihl](http://samarafk.github.io/)
-* ME613A: Segunda e Quarta CB10 16-18 ([Google Agenda](https://calendar.google.com/calendar/embed?src=26g3cd0bhfl3k68hvet0unusg8%40group.calendar.google.com&ctz=America/Sao_Paulo))
-* Atendimento Samara: Terça 13:00-14:00 sala 245 IMECC
+* ME613A: Segunda e Quarta IM34 16-18 ([Google Agenda](https://calendar.google.com/calendar/embed?src=26g3cd0bhfl3k68hvet0unusg8%40group.calendar.google.com&ctz=America/Sao_Paulo))
+* Atendimento: Terça 13:00-14:00 sala 245 IMECC
 * Comunicação por email: APENAS pelo email samara@ime.unicamp.br, APENAS com [ME613-A] especificado no assunto da mensagem, APENAS remetentes do email dac.unicamp.br. Qualquer outra mensagem de aluno sem essas especificações [será ignorada](images/hqdefault.jpg).
 * Atividades e notas estão disponíveis na [página do Moodle](http://www.ggte.unicamp.br/eam/course/view.php?id=2184). Utilize o navegador Firefox em caso de enunciado com fórmulas.
 * Sobre abono de faltas, consulte o [regimento](http://www.dac.unicamp.br/portal/grad/regimento/capitulo_v/secao_x/).
