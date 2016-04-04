@@ -572,3 +572,7 @@ $$t^*=\frac{\hat{\beta}_k}{\sqrt{\widehat{Var(\hat{\beta}_k)}}}\overset{\mbox{so
 
 
 
+<center>
+<img src="figuras/140414bcorrelation.jpg" width=300>
+</center>
+
