@@ -324,7 +324,7 @@ $F^*=`r round(anova(modelo1,modelo4)[2,5],2)`$.
 
 
 <center>
-<img src="figuras/Research2.jpg" width=300>
+<img src="figuras/null_hypothesis.png" width=200>
 </center>
 
 
