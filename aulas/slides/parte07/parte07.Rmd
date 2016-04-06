@@ -368,10 +368,16 @@ RY3.12
 
 ```
 
+
 Quando $X_2$ é adicionada ao modelo contendo apenas $X_1$, a $SQE(X_1)$ é reduzida 23%.
 
 Quando $X_3$ é adicionada ao modelo contendo $X_1$ e $X_2$, a $SQE(X_1,X_2)$ é reduzida 10%.
 
+http://www.stat.purdue.edu/~ghobbs/STAT_512/Lecture_Notes/Regression/Topic_13.pdf
+
+Once HSM is in the model,
+of the remaining variation (SSE=109) HSE
+explains only 1.36% of it. 
 
 ## Propriedades {.build}
 
