@@ -385,7 +385,7 @@ O coeficiente de determinação parcial assume valores entre 0 e 1.
    
    * Calcule $R^2$ entre $e_i(Y\mid X_2)$ e $e_i(X_1\mid X_2)$.
 
-O diagram de dispersão de $e_i(Y\mid X_2)$ versus $e_i(X_1\mid X_2)$ fornece uma representação gráfica da relação entre $Y$ e $X_1$, ajustada por $X_2$. É também chamado de *added variable plot* ou **gráfico de regressão parcial**.
+O diagrama de dispersão de $e_i(Y\mid X_2)$ versus $e_i(X_1\mid X_2)$ fornece uma representação gráfica da relação entre $Y$ e $X_1$, ajustada por $X_2$. É também chamado de *added variable plot* ou **gráfico de regressão parcial**.
    
    
 # Regressão Múltipla Padronizada   
