@@ -30,6 +30,8 @@ permalink: /aulas/
 
 * Introdução
 * Soma extra de quadrados
+* Coeficiente de determinação parcial
+* Regressão Linear Múltipla Padronizada
 
 [Parte 6](slides/parte06/parte06.html)
 [Parte 7](slides/parte07/parte07.html)
