@@ -368,16 +368,13 @@ RY3.12
 
 ```
 
+## Exemplo: Gordura corporal
 
-Quando $X_2$ é adicionada ao modelo contendo apenas $X_1$, a $SQE(X_1)$ é reduzida 23%.
 
-Quando $X_3$ é adicionada ao modelo contendo $X_1$ e $X_2$, a $SQE(X_1,X_2)$ é reduzida 10%.
+Quando $X_2$ é adicionada ao modelo contendo apenas $X_1$, a $SQE(X_1)$ é reduzida em 23%. A inclusão de $X_2$ no modelo explica 23% da variação em $Y$ que não pode ser explicada apenas por $X_1$.
 
-http://www.stat.purdue.edu/~ghobbs/STAT_512/Lecture_Notes/Regression/Topic_13.pdf
+Quando $X_3$ é adicionada ao modelo contendo $X_1$ e $X_2$, a $SQE(X_1,X_2)$ é reduzida em 10%. Isto é, 10% da variação em $Y$ que não pode ser explicada pelo modelo com $X_1$ e $X_2$ é explicada pela inclusão de $X_3$ no modelo.
 
-Once HSM is in the model,
-of the remaining variation (SSE=109) HSE
-explains only 1.36% of it. 
 
 ## Propriedades {.build}
 
@@ -619,7 +616,7 @@ Note que o comando apenas libera as estimativas (sem erro-padrão, testes, etc..
 
 
 <center>
-<img src="figuras/null_hypothesis.png" width=180>
+<img src="figuras/null_hypothesis.png" width=200>
 </center>
 
 
