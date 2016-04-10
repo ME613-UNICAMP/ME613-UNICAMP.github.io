@@ -32,9 +32,11 @@ permalink: /aulas/
 * Soma extra de quadrados
 * Coeficiente de determinação parcial
 * Regressão Linear Múltipla Padronizada
+* Multicolinearidade
 
 [Parte 6](slides/parte06/parte06.html)
 [Parte 7](slides/parte07/parte07.html)
+[Parte 8](slides/parte08/parte08.html)
 
 
 
