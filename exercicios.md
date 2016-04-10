@@ -25,3 +25,7 @@ Os demais grupos presentes deverão participar ativamente durante a apresentaç�
 * [Teste 4](Teste04.html)
 
 * [Teste 5](Teste05.html)
+
+* [Teste 6](Teste06.html)
+
+* [Teste 7](Teste07.html)
