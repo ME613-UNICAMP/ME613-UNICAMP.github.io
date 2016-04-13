@@ -585,7 +585,8 @@ $s=`r round(extract1a$sigma.djt,2)`$ enquanto que, usando o modelo anterior, tem
 
 
 
-## 
+## Exemplo: Agências bancárias {.smaller}
+
 ```{r,echo=TRUE,message=FALSE,warning=FALSE}
 Reduced=lm(y~x)
 Full=lm(y~as.factor(x)-1)
@@ -594,7 +595,15 @@ anova(Reduced, Full)
 
 Estatística do teste:
 
-$$F^*=\frac{SQF_a/(m-2)}{SQE_p/(n-m)}=\frac{13594/4}{1148/5}=14.8$$
+$$F^*=\frac{SQF_a/(m-2)}{SQE_p/(n-m)}\overset{\mbox{sob }H_0}{\sim} F_{m-2,n-m}=F_{`r anova(Reduced,Full)[2,3]`,`r anova(Reduced,Full)[2,1]`}$$
+
+## Exemplo: Agências bancárias
+
+$$F^*_{obs}=\frac{[SQE(Reduced)-SQE(Full)]/2}{SQE(Full)/4}=\frac{`r (anova(Reduced)[2,2]-anova(Full)[2,2])`/`r (anova(Reduced)[2,1]-anova(Full)[2,1])`}{`r anova(Full)[2,2]`/`r anova(Full)[2,1]`}=`r round(anova(Reduced,Full)[2,5],2)`$$
+
+valor de p: `r anova(Reduced,Full)[2,6]`.
+
+Valor crítico para $\alpha=0.05$: `r round(qf(.95, df1=anova(Reduced,Full)[2,3], df2=anova(Reduced,Full)[2,1]),2)`
 
 
 ## Exemplo: Ligas de cobre e níquel {.build}
