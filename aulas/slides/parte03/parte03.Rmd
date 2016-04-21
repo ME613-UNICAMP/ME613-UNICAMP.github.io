@@ -599,7 +599,7 @@ $$F^*=\frac{SQF_a/(m-2)}{SQE_p/(n-m)}\overset{\mbox{sob }H_0}{\sim} F_{m-2,n-m}=
 
 ## Exemplo: Agências bancárias
 
-$$F^*_{obs}=\frac{[SQE(Reduced)-SQE(Full)]/2}{SQE(Full)/4}=\frac{`r (anova(Reduced)[2,2]-anova(Full)[2,2])`/`r (anova(Reduced)[2,1]-anova(Full)[2,1])`}{`r anova(Full)[2,2]`/`r anova(Full)[2,1]`}=`r round(anova(Reduced,Full)[2,5],2)`$$
+$$F^*_{obs}=\frac{[SQE(Reduced)-SQE(Full)]/`r (anova(Reduced)[2,1]-anova(Full)[2,1])`}{SQE(Full)/`r anova(Full)[2,1]`}=\frac{`r (anova(Reduced)[2,2]-anova(Full)[2,2])`/`r (anova(Reduced)[2,1]-anova(Full)[2,1])`}{`r anova(Full)[2,2]`/`r anova(Full)[2,1]`}=`r round(anova(Reduced,Full)[2,5],2)`$$
 
 valor de p: `r anova(Reduced,Full)[2,6]`.
 
