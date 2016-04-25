@@ -60,6 +60,8 @@ Importante: ANTES de iniciar um novo .Rmd ou de editar a partir de um .Rmd posta
 
 Os relatórios deverão ser entregues utilizando a plataforma “Moodle”. O formato do arquivo deve ser obrigatoriamente .Rmd, além de eventuais arquivos auxiliares. O relatório 2 será avaliado também por um sistema de *peer review,* isto é, os colegas terão parte na avaliação dos trabalhos dos outros grupos.
 
+O relatório 1 deverá ser entregue por apenas 1 membro do grupo. O relatório 2 deverá ser entregue por TODOS os membros do grupo (o membro que não submeter o material completo receberá nota 0).
+
 ### Apresentação Oral
 
 A apresentação oral deverá ter duração máxima de 20 minutos. Todo o grupo deve estar presente em todas as apresentações. Caso um membro do grupo não esteja presente, a nota será reduzida (a nota da apresentação é multiplicada por: [Total de alunos do grupo presentes]/[Total de alunos do grupo]).
