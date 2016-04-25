@@ -58,7 +58,7 @@ O grupo deverá submeter os relatórios em um arquivo .Rmd, seguindo o modelo de
 
 Importante: ANTES de iniciar um novo .Rmd ou de editar a partir de um .Rmd postado no curso, você deverá alterar a configuração de codificação para UTF-8, caso contrário os caracteres acentuados ficarão desconfigurados.
 
-Os relatórios deverão ser entregues utilizando a plataforma “Moodle”. O formato do arquivo deve ser obrigatoriamente .Rmd, além de eventuais arquivos auxiliares. O relatório 2 será avaliado também por um sistema de peer review, isto é, os colegas terão parte na avaliação dos trabalhos dos outros grupos.
+Os relatórios deverão ser entregues utilizando a plataforma “Moodle”. O formato do arquivo deve ser obrigatoriamente .Rmd, além de eventuais arquivos auxiliares. O relatório 2 será avaliado também por um sistema de *peer review,* isto é, os colegas terão parte na avaliação dos trabalhos dos outros grupos.
 
 ### Apresentação Oral
 
