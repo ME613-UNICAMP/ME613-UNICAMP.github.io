@@ -127,7 +127,7 @@ $$E(Y)=\beta_0+\beta_1X_1+\beta_2X_2$$
 ## Exemplo
 
 
-```{r,echo=FALSE}
+```{r,echo=T}
 modelo1 <- lm(Y ~ X1 + X2,data=dados)
 summary(modelo1)$coef
 ```
