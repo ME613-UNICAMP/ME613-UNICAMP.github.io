@@ -52,7 +52,7 @@ Exemplos:
 ## Modelo com dois preditores - segunda ordem {.build}
 
 
-$$Y=\beta_0+\beta_1X_{1*}+\beta_2X_{1*}^2+\beta_3X_{2*}+\beta_4X_{2*}^2+\beta_5X_{1*}X_{2*}\varepsilon$$
+$$Y=\beta_0+\beta_1X_{1*}+\beta_2X_{1*}^2+\beta_3X_{2*}+\beta_4X_{2*}^2+\beta_5X_{1*}X_{2*}+\varepsilon$$
 
 em que $X_{1*}=X_1-\bar{X}_1$ e $X_{2*}=X_2-\bar{X}_2$.
 
@@ -72,7 +72,7 @@ Pode-se começar com um modelo de segunda ou terceira ordem e ir testando se os 
 
 Por exemplo:
 
-$$Y=\beta_0+\beta_1X_{*}+\beta_2X_*^3+\beta_3X_*^3+\varepsilon$$
+$$Y=\beta_0+\beta_1X_{*}+\beta_2X_*^2+\beta_3X_*^3+\varepsilon$$
 
 Para testar se $\beta_3=0$ podemos utilizar $SQReg(X_*^3\mid X_*,X_*^2)$. Se quisermos testar se $\beta_2=\beta_3=0$: $SQReg(X_*^2,X_*^3\mid X_*)=SQReg(X_*^2\mid X_*)+SQReg(X_*^3\mid X_*, X_*^2)$
 
@@ -266,7 +266,7 @@ Já no exemplo a seguir, o efeito não é aditivo, há efeito de interação:
 $$E(Y)=\beta_0+\beta_1X_1+\beta_2X_1^2+\beta_3X_2+\beta_3X_1X_2$$
 
 
-Ou exemplo:
+Outro exemplo:
 
 $$E(Y)=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\beta_4X_1X_2+\beta_5X_1X_3$$
 
