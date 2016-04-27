@@ -39,7 +39,7 @@ permalink: /aulas/
 [Parte 6](slides/parte06/parte06.html)
 [Parte 7](slides/parte07/parte07.html)
 [Parte 8](slides/parte08/parte08.html)
-[Parte 9](slides/parte08/parte08.html)
+[Parte 9](slides/parte09/parte09.html)
 
 
 
