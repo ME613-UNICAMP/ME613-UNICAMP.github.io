@@ -32,5 +32,8 @@ Os demais grupos presentes deverão participar ativamente durante a apresentaç�
 
 * [Teste 8](Teste08.html)
 
+* [Teste 9](Teste09.html)
+
+
 
 Caso o site original com os dados esteja fora do ar, tente procurar o conjunto de dados na edição 4 do livro (estamos usando a edição 5): [DataSets.zip](DataSets.zip).
