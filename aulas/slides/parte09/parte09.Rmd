@@ -566,12 +566,237 @@ legend("topright",legend=c("sem ações","com ações"),lty=c(1,2))
 ```
 
 
+## Variável preditora com mais de duas classes {.build}
+
+Exemplo: Desgaste ($Y$), velocidade ($X_1$) e modelo de uma peça.
+
+Existem 4 tipos de modelos: M1, M2, M3 e M4.
+
+Definimos 3 variáveis "dummy":
+
+$$\begin{eqnarray}
+X_2 = \begin{cases} 1, & \mbox{se M1} \\ 0, & \mbox{caso contrário} \end{cases}
+\end{eqnarray}$$
+
+$$\begin{eqnarray}
+X_3 = \begin{cases} 1, & \mbox{se M2} \\ 0, & \mbox{caso contrário} \end{cases}
+\end{eqnarray}$$
+
+$$\begin{eqnarray}
+X_4 = \begin{cases} 1, & \mbox{se M3} \\ 0, & \mbox{caso contrário} \end{cases}
+\end{eqnarray}$$
+
+## Variável preditora com mais de duas classes {.build}
+
+$$E(Y)=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\beta_4X_4$$
+
+Se a peça é do tipo M4:
+
+$$E(Y)=\beta_0+\beta_1X_1+\beta_2\times0+\beta_3\times0+\beta_4\times0=\beta_0+\beta_1X_1$$
+
+
+Se a peça é do tipo M1:
+
+$$E(Y)=\beta_0+\beta_1X_1+\beta_2\times1+\beta_3\times0+\beta_4\times0=(\beta_0+\beta_2)+\beta_1X_1$$
+
+Se a peça é do tipo M2:
+
+$$E(Y)=\beta_0+\beta_1X_1+\beta_2\times0+\beta_3\times1+\beta_4\times0=(\beta_0+\beta_3)+\beta_1X_1$$
+
+Se a peça é do tipo M3:
+
+$$E(Y)=\beta_0+\beta_1X_1+\beta_2\times0+\beta_3\times0+\beta_4\times1=(\beta_0+\beta_4)+\beta_1X_1$$
+
+
+## Variável preditora com mais de duas classes {.build}
+
+O modelo de primeira ordem implica no fato de que o efeito da velocidade é linear e com o mesmo coeficiente angular para todos os modelos de peça. Temos diferentes interceptos para cada modelo.
+
+
+<center>
+<img src="figuras/qual3.png" width=400>
+</center>
+
+
+## Variável preditora com mais de duas classes {.build}
+
+* $\beta_1$: mudança esperada no desgaste da peça ($Y$) para cada unidade de aumento na velocidade ($X_1$), considerando mesmo modelo de peça.
+
+* $\beta_2$: diferença esperada do desgaste da peça entre modelos M1 e M4, considerando a mesma velocidade.
+
+* $\beta_3$: diferença esperada do desgaste da peça entre modelos M2 e M4, considerando a mesma velocidade.
+
+* $\beta_4$: diferença esperada do desgaste da peça entre modelos M3 e M4, considerando a mesma velocidade.
+
+
+## Variável preditora com mais de duas classes {.build}
+
+Qual a diferença esperada do desgaste da peça entre modelos M3 e M2, mantendo a mesma velocidade?
+
+Para modelo M3:
+
+$$E(Y)=(\beta_0+\beta_4)+\beta_1X_1$$
+
+
+Para modelo M2:
+
+$$E(Y)=(\beta_0+\beta_3)+\beta_1X_1$$
+
+
+A diferença entre M3 e M2, mantendo a mesma velocidade:
+
+$$(\beta_0+\beta_4)+\beta_1X_1 - [(\beta_0+\beta_3)+\beta_1X_1] = \beta_4-\beta_3$$
+
+
+## Variável preditora com mais de duas classes {.build}
+
+Após obtermos estimativas: $\hat{\beta}_4-\hat{\beta}_3$ e devemos também fornecer o erro-padrão da estimativa.
+
+Lembre que:
+
+$$Var(\hat{\beta}_4-\hat{\beta}_3)=Var(\hat{\beta}_4)+Var(\hat{\beta}_3)-2Cov(\hat{\beta}_4,\hat{\beta}_3)$$
+
+
+## Exemplo: Fábrica de sabão
+
+```{r,echo=FALSE}
+dados <- read.table("./dados/CH08TA05.txt")
+names(dados) <- c("Y","X1","X2")
+```
+
+$Y$: resíduo de sabão
+
+$X_1$: velocidade
+
+$$\begin{eqnarray}
+X_2 = \begin{cases} 1, & \mbox{se produção na linha 1} \\ 0, & \mbox{caso contrário} \end{cases}
+\end{eqnarray}$$
+
+```{r,echo=FALSE}
+dados
+```
+
+## Exemplo: Fábrica de sabão
+
+
+```{r,echo=FALSE,fig.align='center',fig.width=5,fig.height=5}
+plot(y=dados[dados$X2==1,"Y"],x=dados[dados$X2==1,"X1"],xlab="X1",ylab="Y")
+points(y=dados[dados$X2==0,"Y"],x=dados[dados$X2==0,"X1"],pch=2)
+legend("topleft",legend=c("linha 1","linha 2"),pch=c(1,2))
+```
+
+## Exemplo: Fábrica de sabão {.build}
+
+Iremos ajustar um modelo assumindo que:
+
+* a relação entre a quantidade de resíduo e velocidade é linear para as duas linhas de produção;
+
+* retas diferentes para as duas linhas de produção;
+
+* as variâncias dos termos de erros ao redor de cada reta são iguais.
+
+
+$$Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_1X_2+\varepsilon$$
+
+
+Para a linha 1: $E(Y)=(\beta_0+\beta_2)+(\beta_1+\beta_3)X_1$.
+
+Para a linha 2: $E(Y)=\beta_0+\beta_1X_1$.
+
+## Exemplo: Fábrica de sabão {.smaller}
+
+```{r,echo=TRUE}
+modelo <- lm(Y ~ X1 + X2 + I(X1*X2), data=dados)
+summary(modelo)$coef
+anova(modelo)
+```
+
+## Exemplo: Fábrica de sabão
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.align='center',fig.width=5,fig.height=5}
+plot(y=dados[dados$X2==1,"Y"],x=dados[dados$X2==1,"X1"],xlab="X1",ylab="Y")
+points(y=dados[dados$X2==0,"Y"],x=dados[dados$X2==0,"X1"],pch=2)
+abline(a=coef(modelo)[1],b=coef(modelo)[2],lty=2)
+abline(a=(coef(modelo)[1]+coef(modelo)[3]),b=(coef(modelo)[2]+coef(modelo)[4]),lty=1)
+legend("topleft",legend=c("linha 1","linha 2"),lty=c(1,2))
+```
+
+
+## Exemplo: Fábrica de sabão {.build}
+
+Se quisermos testar a hipótese nula de que temos apenas uma reta para representar as duas linhas:
+
+$H_0$: $\beta_2=\beta_3=0$
+
+$H_a$: pelo menos um entre $\beta_2$ e $\beta_3$ é diferente de zero.
+
+Estatística do teste:
+
+$$\begin{eqnarray}
+F^*&=&\frac{SQReg(X_q,\ldots, X_{p-1}\mid X_1,\ldots,X_{q-1})}{p-q}\div\frac{SQE(X_1,\ldots,X_{p-1})}{n-p}\\
+&\overset{\mbox{sob $H_0$}}{\sim}&F_{p-q,n-p}
+\end{eqnarray}$$
+
+
+## Exemplo: Fábrica de sabão {.build .smaller}
+
+$p=`r length(coef(modelo))`$
+
+$n = `r dim(dados)[1]`$
+
+$q=2$
+
+$$F^*=\frac{SQReg(X_2,X_1X_2\mid X_1)/`r length(coef(modelo))-2`}{SQE(X_1,X_2,X_1X_2)/`r dim(dados)[1]-length(coef(modelo))`}\overset{\mbox{sob $H_0$}}{\sim}F_{`r length(coef(modelo))-2`,`r dim(dados)[1]-length(coef(modelo))`}$$
+
+
+$$\begin{eqnarray}
+SQReg(X_2,X_1X_2\mid X_1) &=& SQReg(X_2\mid X_1) + SQReg(X_1X_2\mid X_1,X_2\\
+&=&`r round(anova(modelo)[2,2],1)` + `r round(anova(modelo)[3,2],1)`\\
+&=& `r round(anova(modelo)[2,2],1) + round(anova(modelo)[3,2],1)`
+\end{eqnarray}$$
+
+$$F_{obs}=\frac{`r round(anova(modelo)[2,2],1) + round(anova(modelo)[3,2],1)`/`r length(coef(modelo))-2`}{`r round(anova(modelo)[4,3],1)`}=`r ((round(anova(modelo)[2,2],1) + round(anova(modelo)[3,2],1))/(length(coef(modelo))-2))/ round(anova(modelo)[4,3],1)`$$
+
+Comparando com $F(0.95;`r length(coef(modelo))-2`,`r dim(dados)[1]-length(coef(modelo))`)=`r round(qf(.95,df1=length(coef(modelo))-2,df2=dim(dados)[1]-length(coef(modelo))),2)`$, encontramos evidências contra a hipótese nula.
+
+## Exemplo: Fábrica de sabão
+
+
+```{r,echo=TRUE}
+modeloreduz <- lm(Y ~ X1, data=dados)
+anova(modeloreduz,modelo)
+```
+
+
+## Exemplo: Fábrica de sabão {.build}
+
+Se quisermos testar a hipótese nula de que para as duas linhas de produção o coeficiente angular é o mesmo:
+
+$H_0$: $\beta_3=0$
+
+$H_a$: $\beta_3\neq0$.
+
+$p=`r length(coef(modelo))`$
+
+$n = `r dim(dados)[1]`$
+
+$q=3$
+
+$$F^*=\frac{SQReg(X_1X_2\mid X_1, X_2)/`r length(coef(modelo))-3`}{SQE(X_1,X_2,X_1X_2)/`r dim(dados)[1]-length(coef(modelo))`}\overset{\mbox{sob $H_0$}}{\sim}F_{`r length(coef(modelo))-3`,`r dim(dados)[1]-length(coef(modelo))`}$$
+
+
+## Exemplo: Fábrica de sabão
+
+$$F_{obs}=\frac{`r round(anova(modelo)[3,2],1)`/`r length(coef(modelo))-3`}{`r round(anova(modelo)[4,3],1)`}=`r  round(anova(modelo)[3,2],1)/(length(coef(modelo))-3)/ round(anova(modelo)[4,3],1)`$$
+
+Comparando com $F(0.95;`r length(coef(modelo))-3`,`r dim(dados)[1]-length(coef(modelo))`)=`r round(qf(.95,df1=length(coef(modelo))-3,df2=dim(dados)[1]-length(coef(modelo))),2)`$, não encontramos evidências contra a hipótese nula.
+
 
 ## Leitura
 
-* Applied Linear Statistical Models: Seções 8.1-8.3.
+* Applied Linear Statistical Models: Seções 8.1-8.3, 8.5-8.7.
 
-* Faraway - [Linear Models with R](http://www.maths.bath.ac.uk/~jjf23/LMR/): Seção .
+* Faraway - [Linear Models with R](http://www.maths.bath.ac.uk/~jjf23/LMR/): Capítulo 14.
 
 * Draper & Smith - [Applied Regression Analysis](http://onlinelibrary.wiley.com/book/10.1002/9781118625590): Capítulo 12.
 
