@@ -54,7 +54,7 @@ O **relatório 2 (final)** deve ter as seguintes seções:
 * Referências
 
 
-O grupo deverá submeter os relatórios em um arquivo .Rmd, seguindo o modelo de formatação do arquivo manuscript_template.Rmd. Copie todos os arquivos da pasta Template, renomeie e modifique manuscript_template.Rmd. Todos os arquivos necessários para gerar o .pdf a partir do .Rmd deverão ser submetidos. Arquivo .Rmd que não gerar o .pdf corretamente receberá nota 0.
+O grupo deverá submeter os relatórios em um arquivo .Rmd, seguindo o modelo de formatação do arquivo manuscript_template.Rmd. Copie todos os arquivos da pasta Template, renomeie e modifique manuscript_template.Rmd. Todos os arquivos necessários para gerar o .pdf a partir do .Rmd deverão ser submetidos. Arquivo .Rmd que não gerar o .pdf corretamente receberá nota 0. Clique aqui para obter o [Template](Template.zip).
 
 Importante: ANTES de iniciar um novo .Rmd ou de editar a partir de um .Rmd postado no curso, você deverá alterar a configuração de codificação para UTF-8, caso contrário os caracteres acentuados ficarão desconfigurados.
 
