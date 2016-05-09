@@ -35,11 +35,14 @@ permalink: /aulas/
 * Multicolinearidade
 * Regressão Polinomial
 * Preditoras Categóricas
+* Região de Confiança
+* Teste de Hipótese com Restrição Linear
 
 [Parte 6](slides/parte06/parte06.html)
 [Parte 7](slides/parte07/parte07.html)
 [Parte 8](slides/parte08/parte08.html)
 [Parte 9](slides/parte09/parte09.html)
+[Parte 10](slides/parte10/parte10.html)
 
 
 
