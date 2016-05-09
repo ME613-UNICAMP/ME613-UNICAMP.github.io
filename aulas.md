@@ -58,4 +58,5 @@ permalink: /aulas/
 [Parte 6](slides_pdf/parte06.pdf)
 [Parte 7](slides_pdf/parte07.pdf)
 [Parte 8](slides_pdf/parte08.pdf)
+[Parte 9](slides_pdf/parte09.pdf)
 
