@@ -538,7 +538,7 @@ Estatística do teste:
 
 $$F^*=\frac{SQReg/(p-1)}{SQE/(n-p)}\overset{\mbox{sob $H_0$}}{\sim}F_{p-1,n-p}$$
 
-## Intervalo de Confiança pra $\beta_k$
+## Intervalo de Confiança para $\beta_k$
 
 Um intervalo de $100(1-\alpha)\%$ de confiança para $\beta_k$ é dado por:
 
