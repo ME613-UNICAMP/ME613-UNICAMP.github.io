@@ -29,7 +29,7 @@ Para acessar alguns dos livros digitais fora da Unicamp, você poderá precisar 
 * P1: Prova 1 (20/04/2016)
 * P2: Prova 2 (08/06/2016)
 * R1: Relatório 1 do Projeto (22/05/2016)
-* R2: Relatório 2 do Projeto (//2016)
+* R2: Relatório 2 do Projeto (15/06/2016)
 * Ap: Apresentação Oral do Projeto (15/06/2016)
 * A: Atividades em aula, testes, exercícios, laboratórios
 * MG: Média Geral
