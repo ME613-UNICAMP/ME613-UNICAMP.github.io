@@ -265,3 +265,5 @@ linearHypothesis(modelo,R,q)
 * [The Matrix Cookbook](https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf)
 
 * Faraway - [Linear Models with R](http://www.maths.bath.ac.uk/~jjf23/LMR/): Seção 3.5.
+
+* Draper & Smith - [Applied Regression Analysis](http://onlinelibrary.wiley.com/book/10.1002/9781118625590): Seção 9.1.
