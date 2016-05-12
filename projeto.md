@@ -16,8 +16,6 @@ O grupo deverá escolher um dos conjuntos de dados a seguir:
 
 * [Student Performance](http://archive.ics.uci.edu/ml/datasets/Student+Performance)
 
-* [Fertility](http://archive.ics.uci.edu/ml/datasets/Fertility)
-
 * [Rossmann Store Sales](https://www.kaggle.com/c/rossmann-store-sales)
 
 * [Restaurant Revenue Prediction](https://www.kaggle.com/c/restaurant-revenue-prediction)
