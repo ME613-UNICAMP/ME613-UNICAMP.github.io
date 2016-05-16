@@ -1,0 +1,298 @@
+---
+title: "ME613 - Análise de Regressão"
+author: Samara F. Kiihl - IMECC - UNICAMP
+output:
+  ioslides_presentation:
+    widescreen: yes
+subtitle: Parte 11
+logo: ../logo-imecc.png
+---
+
+
+
+# Critérios para Seleção de Modelos
+
+## Introdução
+
+
+Fases na construção de um modelo:
+
+* Coleta e preparação dos dados.
+
+* Redução do número de variáveis preditoras.
+
+* Refinamento e seleção de modelo.
+
+* Validação do modelo.
+
+## Introdução
+
+Se tivermos $p-1$ variáveis preditoras, podemos construir $2^{p-1}$ modelos diferentes.
+
+Mesmo se considerarmos todos esses modelos (computacionalmente intenso), precisaríamos de algum critério para selecionar entre eles.
+
+Métodos para seleção de modelos/variáveis foram desenvolvidos para identificar um subgrupo de variáveis que são "boas" para o modelo, segundo algum critério.
+
+Há vários critérios desenvolvidos na literatura. Neste curso, focaremos em seis.
+
+
+## $R^2_p$ {.build}
+
+Para o critério $R_p^2$, a idéia é utilizar o coeficiente de determinação, $R^2$ para identificar subgrupos das variáveis preditoras que, quando incluídas no modelo, produzem um alto valor para $R^2$.
+
+> $R_p^2$ indica que temos $p$ parâmetros no modelo, isto é, $p-1$ variáveis preditoras incluídas no modelo.
+
+$$R_p^2=1-\frac{SQE_p}{SQT}$$
+
+
+> O objetivo deste critério não é maximização: $R_p^2$ sempre irá aumentar conforme mais variáveis preditoras são incluídas no modelo. A idéia é comparar os diversos $R_p^2$'s e verificar se adicionar mais variáveis ainda traz um aumento.  
+
+
+
+
+## Exemplo
+
+$Y$: tempo de sobrevivência
+
+$X_1$: blood clotting score
+
+$X_2$: índice de prognóstico
+
+$X_3$: teste de função enzimática
+
+$X_4$: teste de função do fígado
+
+$X_5$: idade (anos)
+
+$X_6$: gênero (0=masculino, 1=feminino)
+
+$X_7$: uso de álcool (1 = moderado, 0 = nenhum ou severo)
+
+$X_8$: uso de álcool (1 = severo, 0 = nenhum ou moderado)
+
+
+## Exemplo {.smaller}
+
+Considerando $X_1$, $X_2$, $X_3$ e $X_4$, temos $2^4=16$ modelos possíveis.
+```{r,echo=FALSE}
+dados <- read.table("./dados/CH09TA01.txt")
+colnames(dados) <- c("X1","X2","X3","X4","X5","X6","X7","X8","Y","lnY")
+modelo1 <- lm(lnY ~ 1,data=dados)
+modelo2 <- lm(lnY ~ X1,data=dados)
+modelo3 <- lm(lnY ~ X2,data=dados)
+modelo4 <- lm(lnY ~ X3,data=dados)
+modelo5 <- lm(lnY ~ X4,data=dados)
+modelo6 <- lm(lnY ~ X1+X2,data=dados)
+modelo7 <- lm(lnY ~ X1+X3,data=dados)
+modelo8 <- lm(lnY ~ X1+X4,data=dados)
+modelo9 <- lm(lnY ~ X2+X3,data=dados)
+modelo10 <- lm(lnY ~ X2+X4,data=dados)
+modelo11 <- lm(lnY ~ X3+X4,data=dados)
+modelo12 <- lm(lnY ~ X1+X2+X3,data=dados)
+modelo13 <- lm(lnY ~ X1+X2+X4,data=dados)
+modelo14 <- lm(lnY ~ X1+X3+X4,data=dados)
+modelo15 <- lm(lnY ~ X2+X3+X4,data=dados)
+modelo16 <- lm(lnY ~ X1+X2+X3+X4,data=dados)
+```
+
+
+Variáveis no modelo  | p    | $R_p^2$                                  | Variáveis no modelo  | p    | $R_p^2$
+-------------------- | ---- | ---------------------------------------- | -------------------- | ---- | ----------------------------------------
+nenhuma              | 1    | `r round(summary(modelo1)$r.squared,3)`  | $X_2$ $X_3$          | 3    | `r round(summary(modelo9)$r.squared,3)`  
+$X_1$                | 2    | `r round(summary(modelo2)$r.squared,3)`  | $X_2$ $X_4$          | 3    | `r round(summary(modelo10)$r.squared,3)` 
+$X_2$                | 2    | `r round(summary(modelo3)$r.squared,3)`  | $X_3$ $X_4$          | 3    | `r round(summary(modelo11)$r.squared,3)` 
+$X_3$                | 2    | `r round(summary(modelo4)$r.squared,3)`  | $X_1$ $X_2$ $X_3$    | 4    | `r round(summary(modelo12)$r.squared,3)`
+$X_4$                | 2    | `r round(summary(modelo5)$r.squared,3)`  | $X_1$ $X_2$ $X_4$    | 4    | `r round(summary(modelo13)$r.squared,3)`
+$X_1$ $X_2$          | 3    | `r round(summary(modelo6)$r.squared,3)`  | $X_1$ $X_3$ $X_4$    | 4    | `r round(summary(modelo14)$r.squared,3)`
+$X_1$ $X_3$          | 3    | `r round(summary(modelo7)$r.squared,3)`  | $X_2$ $X_3$ $X_4$    | 4    | `r round(summary(modelo15)$r.squared,3)`
+$X_1$ $X_4$          | 3    | `r round(summary(modelo8)$r.squared,3)`  | $X_1$ $X_2$ $X_3$ $X_4$ | 5   | `r round(summary(modelo16)$r.squared,3)`
+
+
+
+## Exemplo
+
+
+```{r,echo=FALSE,fig.align='center',fig.width=5,fig.height=5,warning=FALSE,message=FALSE}
+library(latex2exp)
+
+p <- c(1,2,2,2,2,3,3,3,3,3,3,4,4,4,4,5)
+Rp2 <- c(summary(modelo1)$r.squared,summary(modelo2)$r.squared,summary(modelo3)$r.squared,summary(modelo4)$r.squared,summary(modelo5)$r.squared,summary(modelo6)$r.squared,summary(modelo7)$r.squared,summary(modelo8)$r.squared,summary(modelo9)$r.squared,summary(modelo10)$r.squared,summary(modelo11)$r.squared,summary(modelo12)$r.squared,summary(modelo13)$r.squared,summary(modelo14)$r.squared,summary(modelo15)$r.squared,summary(modelo16)$r.squared)
+
+plot(x=p,y=Rp2,xlab="p",ylab=TeX('$R_p^2$'),ylim=c(0,0.8))
+```
+
+## $R^2_{a,p}$
+
+
+Como $R_p^2$ não leva em conta o número de parâmetros no modelo e sempre aumenta conforme temos mais variáveis incluídas, uma alternativa é usar:
+
+$$R^2_{a,p}=1-\left(\frac{n-1}{n-p}\right)\frac{SQE_p}{SQT}=1-\frac{QME_p}{SQT/(n-1)}$$
+
+$R^2_{a,p}$ aumenta se e somente se $QME_p$ diminui.
+
+
+## Exemplo {.smaller}
+
+Variáveis no modelo  | p    | $R_p^2$                                      | Variáveis no modelo  | p    | $R_p^2$
+-------------------- | ---- | -------------------------------------------- | -------------------- | ---- | ----------------------------------------
+nenhuma              | 1    | `r round(summary(modelo1)$adj.r.squared,3)`  | $X_2$ $X_3$          | 3    | `r round(summary(modelo9)$adj.r.squared,3)`  
+$X_1$                | 2    | `r round(summary(modelo2)$adj.r.squared,3)`  | $X_2$ $X_4$          | 3    | `r round(summary(modelo10)$adj.r.squared,3)` 
+$X_2$                | 2    | `r round(summary(modelo3)$adj.r.squared,3)`  | $X_3$ $X_4$          | 3    | `r round(summary(modelo11)$adj.r.squared,3)` 
+$X_3$                | 2    | `r round(summary(modelo4)$adj.r.squared,3)`  | $X_1$ $X_2$ $X_3$    | 4    | `r round(summary(modelo12)$adj.r.squared,3)`
+$X_4$                | 2    | `r round(summary(modelo5)$adj.r.squared,3)`  | $X_1$ $X_2$ $X_4$    | 4    | `r round(summary(modelo13)$adj.r.squared,3)`
+$X_1$ $X_2$          | 3    | `r round(summary(modelo6)$adj.r.squared,3)`  | $X_1$ $X_3$ $X_4$    | 4    | `r round(summary(modelo14)$adj.r.squared,3)`
+$X_1$ $X_3$          | 3    | `r round(summary(modelo7)$adj.r.squared,3)`  | $X_2$ $X_3$ $X_4$    | 4    | `r round(summary(modelo15)$adj.r.squared,3)`
+$X_1$ $X_4$          | 3    | `r round(summary(modelo8)$adj.r.squared,3)`  | $X_1$ $X_2$ $X_3$ $X_4$ | 5   | `r round(summary(modelo16)$adj.r.squared,3)`
+
+
+## Exemplo
+
+
+```{r,echo=FALSE,fig.align='center',fig.width=5,fig.height=5,warning=FALSE,message=FALSE}
+p <- c(1,2,2,2,2,3,3,3,3,3,3,4,4,4,4,5)
+Rap2 <- c(summary(modelo1)$adj.r.squared,summary(modelo2)$adj.r.squared,summary(modelo3)$adj.r.squared,summary(modelo4)$adj.r.squared,summary(modelo5)$adj.r.squared,summary(modelo6)$adj.r.squared,summary(modelo7)$adj.r.squared,summary(modelo8)$adj.r.squared,summary(modelo9)$adj.r.squared,summary(modelo10)$adj.r.squared,summary(modelo11)$adj.r.squared,summary(modelo12)$adj.r.squared,summary(modelo13)$adj.r.squared,summary(modelo14)$adj.r.squared,summary(modelo15)$adj.r.squared,summary(modelo16)$adj.r.squared)
+
+plot(x=p,y=Rp2,xlab="p",ylab=TeX('$R_{a,p}^2$'),ylim=c(0,0.8))
+```
+
+
+## $C_p$ de Mallow
+
+Este critério avalia o erro quadrático médio dos $n$ valores ajustados segundo um modelo a ser considerado.
+
+
+Erro de cada valor ajustado é dado por:
+
+$$\hat{Y}_i-\mu_i$$
+
+em que $\mu_i$ é o valor verdadeiro da função resposta.
+
+Temos o viés:
+
+$$E(\hat{Y}_i)-\mu_i$$
+
+E um componente aleatório de erro:
+
+$$\hat{Y}_i-E(\hat{Y}_i)$$
+
+## $C_p$ de Mallow {.build}
+
+$$(\hat{Y}_i-\mu_i)^2 = [(E(\hat{Y}_i)-\mu_i) + (\hat{Y}_i-E(\hat{Y}_i))]^2$$
+
+$$E(\hat{Y}_i-\mu_i)^2 = [E(\hat{Y}_i)-\mu_i]^2 + Var(\hat{Y}_i)$$
+
+Erro quadrático médio total:
+
+$$\sum_{i=1}^n[E(\hat{Y}_i)-\mu_i]^2 + \sum_{i=1}^n Var(\hat{Y}_i)$$
+
+Medida para o critério:
+
+$$\Gamma_p=\frac{1}{\sigma^2}\left[ \sum_{i=1}^n[E(\hat{Y}_i)-\mu_i]^2 + \sum_{i=1}^n Var(\hat{Y}_i) \right]$$
+
+(erro quadrático médio total dividido pela verdadeira variância do erro)
+
+## $C_p$ de Mallow {.build}
+
+
+Estamos considerando incluir $p-1$ variáveis, mas assuma que o número ideal de variáveis a serem incluídas no modelo seja $P-1>p-1$.
+
+Se assumirmos que o modelo incluindo as $P-1$ variáveis é correto, temos que $QME(X_1,\ldots,X_{P-1})$ é um estimador não viesado para $\sigma^2$.
+
+Estimador para $\Gamma_p$ é dado por:
+
+$$C_p=\frac{SQE_p}{QME(X_1,\ldots,X_{P-1})}-(n-2p)$$
+
+
+## $C_p$ de Mallow {.build}
+
+Se o modelo com $p-1$ variáveis é adequado, então $E\left[\frac{SQE_p}{(n-p)}\right]=\sigma^2$, de maneira que $E\left[ \frac{SQE_p}{QME(X_1,\ldots,X_{P-1})}\right] = n-p$. 
+
+Portanto, se o modelo com $p-1$ variáveis é aproximadamente adequado, esperamos que $C_p\approx p$. 
+
+Procuramos o menor $C_p$ tal que $C_p\approx p$.
+
+
+## Exemplo
+
+
+
+Modelo considerando as variáveis $X_1$, $X_2$, $X_3$ e $X_4$ ($P-1=4$)
+
+
+Incluindo apenas $X_4$ ($p=2$):
+
+$$C_p=\frac{SQE(X_4)}{QME(X_1,\ldots,X_4)}-(n-2p)$$
+
+## Exemplo {.smaller}
+
+```{r,echo=FALSE}
+anova(modelo5)
+anova(modelo16)
+```
+
+$$C_p=\frac{SQE(X_4)}{QME(X_1,\ldots,X_4)}-(n-2p)=\frac{`r anova(modelo5)[2,2]`}{`r anova(modelo16)[5,3]`}-(`r dim(dados)[1]`-2\times `r length(coef(modelo5))`)= `r anova(modelo5)[2,2]/anova(modelo16)[5,3]-(dim(dados)[1]-2*length(coef(modelo5)))`$$
+
+
+## Exemplo {.smaller}
+
+```{r,echo=TRUE,fig.align='center',fig.width=5,fig.height=5}
+library(leaps)
+leaps<-regsubsets(lnY~X1+X2+X3+X4,data=dados,nbest=10) 
+plot(leaps,scale="Cp")
+```
+
+## $AIC$ e $BIC$ {.smaller}
+
+Procuramos modelos com valores pequenos de $AIC$, $BIC$.
+
+$AIC$: *Akaike's information criterion*
+
+$$AIC_p=n \ln (SQE_p)-n\ln n +2p$$
+
+$BIC$: *Bayesian information criterion*
+
+$$BIC_p=n \ln (SQE_p)-n\ln n +\ln (n) p$$
+
+
+## Exemplo
+
+```{r,echo=TRUE,fig.align='center',fig.width=5,fig.height=5}
+plot(leaps,scale="bic")
+```
+
+## $PRESS_p$ {.build}
+
+$PRESS_p$ (*prediction sum of squares*): critério para medir quão adequado é o uso dos valores ajustados obtidos a partir de um modelo com menos variáveis para predizer os valores observados de $Y$. 
+
+$SQE=\sum(Y_i-\hat{Y}_i)^2$ também serve para este propósito.
+
+A diferença é que a medida $PRESS$ é obtida após a exclusão da $i$-ésima observação e estimação do modelo com as $n-1$ observações restantes, e então usar este modelo para predizer o valor de $Y$ para a $i$-ésima observação.
+
+Notação: $\hat{Y}_{i(i)}$ indica o valor predito para a $i$-ésima observação quando a esta foi excluída na obtenção do modelo.
+
+## $PRESS_p$ {.build}
+
+
+$$PRESS_p=\sum_{i=1}^n(Y_i-\hat{Y}_{i(i)})^2$$
+
+Modelos com $PRESS_p$ pequenos são considerados bons candidatos (com erro de predição pequeno).
+
+Não é preciso ajustar $n-1$ vezes o modelo para calcular o $PRESS_p$.
+
+Seja $d_i=Y_i-\hat{Y}_{i(i)}$, reescrevemos: $d_i=\frac{e_i}{1-h_{ii}}$
+
+em que $e_i$ é o resíduo para a $i$-ésima observação e $h_{ii}$ é o $i$-ésimo elemento da diagonal de $\mathbf{H}=\mathbf{X}^T(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}$, obtidos a partir do modelo de regressão com todas as observações incluídas.
+
+
+## Leitura
+
+* Applied Linear Statistical Models: Capítulo 9.
+
+* Faraway - [Linear Models with R](http://www.maths.bath.ac.uk/~jjf23/LMR/): Capítulo 10
+
+* Draper & Smith - [Applied Regression Analysis](http://onlinelibrary.wiley.com/book/10.1002/9781118625590): Capítulo 15.
+
+
+<center>
+<img src="figuras/gm_variableselection.jpg" width=600>
+</center>

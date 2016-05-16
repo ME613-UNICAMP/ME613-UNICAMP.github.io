@@ -37,12 +37,14 @@ permalink: /aulas/
 * Preditoras Categóricas
 * Região de Confiança
 * Teste de Hipótese com Restrição Linear
+* $R_p^2$, AIC, BIC, PRESS, $C_p$ de Mallow
 
 [Parte 6](slides/parte06/parte06.html)
 [Parte 7](slides/parte07/parte07.html)
 [Parte 8](slides/parte08/parte08.html)
 [Parte 9](slides/parte09/parte09.html)
 [Parte 10](slides/parte10/parte10.html)
+[Parte 11](slides/parte11/parte11.html)
 
 
 
