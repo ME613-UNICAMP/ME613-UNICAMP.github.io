@@ -37,7 +37,7 @@ permalink: /aulas/
 * Preditoras Categóricas
 * Região de Confiança
 * Teste de Hipótese com Restrição Linear
-* $R_p^2$, AIC, BIC, PRESS, $C_p$ de Mallow
+* Coeficiente de determinação, Coeficiente de determinação ajustado, AIC, BIC, PRESS, Cp de Mallow
 
 [Parte 6](slides/parte06/parte06.html)
 [Parte 7](slides/parte07/parte07.html)
