@@ -133,7 +133,7 @@ $R^2_{a,p}$ aumenta se e somente se $QME_p$ diminui.
 
 ## Exemplo {.smaller}
 
-Variáveis no modelo  | p    | $R_p^2$                                      | Variáveis no modelo  | p    | $R_p^2$
+Variáveis no modelo  | p    | $R_{a,p}^2$                                      | Variáveis no modelo  | p    | $R_{a,p}^2$
 -------------------- | ---- | -------------------------------------------- | -------------------- | ---- | ----------------------------------------
 nenhuma              | 1    | `r round(summary(modelo1)$adj.r.squared,3)`  | $X_2$ $X_3$          | 3    | `r round(summary(modelo9)$adj.r.squared,3)`  
 $X_1$                | 2    | `r round(summary(modelo2)$adj.r.squared,3)`  | $X_2$ $X_4$          | 3    | `r round(summary(modelo10)$adj.r.squared,3)` 
@@ -283,6 +283,491 @@ Seja $d_i=Y_i-\hat{Y}_{i(i)}$, reescrevemos: $d_i=\frac{e_i}{1-h_{ii}}$
 
 em que $e_i$ é o resíduo para a $i$-ésima observação e $h_{ii}$ é o $i$-ésimo elemento da diagonal de $\mathbf{H}=\mathbf{X}^T(\mathbf{X}^T\mathbf{X})^{-1}\mathbf{X}$, obtidos a partir do modelo de regressão com todas as observações incluídas.
 
+## Exemplo {.smaller}
+
+```{r,echo=TRUE,warning=FALSE,message=FALSE}
+library(qpcR)
+modelo1 <- lm(lnY ~ 1,data=dados)
+modelo2 <- lm(lnY ~ X1,data=dados)
+modelo3 <- lm(lnY ~ X2,data=dados)
+modelo4 <- lm(lnY ~ X3,data=dados)
+modelo5 <- lm(lnY ~ X4,data=dados)
+modelo6 <- lm(lnY ~ X1+X2,data=dados)
+modelo7 <- lm(lnY ~ X1+X3,data=dados)
+modelo8 <- lm(lnY ~ X1+X4,data=dados)
+modelo9 <- lm(lnY ~ X2+X3,data=dados)
+modelo10 <- lm(lnY ~ X2+X4,data=dados)
+modelo11 <- lm(lnY ~ X3+X4,data=dados)
+modelo12 <- lm(lnY ~ X1+X2+X3,data=dados)
+modelo13 <- lm(lnY ~ X1+X2+X4,data=dados)
+modelo14 <- lm(lnY ~ X1+X3+X4,data=dados)
+modelo15 <- lm(lnY ~ X2+X3+X4,data=dados)
+modelo16 <- lm(lnY ~ X1+X2+X3+X4,data=dados)
+PRESS(modelo1,verbose=FALSE)$stat
+
+```
+
+## Exemplo {.smaller}
+
+
+Variáveis no modelo  | p    | $PRESS_p$                                      | Variáveis no modelo  | p    | $PRESS_p$
+-------------------- | ---- | -------------------------------------------- | -------------------- | ---- | ----------------------------------------
+nenhuma              | 1    | `r round(PRESS(modelo1,verbose=FALSE)$stat,3)`  | $X_2$ $X_3$          | 3    | `r round(PRESS(modelo9,verbose=FALSE)$stat,3)`  
+$X_1$                | 2    | `r round(PRESS(modelo2,verbose=FALSE)$stat,3)`  | $X_2$ $X_4$          | 3    | `r round(PRESS(modelo10,verbose=FALSE)$stat,3)` 
+$X_2$                | 2    | `r round(PRESS(modelo3,verbose=FALSE)$stat,3)`  | $X_3$ $X_4$          | 3    | `r round(PRESS(modelo11,verbose=FALSE)$stat,3)` 
+$X_3$                | 2    | `r round(PRESS(modelo4,verbose=FALSE)$stat,3)`  | $X_1$ $X_2$ $X_3$    | 4    | `r round(PRESS(modelo12,verbose=FALSE)$stat,3)`
+$X_4$                | 2    | `r round(PRESS(modelo5,verbose=FALSE)$stat,3)`  | $X_1$ $X_2$ $X_4$    | 4    | `r round(PRESS(modelo13,verbose=FALSE)$stat,3)`
+$X_1$ $X_2$          | 3    | `r round(PRESS(modelo6,verbose=FALSE)$stat,3)`  | $X_1$ $X_3$ $X_4$    | 4    | `r round(PRESS(modelo14,verbose=FALSE)$stat,3)`
+$X_1$ $X_3$          | 3    | `r round(PRESS(modelo7,verbose=FALSE)$stat,3)`  | $X_2$ $X_3$ $X_4$    | 4    | `r round(PRESS(modelo15,verbose=FALSE)$stat,3)`
+$X_1$ $X_4$          | 3    | `r round(PRESS(modelo8,verbose=FALSE)$stat,3)`  | $X_1$ $X_2$ $X_3$ $X_4$ | 5   | `r round(PRESS(modelo16,verbose=FALSE)$stat,3)`
+
+
+# Procedimentos Automáticos para Seleção de Modelos
+
+## "Best" Subsets Algorithms
+
+
+Para o exemplo visto anteriormente, se considerarmos todas as variáveis, temos $2^8=256$ modelos possíveis.
+
+
+## Exemplo - Usando $AIC_p$ {.smaller}
+
+```{r,echo=TRUE}
+library(bestglm)
+Xy = dados[,-9] # excluindo coluna do Y original, usamos ln(Y) como variável resposta
+names(Xy) <- c(names(Xy)[1:8],"y")
+modelos <- bestglm(Xy,IC="AIC",TopModels = 2)
+modelos$Subsets
+```
+
+## Exemplo - Usando $AIC_p$ {.smaller}
+
+```{r,echo=TRUE}
+melhor <- which(modelos$Subsets$AIC==min(modelos$Subsets$AIC))
+numvar <- dim(Xy)[2]-1 # total de variáveis consideradas inicialmente
+varincluidas <- modelos$Subsets[melhor,2:(numvar+1)] # variaveis escolhidas segundo criterio
+varincluidas
+modeloescolhidoAIC <- lm(y ~ .,data=Xy[,c(which(varincluidas==TRUE),which(names(Xy)=="y"))])
+summary(modeloescolhidoAIC)$coef
+```
+
+## Exemplo - Usando $BIC_p$ {.smaller}
+
+
+
+```{r,echo=TRUE}
+modelos <- bestglm(Xy,IC="BIC")
+modelos$Subsets
+```
+
+## Exemplo - Usando $BIC_p$ {.smaller}
+
+```{r,echo=TRUE}
+melhor <- which(modelos$Subsets$BIC==min(modelos$Subsets$BIC))
+varincluidas <- modelos$Subsets[melhor,2:(numvar+1)] # variaveis escolhidas segundo criterio
+varincluidas
+modeloescolhidoBIC <- lm(y ~ .,data=Xy[,c(which(varincluidas==TRUE),which(names(Xy)=="y"))])
+summary(modeloescolhidoBIC)$coef
+```
+
+
+## Exemplo - Usando $PRESS_p$ {.smaller}
+
+```{r,echo=TRUE}
+modelos <- bestglm(Xy,IC="LOOCV")
+modelos$Subsets
+```
+
+## Exemplo - Usando $PRESS_p$ {.smaller}
+
+```{r,echo=TRUE}
+melhor <- which(modelos$Subsets$LOOCV==min(modelos$Subsets$LOOCV))
+varincluidas <- modelos$Subsets[melhor,2:(numvar+1)] # variaveis escolhidas segundo criterio
+varincluidas
+modeloescolhidoPRESS <- lm(y ~ .,data=Xy[,c(which(varincluidas==TRUE),which(names(Xy)=="y"))])
+summary(modeloescolhidoPRESS)$coef
+```
+
+
+## Exemplo - $C_p$ de Mallow, $R_p^2$, $R_{a,p}^2$ e $BIC_p$ {.smaller}
+
+```{r,echo=TRUE,warning=FALSE}
+library(leaps)
+modelos <- regsubsets(y ~ .,data=Xy,nbest=2)
+resultados = data.frame(cbind("p"=rowSums(summary(modelos)$which),summary(modelos)$which,
+                              "Cp"=round(summary(modelos)$cp,2),
+                              "R2"=round(summary(modelos)$rsq,2), 
+                          "R2adj"=round(summary(modelos)$adjr2,2),"BIC"=round(summary(modelos)$bic,2)))
+resultados
+```
+
+
+## Método *Stepwise*
+
+* Método menos intensivo computacionalmente.
+
+* Ao final, obtém-se apenas 1 modelo candidato.
+
+* *forward*, *backward*, *both*
+
+## *Forward Selection* {.build}
+
+Início considerando $P-1$ variáveis.
+
+1- Ajuste uma regressão linear simples com cada uma das $P-1$ variáveis. Para cada regressão, calcule a estatística $t^*$ para testar se o coeficiente angular é 0.
+
+$$t_k^*=\frac{\hat{\beta}_k}{\sqrt{\widehat{Var}(\hat{\beta}_k)}}$$
+
+2- Considere a variável cujo $|t^*|$ é o maior. Inclua esta variável caso $|t^*|$ esteja acima de algum valor pré-determinado.
+
+3 - Se alguma variável é incluída, por exemplo, $X_7$ ajustam-se regressões com pares de variáveis, sendo que sempre uma delas é $X_7$. Calcula-se $t^*$ para a nova variável incluída e repita o passo 2 para decidir qual a segunda variável a ser incluída no modelo.
+
+4 - Repita até considerar todas as variáveis.
+
+## *Backward Selection* {.build}
+
+1. Ajuste uma regressão linear múltipla com todas as $P-1$ variáveis.
+
+2. Teste iterativamente se uma das variáveis pode ser eliminada.
+
+
+## Exemplo: *Forward Regression*
+
+```{r,echo=TRUE,eval=FALSE}
+completo = lm(y~.,data=Xy)
+vazio = lm(y~1, data=Xy)
+step(vazio, scope=list(upper=completo, lower=vazio), direction='forward', trace=TRUE)
+Start:  AIC=-75.7
+y ~ 1
+
+       Df Sum of Sq     RSS      AIC
++ X3    1    5.4762  7.3316 -103.827
++ X4    1    5.3990  7.4087 -103.262
++ X2    1    2.8285  9.9792  -87.178
++ X8    1    1.7798 11.0279  -81.782
++ X1    1    0.7763 12.0315  -77.079
++ X6    1    0.6897 12.1180  -76.692
+<none>              12.8077  -75.703
++ X5    1    0.2691 12.5386  -74.849
++ X7    1    0.2052 12.6025  -74.575
+```
+
+
+## Exemplo: *Forward Regression*
+
+```{r,echo=TRUE,eval=FALSE}
+Step:  AIC=-103.83
+y ~ X3
+
+       Df Sum of Sq    RSS     AIC
++ X2    1   3.01908 4.3125 -130.48
++ X4    1   2.20187 5.1297 -121.11
++ X1    1   1.55061 5.7810 -114.66
++ X8    1   1.13756 6.1940 -110.93
+<none>              7.3316 -103.83
++ X6    1   0.25854 7.0730 -103.77
++ X5    1   0.23877 7.0928 -103.61
++ X7    1   0.06498 7.2666 -102.31
+```
+
+## Exemplo: *Forward Regression*
+
+
+```{r,echo=TRUE,eval=FALSE}
+Step:  AIC=-130.48
+y ~ X3 + X2
+
+       Df Sum of Sq    RSS     AIC
++ X8    1   1.46961 2.8429 -150.99
++ X1    1   1.20395 3.1085 -146.16
++ X4    1   0.69836 3.6141 -138.02
++ X7    1   0.22632 4.0862 -131.39
++ X5    1   0.16461 4.1479 -130.59
+<none>              4.3125 -130.48
++ X6    1   0.08245 4.2300 -129.53
+```       
+
+
+## Exemplo: *Forward Regression*
+
+
+```{r,echo=TRUE,eval=FALSE}
+Step:  AIC=-150.98
+y ~ X3 + X2 + X8
+
+       Df Sum of Sq    RSS     AIC
++ X1    1   0.66408 2.1788 -163.35
++ X4    1   0.46630 2.3766 -158.66
++ X6    1   0.13741 2.7055 -151.66
+<none>              2.8429 -150.99
++ X5    1   0.07081 2.7721 -150.35
++ X7    1   0.02464 2.8182 -149.46
+```
+
+## Exemplo: *Forward Regression*
+
+
+```{r,echo=TRUE,eval=FALSE}
+ Step:  AIC=-163.35
+y ~ X3 + X2 + X8 + X1
+
+       Df Sum of Sq    RSS     AIC
++ X6    1  0.096791 2.0820 -163.81
+<none>              2.1788 -163.35
++ X5    1  0.075876 2.1029 -163.26
++ X4    1  0.041701 2.1371 -162.40
++ X7    1  0.022944 2.1559 -161.92
+```
+       
+## Exemplo: *Forward Regression*
+
+
+```{r,echo=TRUE,eval=FALSE}
+Step:  AIC=-163.81
+y ~ X3 + X2 + X8 + X1 + X6
+
+       Df Sum of Sq    RSS     AIC
++ X5    1  0.076782 2.0052 -163.83
+<none>              2.0820 -163.81
++ X7    1  0.022387 2.0596 -162.39
++ X4    1  0.016399 2.0656 -162.23
+```
+
+## Exemplo: *Forward Regression*
+
+
+```{r,echo=TRUE,eval=FALSE}
+Step:  AIC=-163.83
+y ~ X3 + X2 + X8 + X1 + X6 + X5
+
+       Df Sum of Sq    RSS     AIC
+<none>              2.0052 -163.83
++ X7    1  0.033193 1.9720 -162.74
++ X4    1  0.002284 2.0029 -161.90
+
+Call:
+lm(formula = y ~ X3 + X2 + X8 + X1 + X6 + X5, data = Xy)
+
+Coefficients:
+(Intercept)           X3           X2           X8           X1           X6           X5  
+    4.05397      0.01512      0.01376      0.35090      0.07152      0.08732     -0.00345  
+```
+       
+
+
+## Exemplo: *Backward Regression*
+
+```{r,echo=TRUE,eval=FALSE}
+completo = lm(y~.,data=Xy)
+vazio = lm(y~1, data=Xy)
+step(completo, scope=list(upper=completo, lower=vazio), direction='backward', trace=TRUE)
+
+Start:  AIC=-160.77
+y ~ X1 + X2 + X3 + X4 + X5 + X6 + X7 + X8
+
+       Df Sum of Sq    RSS     AIC
+- X4    1   0.00129 1.9720 -162.74
+- X7    1   0.03220 2.0029 -161.90
+- X5    1   0.07354 2.0443 -160.79
+<none>              1.9707 -160.77
+- X6    1   0.08415 2.0549 -160.51
+- X1    1   0.31809 2.2888 -154.69
+- X8    1   0.84573 2.8165 -143.49
+- X2    1   2.09045 4.0612 -123.72
+- X3    1   2.99085 4.9616 -112.91
+```
+
+
+## Exemplo: *Backward Regression*
+
+```{r,echo=TRUE,eval=FALSE}
+Step:  AIC=-162.74
+y ~ X1 + X2 + X3 + X5 + X6 + X7 + X8
+
+       Df Sum of Sq    RSS      AIC
+- X7    1    0.0332 2.0052 -163.834
+<none>              1.9720 -162.736
+- X5    1    0.0876 2.0596 -162.389
+- X6    1    0.0971 2.0691 -162.141
+- X1    1    0.6267 2.5988 -149.833
+- X8    1    0.8446 2.8166 -145.486
+- X2    1    2.6731 4.6451 -118.471
+- X3    1    5.0986 7.0706  -95.784       
+```       
+
+## Exemplo: *Backward Regression*
+
+```{r,echo=TRUE,eval=FALSE}
+Step:  AIC=-163.83
+y ~ X1 + X2 + X3 + X5 + X6 + X8
+
+       Df Sum of Sq    RSS      AIC
+<none>              2.0052 -163.834
+- X5    1    0.0768 2.0820 -163.805
+- X6    1    0.0977 2.1029 -163.265
+- X1    1    0.6282 2.6335 -151.117
+- X8    1    0.9002 2.9055 -145.809
+- X2    1    2.7626 4.7678 -119.064
+- X3    1    5.0801 7.0853  -97.672       
+```       
+
+## Exemplo: *Backward Regression*
+
+```{r,echo=TRUE,eval=FALSE}
+Call:
+lm(formula = y ~ X1 + X2 + X3 + X5 + X6 + X8, data = Xy)
+
+Coefficients:
+(Intercept)           X1           X2           X3           X5           X6           X8  
+    4.05397      0.07152      0.01376      0.01512     -0.00345      0.08732      0.35090  
+       
+```       
+
+
+## Exemplo: *Forward Stepwise Regression*
+
+```{r,echo=TRUE,eval=FALSE}
+completo = lm(y~.,data=Xy)
+vazio = lm(y~1, data=Xy)
+step(vazio, scope=list(upper=completo, lower=vazio), direction='both', trace=TRUE)
+
+Start:  AIC=-75.7
+y ~ 1
+
+       Df Sum of Sq     RSS      AIC
++ X3    1    5.4762  7.3316 -103.827
++ X4    1    5.3990  7.4087 -103.262
++ X2    1    2.8285  9.9792  -87.178
++ X8    1    1.7798 11.0279  -81.782
++ X1    1    0.7763 12.0315  -77.079
++ X6    1    0.6897 12.1180  -76.692
+<none>              12.8077  -75.703
++ X5    1    0.2691 12.5386  -74.849
++ X7    1    0.2052 12.6025  -74.575
+
+```
+
+## Exemplo: *Forward Stepwise Regression*
+
+```{r,echo=TRUE,eval=FALSE}
+Step:  AIC=-103.83
+y ~ X3
+
+       Df Sum of Sq     RSS      AIC
++ X2    1    3.0191  4.3125 -130.483
++ X4    1    2.2019  5.1297 -121.113
++ X1    1    1.5506  5.7810 -114.658
++ X8    1    1.1376  6.1940 -110.932
+<none>               7.3316 -103.827
++ X6    1    0.2585  7.0730 -103.765
++ X5    1    0.2388  7.0928 -103.615
++ X7    1    0.0650  7.2666 -102.308
+- X3    1    5.4762 12.8077  -75.703       
+       
+```       
+
+
+## Exemplo: *Forward Stepwise Regression*
+
+```{r,echo=TRUE,eval=FALSE}
+Step:  AIC=-130.48
+y ~ X3 + X2
+
+       Df Sum of Sq    RSS      AIC
++ X8    1    1.4696 2.8429 -150.985
++ X1    1    1.2040 3.1085 -146.161
++ X4    1    0.6984 3.6141 -138.023
++ X7    1    0.2263 4.0862 -131.394
++ X5    1    0.1646 4.1479 -130.585
+<none>              4.3125 -130.483
++ X6    1    0.0824 4.2300 -129.526
+- X2    1    3.0191 7.3316 -103.827
+- X3    1    5.6667 9.9792  -87.178       
+```       
+
+## Exemplo: *Forward Stepwise Regression*
+
+```{r,echo=TRUE,eval=FALSE}
+Step:  AIC=-150.98
+y ~ X3 + X2 + X8
+
+       Df Sum of Sq    RSS      AIC
++ X1    1    0.6641 2.1788 -163.351
++ X4    1    0.4663 2.3766 -158.659
++ X6    1    0.1374 2.7055 -151.660
+<none>              2.8429 -150.985
++ X5    1    0.0708 2.7721 -150.347
++ X7    1    0.0246 2.8182 -149.455
+- X8    1    1.4696 4.3125 -130.483
+- X2    1    3.3511 6.1940 -110.932
+- X3    1    4.9456 7.7885  -98.562       
+```       
+
+
+
+## Exemplo: *Forward Stepwise Regression*
+
+```{r,echo=TRUE,eval=FALSE}
+Step:  AIC=-163.35
+y ~ X3 + X2 + X8 + X1
+
+       Df Sum of Sq    RSS      AIC
++ X6    1    0.0968 2.0820 -163.805
+<none>              2.1788 -163.351
++ X5    1    0.0759 2.1029 -163.265
++ X4    1    0.0417 2.1371 -162.395
++ X7    1    0.0229 2.1559 -161.923
+- X1    1    0.6641 2.8429 -150.985
+- X8    1    0.9297 3.1085 -146.161
+- X2    1    2.9873 5.1661 -118.731
+- X3    1    5.4513 7.6301  -97.671       
+```       
+
+## Exemplo: *Forward Stepwise Regression*
+
+```{r,echo=TRUE,eval=FALSE}
+Step:  AIC=-163.81
+y ~ X3 + X2 + X8 + X1 + X6
+
+       Df Sum of Sq    RSS      AIC
++ X5    1    0.0768 2.0052 -163.834
+<none>              2.0820 -163.805
+- X6    1    0.0968 2.1788 -163.351
++ X7    1    0.0224 2.0596 -162.389
++ X4    1    0.0164 2.0656 -162.232
+- X1    1    0.6235 2.7055 -151.660
+- X8    1    0.9745 3.0565 -145.072
+- X2    1    2.8268 4.9088 -119.490
+- X3    1    5.0791 7.1611  -99.097
+```
+
+
+## Exemplo: *Forward Stepwise Regression* {.smaller}
+
+```{r,echo=TRUE,eval=FALSE}
+Step:  AIC=-163.83
+y ~ X3 + X2 + X8 + X1 + X6 + X5
+
+       Df Sum of Sq    RSS      AIC
+<none>              2.0052 -163.834
+- X5    1    0.0768 2.0820 -163.805
+- X6    1    0.0977 2.1029 -163.265
++ X7    1    0.0332 1.9720 -162.736
++ X4    1    0.0023 2.0029 -161.896
+- X1    1    0.6282 2.6335 -151.117
+- X8    1    0.9002 2.9055 -145.809
+- X2    1    2.7626 4.7678 -119.064
+- X3    1    5.0801 7.0853  -97.672
+
+Call:
+lm(formula = y ~ X3 + X2 + X8 + X1 + X6 + X5, data = Xy)
+
+Coefficients:
+(Intercept)           X3           X2           X8           X1           X6           X5  
+    4.05397      0.01512      0.01376      0.35090      0.07152      0.08732     -0.00345 
+```
+
+
 
 ## Leitura
 
@@ -292,7 +777,10 @@ em que $e_i$ é o resíduo para a $i$-ésima observação e $h_{ii}$ é o $i$-é
 
 * Draper & Smith - [Applied Regression Analysis](http://onlinelibrary.wiley.com/book/10.1002/9781118625590): Capítulo 15.
 
+* Tutorial: [Model Selection in R](https://www.google.com.br/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwjUhJi_9-DMAhVDk5AKHbUgAtwQFggdMAA&url=http%3A%2F%2Fwww2.hawaii.edu%2F~taylor%2Fz632%2FRbestsubsets.pdf&usg=AFQjCNHyaEKgvoTqpPehpJIQtCMQE4qccQ&sig2=7mw55kFAKcCMfVwqti3DXw)
+
+* [`bestglm`](http://www2.uaem.mx/r-mirror/web/packages/bestglm/vignettes/bestglm.pdf)
 
 <center>
-<img src="figuras/gm_variableselection.jpg" width=600>
+<img src="figuras/gm_variableselection.jpg" width=400>
 </center>
