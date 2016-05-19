@@ -37,7 +37,9 @@ permalink: /aulas/
 * Preditoras Categóricas
 * Região de Confiança
 * Teste de Hipótese com Restrição Linear
-* Coeficiente de determinação, Coeficiente de determinação ajustado, AIC, BIC, PRESS, Cp de Mallow
+* Critérios para Seleção de Modelos: Coeficiente de determinação, Coeficiente de determinação ajustado, AIC, BIC, PRESS, Cp de Mallow
+* Procedimentos Automáticos para Seleção de Modelos
+* Validação de Modelos
 
 [Parte 6](slides/parte06/parte06.html)
 [Parte 7](slides/parte07/parte07.html)
