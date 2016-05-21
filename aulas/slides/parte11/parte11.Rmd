@@ -25,6 +25,7 @@ Fases na construção de um modelo:
 
 * Validação do modelo.
 
+
 ## Introdução
 
 Se tivermos $p-1$ variáveis preditoras, podemos construir $2^{p-1}$ modelos diferentes.
@@ -50,7 +51,7 @@ $$R_p^2=1-\frac{SQE_p}{SQT}$$
 
 
 
-## Exemplo
+## Exemplo: Cirurgias
 
 $Y$: tempo de sobrevivência
 
@@ -766,6 +767,116 @@ Coefficients:
 (Intercept)           X3           X2           X8           X1           X6           X5  
     4.05397      0.01512      0.01376      0.35090      0.07152      0.08732     -0.00345 
 ```
+
+
+# Validação de Modelos
+
+## Introdução
+
+Verificar se um modelo candidato tem bom desempenho em dados independentes daqueles usados para ajuste.
+
+* Coletar novos dados para verificar o modelo e seu poder preditivo.
+
+* Deixar parte dos dados de fora do ajuste, para usar na validação.
+
+## Validação Cruzada {.build}
+
+Quando temos um grande número de observações, podemos dividir os dados em duas partes: *treinamento* e *teste*.
+
+Com o subconjunto *treinamento* ajustamos o modelo.
+
+Com o subconjunto *teste* verificamos o poder preditivo do modelo.
+
+
+Calculamos o *mean squared prediction error*:
+
+$$MSPR=\frac{\sum_{i=1}^{n^*}(Y_i-\hat{Y}_i)^2}{n}$$
+
+em que $Y_i$ é o valor da variável resposta da $i$-ésima observação do conjunto teste, $\hat{Y}_i$ é o valor predito para a $i$-ésima observação do conjunto teste segundo o modelo usando o conjunto treinamento e $n^*$ é o total de observações no conjunto teste.
+
+## Exemplo
+
+Temos 54 observações que não foram utilizadas na escolha do modelo para os dados sobre cirurgia. Este será o conjunto de dados *teste*.
+
+Com os dados de *treinamento*, obtemos, usando $PRESS_p$ e $BIC_p$:
+
+Modelo 1:
+$$\ln(Y)=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\beta_8X_8+\varepsilon$$
+
+Usando $C_p$, temos o Modelo 2:
+
+$$\ln(Y)=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\beta_5X_5+\beta_8X_8+\varepsilon$$
+
+Usando $AIC_p$ e $R_{a,p}^2$, temos o Modelo 3:
+
+$$\ln(Y)=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\beta_5X_5+\beta_6X_6+\beta_8X_8+\varepsilon$$
+
+
+## Exemplo - Modelo 1 {.smaller}
+
+```{r,echo=T}
+dadosT <- read.table("./dados/CH09TA05.txt")
+colnames(dadosT) <- c("X1","X2","X3","X4","X5","X6","X7","X8","Y","lnY")
+modelo1 <- lm(lnY ~ X1 + X2 + X3 + X8,data=dados)
+yhat <- predict(modelo1,newdata=dadosT)
+MSPR <- function(yhat,yobs){
+  mean((yobs-yhat)^2)
+}
+```
+
+Variável       | Estimativa | Erro-Padrão
+---------------|------------|------------------------------------------------
+Intercepto     |  `r summary(modelo1)$coef[1,1]` | `r summary(modelo1)$coef[1,2]`
+$X_1$ |  `r summary(modelo1)$coef[2,1]`  | `r summary(modelo1)$coef[2,2]`
+$X_2$ | `r summary(modelo1)$coef[3,1]`  | `r summary(modelo1)$coef[3,2]`
+$X_3$ |  `r summary(modelo1)$coef[4,1]` | `r summary(modelo1)$coef[4,2]` 
+$X_8$ | `r summary(modelo1)$coef[5,1]`  | `r summary(modelo1)$coef[5,2]`
+
+$MSE$ é `r round(anova(modelo1)[5,3],3)` e $MSPR$ é `r round(MSPR(yhat,dadosT$lnY),3)`
+
+
+
+## Exemplo - Modelo 2 {.smaller}
+
+
+```{r,echo=TRUE}
+modelo2 <- lm(lnY ~ X1 + X2 + X3 + X5 + X8,data=dados)
+yhat <- predict(modelo2,newdata=dadosT)
+```
+
+Variável       | Estimativa | Erro-Padrão
+---------------|------------|------------------------------------------------
+Intercepto     |  `r summary(modelo2)$coef[1,1]` | `r summary(modelo2)$coef[1,2]`
+$X_1$ |  `r summary(modelo2)$coef[2,1]`  | `r summary(modelo2)$coef[2,2]`
+$X_2$ | `r summary(modelo2)$coef[3,1]`  | `r summary(modelo2)$coef[3,2]`
+$X_3$ |  `r summary(modelo2)$coef[4,1]` | `r summary(modelo2)$coef[4,2]` 
+$X_5$ | `r summary(modelo2)$coef[5,1]`  | `r summary(modelo2)$coef[5,2]`
+$X_8$ | `r summary(modelo2)$coef[6,1]`  | `r summary(modelo2)$coef[6,2]`
+
+
+$MSE$ é `r round(anova(modelo2)[6,3],3)` e $MSPR$ é `r round(MSPR(yhat,dadosT$lnY),3)`
+
+
+## Exemplo - Modelo 3 {.smaller}
+
+
+```{r,echo=TRUE}
+modelo3 <- lm(lnY ~ X1 + X2 + X3 + X5 + X6 + X8,data=dados)
+yhat <- predict(modelo3,newdata=dadosT)
+```
+
+Variável       | Estimativa | Erro-Padrão
+---------------|------------|------------------------------------------------
+Intercepto     |  `r summary(modelo3)$coef[1,1]` | `r summary(modelo3)$coef[1,2]`
+$X_1$ |  `r summary(modelo3)$coef[2,1]`  | `r summary(modelo3)$coef[2,2]`
+$X_2$ | `r summary(modelo3)$coef[3,1]`  | `r summary(modelo3)$coef[3,2]`
+$X_3$ |  `r summary(modelo3)$coef[4,1]` | `r summary(modelo3)$coef[4,2]` 
+$X_5$ | `r summary(modelo3)$coef[5,1]`  | `r summary(modelo3)$coef[5,2]`
+$X_6$ | `r summary(modelo3)$coef[6,1]`  | `r summary(modelo3)$coef[6,2]`
+$X_8$ | `r summary(modelo3)$coef[7,1]`  | `r summary(modelo3)$coef[7,2]`
+
+
+$MSE$ é `r round(anova(modelo3)[7,3],3)` e $MSPR$ é `r round(MSPR(yhat,dadosT$lnY),3)`
 
 
 
