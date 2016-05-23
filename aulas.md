@@ -40,6 +40,8 @@ permalink: /aulas/
 * Critérios para Seleção de Modelos: Coeficiente de determinação, Coeficiente de determinação ajustado, AIC, BIC, PRESS, Cp de Mallow
 * Procedimentos Automáticos para Seleção de Modelos
 * Validação de Modelos
+* Gráficos de regressão parcial
+* Detecção de outliers, pontos influentes, pontos alavanca
 
 [Parte 6](slides/parte06/parte06.html)
 [Parte 7](slides/parte07/parte07.html)
@@ -63,4 +65,6 @@ permalink: /aulas/
 [Parte 7](slides_pdf/parte07.pdf)
 [Parte 8](slides_pdf/parte08.pdf)
 [Parte 9](slides_pdf/parte09.pdf)
+[Parte 10](slides_pdf/parte10.pdf)
+[Parte 11](slides_pdf/parte11.pdf)
 
