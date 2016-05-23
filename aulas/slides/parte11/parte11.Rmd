@@ -269,7 +269,7 @@ $SQE=\sum(Y_i-\hat{Y}_i)^2$ também serve para este propósito.
 
 A diferença é que a medida $PRESS$ é obtida após a exclusão da $i$-ésima observação e estimação do modelo com as $n-1$ observações restantes, e então usar este modelo para predizer o valor de $Y$ para a $i$-ésima observação.
 
-Notação: $\hat{Y}_{i(i)}$ indica o valor predito para a $i$-ésima observação quando a esta foi excluída na obtenção do modelo.
+Notação: $\hat{Y}_{i(i)}$ indica o valor predito para a $i$-ésima observação quando esta foi excluída na obtenção do modelo.
 
 ## $PRESS_p$ {.build}
 
