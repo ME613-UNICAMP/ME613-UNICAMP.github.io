@@ -301,8 +301,192 @@ $2p/n = `r 2*p/n`$
 
 # Observações influentes
 
-## *DFFITS*
+## Introdução
 
+Após identificar casos *outliers* com respeito a $Y$ e/ou $X$, o próximo passo é verificar se esses casos são *influentes*.
+
+Uma observação é considerada influente se sua exclusão causa grandes mudanças na regressão ajustada.
+
+## *DFFITS* - Influência em um único valor ajustado {.build}
+
+
+A influência que a $i$-ésima observação tem no valor ajustado $\hat{Y}_i$ é medida por:
+
+$$DFFITS_i=\frac{\hat{Y}_i-\hat{Y}_{i(i)}}{\sqrt{QME_{(i)}h_{ii}}}$$
+
+O denominador é o desvio-padrão estimado de $\hat{Y}_i$.
+
+$$Var(\hat{\mathbf{Y}})=\mathbf{H}Var(\mathbf{Y})\mathbf{H}^T=\mathbf{H}(\sigma^2\mathbf{I})\mathbf{H}^T$$
+
+Como $\mathbf{H}=\mathbf{H}^T$ (simétrica) e $\mathbf{H}\mathbf{H}=\mathbf{H}$ (idempotente), temos que:
+
+$$Var(\hat{\mathbf{Y}})=\sigma^2\mathbf{H}$$
+
+
+## *DFFITS* - Influência em um único valor ajustado {.build}
+
+
+$$DFFITS_i=e_i\left[\frac{n-p-1}{SQE(1-h_{ii}-e_i^2)}\right]^{1/2}\left(\frac{h_{ii}}{1-h_{ii}} \right)^{1/2}=t_i\left(\frac{h_{ii}}{1-h_{ii}} \right)^{1/2}$$
+
+Se uma observação é um *outlier* em $X$ e tem alto valor de alavanca, $DFFITS$ tenderá a ter um alto valor.
+
+Para pequenos conjuntos de dados, se $|DFFITS_i|>1$, a observação é considerada influente.
+
+Para grandes conjuntos de dados, se $|DFFITS_i|>2\sqrt{p/n}$, a observação é considerada influente.
+
+## Exemplo - Gordura corporal {.smaller}
+
+```{r,echo=TRUE}
+format(dffits(modelo1),scientific = FALSE)
+```
+
+## *Cook's Distance* - Influência em todos os valores ajustados {.build}
+
+
+Medida para avaliar a influência de uma observação $i$ no ajuste das $n$ observações:
+
+$$D_i=\frac{\sum_{j=1}^n(\hat{Y}_j-\hat{Y}_{j(i)})^2}{p QME}$$
+
+Em forma matricial:
+
+$$D_i=\frac{(\hat{\mathbf{Y}}-\hat{\mathbf{Y}}_{(i)})^T(\hat{\mathbf{Y}}-\hat{\mathbf{Y}}_{(i)})}{pQME}$$
+
+## *Cook's Distance* - Influência em todos os valores ajustados {.build}
+
+$$D_i=\frac{e_i^2}{pQME}\left[\frac{h_{ii}}{(1-h_{ii})^2}\right]$$
+
+Comparamos $D_i$ com percentis de $F(p,n-p)$: se for maior que o percentil 50, a $i$-ésima observação deve ser investigada como possível ponto influente.
+
+
+## Exemplo - Gordura corporal {.smaller}
+
+```{r,echo=TRUE}
+format(cooks.distance(modelo1),scientific = FALSE)
+```
+
+
+## Exemplo - Gordura corporal 
+
+```{r,echo=TRUE}
+caso3 <- cooks.distance(modelo1)[3]
+p=length(coefficients(modelo1))
+n=dim(dat)[1]
+perc=pf(caso3,df1=p,df2=n-p)
+```
+
+Caso $3$ tem o maior valor: $D_3=`r round(cooks.distance(modelo1)[3],3)`$. Este valor corresponde ao percentil `r round(100*perc,1)` da distribuição $F(p,n-p)$.
+
+## $DFBETAS$ - inflência nos coeficientes da regressão {.build}
+
+Medida de influência da $i$-ésima observação no coeficiente $\hat{\beta}_k$:
+
+$$DFBETAS_{k(i)}=\frac{\hat{\beta}_k-\hat{\beta}_{k(i)}}{\sqrt{QME_{(i)}c_{kk}}}$$
+
+em que $c_{kk}$ é o $k$-ésimo elemento da diagonal de $(\mathbf{X}^T\mathbf{X})^{-1}$.
+
+Para pequenos conjuntos de dados, se $|DFBETAS_{k(i)}|>1$, a observação é considerada influente.
+
+Para grandes conjuntos de dados, se $|DFBETAS_{k(i)}|>2/\sqrt{n}$, a observação é considerada influente.
+
+
+## Exemplo - Gordura corporal {.smaller}
+
+```{r,echo=TRUE}
+format(dfbetas(modelo1),scientific = FALSE)
+```
+
+
+## Exemplo - Gordura corporal {.smaller}
+
+```{r,echo=TRUE}
+influence.measures(modelo1)
+```
+
+
+# Inflação da variância
+
+## Introdução {.build}
+
+Problemas quando variáveis preditoras apresentam correlação alta entre si:
+
+* Incluir ou excluir uma variável preditora altera os coeficientes da regressão.
+
+* Os erros padrão dos coeficientes estimados ficam muito grandes.
+
+> A presença de multicolinearidade pode ser investigada através dos seguintes diagnósticos informais:
+
+* Grandes mudanças nas estimativas dos parâmetros de regressão quando uma variável é incluída ou exclluída do modelo.
+
+* Estimativa dos parâmetros de regressão com sinal oposto do que seria esperado, segundo informações/conhecimento prévio.
+
+
+## Exemplo - Gordura corporal
+
+```{r,echo=FALSE}
+modelo1 <- lm(Y ~ X1 + X2,data=dat)
+kable(summary(modelo1)$coef,col.names = c("Estimativa","Erro-Padrão","t","valor de p"))
+```
+
+
+## Exemplo - Gordura corporal
+
+```{r,echo=FALSE}
+modelo2 <- lm(Y ~ X1 + X2 + X3,data=dat)
+kable(summary(modelo2)$coef,col.names = c("Estimativa","Erro-Padrão","t","valor de p"))
+```
+
+
+## $VIF$ - fator de inflação da variância {.build}
+
+Lembrando:
+
+$$Var(\hat{\boldsymbol{\beta}})=\sigma^2(\mathbf{X}^T\mathbf{X})^{-1}$$
+
+> Para medir o impacto da multicolinearidade, é mais útil trabalhar com as variáveis com transformação de correlação, vistas anteriormente.
+
+$$Var(\hat{\boldsymbol{\beta}^*})=(\sigma^*)^2\mathbf{r}_{XX}^{-1}$$
+
+> Definindo $VIF_k$ (fator de inflação da variância para $\hat{\beta_k^*}$) como o $k$-ésimo elemento de $\mathbf{r}_{XX}^{-1}$, temos:
+
+$$Var(\hat{\beta_k^*})=(\sigma^*)^2VIF_k$$
+
+## $VIF$ - fator de inflação da variância {.build}
+
+Pode-se reescrever:
+
+$$VIF_k=(1-R_k^2)^{-1}$$
+
+em que $R_k^2$ é o coeficiente de determinação da regressão de $X_k$ nas demais variáveis preditoras.
+
+Quando $R_k^2=0$, $VIF_k=1$, caso contrário, $VIF_k>1$.
+
+## Exemplo - Gordura corporal
+
+Variáveis escala original
+
+```{r,echo=TRUE}
+modelo2 <- lm(Y ~ X1 + X2 + X3,data=dat)
+kable(summary(modelo2)$coef,col.names = c("Estimativa","Erro-Padrão","t","valor de p"))
+```
+
+
+## Exemplo - Gordura corporal
+
+Variáveis padronizadas
+
+```{r,echo=FALSE}
+dadosPadrao <- as.data.frame(scale(dat)/sqrt(dim(dat)[1]-1))
+modeloPadrao <- lm(Y ~ X1+X2+X3-1,data=dadosPadrao)
+kable(summary(modeloPadrao)$coef,col.names = c("Estimativa","Erro-Padrão","t","valor de p"))
+```
+
+
+## Exemplo - Gordura corporal
+
+```{r,echo=TRUE}
+library(car)
+vif(modelo2)
+```
 
 
 
@@ -310,7 +494,7 @@ $2p/n = `r 2*p/n`$
 
 * Applied Linear Statistical Models: Capítulo 10.
 
-* Faraway - [Linear Models with R](http://www.maths.bath.ac.uk/~jjf23/LMR/): Capítulo 
+* Faraway - [Linear Models with R](http://www.maths.bath.ac.uk/~jjf23/LMR/): Capítulo 6, Seção 7.3 
 
 * Draper & Smith - [Applied Regression Analysis](http://onlinelibrary.wiley.com/book/10.1002/9781118625590): Capítulo 8.
 
