@@ -55,7 +55,7 @@ $$Y_i=\frac{\gamma_0}{1+\gamma_1\exp(\gamma_2X_i)}+\varepsilon$$
 
 $$E(Y)=100-50\exp(-2X)$$
 
-```{r,echo=FALSE,fig.align='center', fig.width=4.5,fig.height=4.5}
+```{r,echo=FALSE,fig.align='center', fig.width=4.5,fig.height=4.5,warning=FALSE,message=FALSE}
 library(latex2exp)
 curve(100-50*exp(-2*x),xlab=TeX('$X$'),ylab=TeX('E(Y)$'),xlim=c(0,4),col="blue")
 ```
