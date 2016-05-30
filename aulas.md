@@ -42,6 +42,7 @@ permalink: /aulas/
 * Validação de Modelos
 * Gráficos de regressão parcial
 * Detecção de outliers, pontos influentes, pontos alavanca
+* Introdução à regressão não-linear
 
 [Parte 6](slides/parte06/parte06.html)
 [Parte 7](slides/parte07/parte07.html)
@@ -50,6 +51,7 @@ permalink: /aulas/
 [Parte 10](slides/parte10/parte10.html)
 [Parte 11](slides/parte11/parte11.html)
 [Parte 12](slides/parte12/parte12.html)
+[Parte 13](slides/parte13/parte13.html)
 
 
 
@@ -68,4 +70,7 @@ permalink: /aulas/
 [Parte 9](slides_pdf/parte09.pdf)
 [Parte 10](slides_pdf/parte10.pdf)
 [Parte 11](slides_pdf/parte11.pdf)
+[Parte 12](slides_pdf/parte12.pdf)
+[Parte 13](slides_pdf/parte13.pdf)
+
 
