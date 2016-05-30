@@ -4,7 +4,7 @@ author: Samara F. Kiihl - IMECC - UNICAMP
 output:
   ioslides_presentation:
     widescreen: yes
-subtitle: Parte 12
+subtitle: Parte 13
 logo: ../logo-imecc.png
 ---
 
