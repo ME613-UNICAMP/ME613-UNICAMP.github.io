@@ -12,7 +12,7 @@ logo: ../logo-imecc.png
 # Regressão Não-Linear
 
 
-## Introdução
+## Introdução {.smaller}
 
 $$Y_i=f(\mathbf{X}_i,\boldsymbol{\beta})+\varepsilon_i$$
 
@@ -82,7 +82,7 @@ curve(100-50*exp(-2*x),xlab=TeX('$X$'),ylab=TeX('E(Y)$'),xlim=c(0,4),col="blue")
 
 ## Regressão Não-linear
 
-No caso linear, o número de parâmetros é igual ao número de elementos em $\mathbf{X}_i$, no caso linear não temos, necessariamente, esta relação.
+No caso linear, o número de parâmetros é igual ao número de elementos em $\mathbf{X}_i$, no caso não-linear não temos, necessariamente, esta relação.
 
 $$Y_i=f(\mathbf{X}_i,\boldsymbol{\gamma})+\varepsilon_i$$
 
