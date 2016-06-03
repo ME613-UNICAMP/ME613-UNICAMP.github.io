@@ -411,7 +411,7 @@ resultados
 
 * *forward*, *backward*, *both*
 
-## *Forward Selection* {.build}
+## *Forward Selection* {.build .smaller}
 
 Início considerando $P-1$ variáveis.
 
