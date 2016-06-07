@@ -376,7 +376,7 @@ perc=pf(caso3,df1=p,df2=n-p)
 
 Caso $3$ tem o maior valor: $D_3=`r round(cooks.distance(modelo1)[3],3)`$. Este valor corresponde ao percentil `r round(100*perc,1)` da distribuição $F(p,n-p)$.
 
-## $DFBETAS$ - inflência nos coeficientes da regressão {.build}
+## $DFBETAS$ - influência nos coeficientes da regressão {.build}
 
 Medida de influência da $i$-ésima observação no coeficiente $\hat{\beta}_k$:
 
