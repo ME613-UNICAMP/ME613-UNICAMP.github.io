@@ -28,32 +28,21 @@ permalink: /aulas/
 
 ### Regressão Linear Múltipla
 
-* Introdução
-* Soma extra de quadrados
-* Coeficiente de determinação parcial
-* Regressão Linear Múltipla Padronizada
-* Multicolinearidade
-* Regressão Polinomial
-* Preditoras Categóricas
-* Região de Confiança
-* Teste de Hipótese com Restrição Linear
-* Critérios para Seleção de Modelos: Coeficiente de determinação, Coeficiente de determinação ajustado, AIC, BIC, PRESS, Cp de Mallow
-* Procedimentos Automáticos para Seleção de Modelos
-* Validação de Modelos
-* Gráficos de regressão parcial
-* Detecção de outliers, pontos influentes, pontos alavanca
-* Introdução à regressão não-linear
-
-[Parte 6](slides/parte06/parte06.html)
-[Parte 7](slides/parte07/parte07.html)
-[Parte 8](slides/parte08/parte08.html)
-[Parte 9](slides/parte09/parte09.html)
-[Parte 10](slides/parte10/parte10.html)
-[Parte 11](slides/parte11/parte11.html)
-[Parte 12](slides/parte12/parte12.html)
-[Parte 13](slides/parte13/parte13.html)
-
-
+* Introdução: [Parte 6](slides/parte06/parte06.html)
+* Soma extra de quadrados: [Parte 7](slides/parte07/parte07.html)
+* Coeficiente de determinação parcial: [Parte 7](slides/parte07/parte07.html)
+* Regressão Linear Múltipla Padronizada: [Parte 7](slides/parte07/parte07.html)
+* Multicolinearidade: [Parte 8](slides/parte08/parte08.html)
+* Regressão Polinomial: [Parte 9](slides/parte09/parte09.html)
+* Preditoras Categóricas: [Parte 9](slides/parte09/parte09.html)
+* Região de Confiança: [Parte 10](slides/parte10/parte10.html)
+* Teste de Hipótese com Restrição Linear: [Parte 10](slides/parte10/parte10.html)
+* Critérios para Seleção de Modelos: Coeficiente de determinação, Coeficiente de determinação ajustado, AIC, BIC, PRESS, Cp de Mallow: [Parte 11](slides/parte11/parte11.html)
+* Procedimentos Automáticos para Seleção de Modelos: [Parte 11](slides/parte11/parte11.html)
+* Validação de Modelos: [Parte 11](slides/parte11/parte11.html)
+* Gráficos de regressão parcial: [Parte 12](slides/parte12/parte12.html)
+* Detecção de outliers, pontos influentes, pontos alavanca: [Parte 12](slides/parte12/parte12.html)
+* Introdução à regressão não-linear: [Parte 13](slides/parte13/parte13.html)
 
 
 #### Aulas em formato PDF
