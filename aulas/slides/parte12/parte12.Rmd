@@ -196,7 +196,7 @@ $$t_i=\frac{d_i}{\sqrt{\widehat{Var(d_i)}}}\sim t_{n-p-1}$$
 
 podemos calcular $t_i$ sem de fato fazer ajustes separados para cada observação excluída:
 
-$$t_i=e_i\left[ \frac{n-p-1}{SQE(1-h_{ii}-e_i^2)}\right]^{1/2}$$
+$$t_i=e_i\left[ \frac{n-p-1}{SQE(1-h_{ii})-e_i^2}\right]^{1/2}$$
 
 ## Resíduo Studentizado com observação excluída
 
