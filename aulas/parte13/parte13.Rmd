@@ -1,0 +1,240 @@
+---
+title: "ME613 - Análise de Regressão"
+author: Samara F. Kiihl - IMECC - UNICAMP
+output:
+  ioslides_presentation:
+    widescreen: yes
+subtitle: Parte 13
+logo: ../logo-imecc.png
+---
+
+
+# Regressão Não-Linear
+
+
+## Introdução {.smaller}
+
+$$Y_i=f(\mathbf{X}_i,\boldsymbol{\beta})+\varepsilon_i$$
+
+em que $\mathbf{X}_i$ é o vetor dos valores observados das variáveis preditoras para o $i$-ésimo caso:
+
+$$\mathbf{X_i}_{p\times 1}=\left(
+\begin{array}{c}
+1\\
+X_{i,1}\\
+\vdots\\
+X_{i,p-1}
+\end{array}
+\right)
+$$
+
+e $\boldsymbol{\beta}$ \e o vetor de coeficientes.
+
+No caso de regressão linear, temos que:
+
+$$f(\mathbf{X}_i,\boldsymbol{\beta})=\mathbf{X_i}^T\boldsymbol{\beta}$$
+
+
+## Introdução
+
+Regressão não-linear:
+
+$$Y_i=f(\mathbf{X}_i,\boldsymbol{\gamma})+\varepsilon_i$$
+
+
+Exemplos:
+
+$$Y_i=\gamma_0\exp(\gamma_1X_i)+\varepsilon_i$$
+
+$$Y_i=\gamma_0+\gamma_1\exp(\gamma_2X_i)+\varepsilon_i$$
+
+$$Y_i=\frac{\gamma_0}{1+\gamma_1\exp(\gamma_2X_i)}+\varepsilon$$
+
+
+## Exemplo
+
+$$E(Y)=100-50\exp(-2X)$$
+
+```{r,echo=FALSE,fig.align='center', fig.width=4.5,fig.height=4.5,warning=FALSE,message=FALSE}
+library(latex2exp)
+curve(100-50*exp(-2*x),xlab=TeX('$X$'),ylab=TeX('E(Y)$'),xlim=c(0,4),col="blue")
+```
+
+
+## Exemplo
+
+$$E(Y)=\frac{10}{1+20\exp(-2X)}$$
+
+```{r,echo=FALSE,fig.align='center', fig.width=4.5,fig.height=4.5}
+curve(10/(1+20*exp(-2*x)),xlab=TeX('$X$'),ylab=TeX('E(Y)$'),xlim=c(0,4),col="blue")
+```
+
+
+## Exemplo
+
+$$E(Y)=100-50\exp(-2X)$$
+
+```{r,echo=FALSE,fig.align='center', fig.width=5,fig.height=5}
+library(latex2exp)
+curve(100-50*exp(-2*x),xlab=TeX('$X$'),ylab=TeX('E(Y)$'),xlim=c(0,4),col="blue")
+```
+
+
+## Regressão Não-linear
+
+No caso linear, o número de parâmetros é igual ao número de elementos em $\mathbf{X}_i$, no caso não-linear não temos, necessariamente, esta relação.
+
+$$Y_i=f(\mathbf{X}_i,\boldsymbol{\gamma})+\varepsilon_i$$
+
+$$\mathbf{X_i}_{q\times 1}=\left(
+\begin{array}{c}
+X_{i,1}\\
+\vdots\\
+X_{i,q}
+\end{array}
+\right)
+$$
+
+
+$$\boldsymbol{\gamma}_{p\times 1}=\left(
+\begin{array}{c}
+\gamma_0\\
+\gamma_1\\
+\vdots\\
+\gamma_{p-1}
+\end{array}
+\right)
+$$
+
+
+## Exemplo - Pacientes {.smaller}
+
+$X$: dias de hospitalização
+
+$Y$: prognóstico
+
+```{r,echo=FALSE}
+dados <- read.table("dados/CH13TA01.txt")
+names(dados) <- c("Y","X")
+dados
+```
+
+Modelo proposto: $Y_i=\gamma_0\exp(\gamma_1X_i)+\varepsilon_i$.
+
+## Exemplo - Pacientes 
+
+$\hat{Y}_i=58.6065\exp(-0.03959X_i)+\varepsilon_i$.
+
+
+```{r,echo=FALSE,fig.align='center', fig.width=4.5,fig.height=4.5}
+plot(y=dados$Y,x=dados$X,xlab="Dias hospitalizado",ylab="Prognóstico")
+curve(58.6065*exp(-0.03959*x),xlim=c(0,70),col="blue",add=TRUE)
+```
+
+
+## Mínimos Quadrados
+
+Relembrando, no modelo linear simples:
+
+$$S=\sum_{i=1}^n\varepsilon_i^2 = \sum_{i=1}^n (Y_i-\beta_0-\beta_1X_i)^2$$
+
+No modelo não-linear:
+
+$$S=\sum_{i=1}^n[Y_i-f(\mathbf{X}_i,\boldsymbol{\gamma})]^2$$
+
+Queremos minimizar $S$ com relação a $\gamma_0,\gamma_1,\ldots,\gamma_{p-1}$.
+
+## Mínimos Quadrados {.smaller}
+
+$$\frac{\partial S}{\partial\gamma_k}=\sum_{i=1}^n-2[Y_i-f(\mathbf{X}_i,\boldsymbol{\gamma})]\left[\frac{\partial f(\mathbf{X}_i,\boldsymbol{\gamma})}{\partial\gamma_k}\right]$$
+
+Igualando as $p$ derivadas parciais a zero e substituindo os parâmetros $\gamma_k$ pelas estimativas $g_k$, temos as $p$ equações normais:
+
+$$\sum_{i=1}^nY_i\left[\frac{\partial f(\mathbf{X}_i,\boldsymbol{\gamma})}{\partial\gamma_k}\right]_{\boldsymbol{\gamma}=\mathbf{g}}-\sum_{i=1}^nf(\mathbf{X}_i,\mathbf{g})\left[\frac{\partial f(\mathbf{X}_i,\boldsymbol{\gamma})}{\partial\gamma_k}\right]_{\boldsymbol{\gamma}=\mathbf{g}}=0\quad k=0,1,\ldots,p-1$$
+
+em que $\mathbf{g}$ é o vetor de estimativas por mínimos quadrados:
+
+$$\mathbf{g}_{p\times 1}=\left(
+\begin{array}{c}
+g_0\\
+g_1\\
+\vdots\\
+g_{p-1}
+\end{array}
+\right)
+$$
+
+## Exemplo - Pacientes 
+
+$$Y_i=\gamma_0\exp(\gamma_1X_i)+\varepsilon_i$$
+
+$$f(\mathbf{X}_i,\boldsymbol{\gamma})=\gamma_0\exp(\gamma_1X_i)$$
+
+$$\frac{\partial f(\mathbf{X}_i,\boldsymbol{\gamma})}{\partial\gamma_0}=\exp(\gamma_1X_i)$$
+
+$$\frac{\partial f(\mathbf{X}_i,\boldsymbol{\gamma})}{\partial\gamma_1}=\gamma_0X_i \exp(\gamma_1X_i)$$
+
+## Exemplo - Pacientes 
+
+Equações normais:
+
+$$\sum_{i=1}^nY_i\left[\frac{\partial f(\mathbf{X}_i,\boldsymbol{\gamma})}{\partial\gamma_k}\right]_{\boldsymbol{\gamma}=\mathbf{g}}-\sum_{i=1}^nf(\mathbf{X}_i,\mathbf{g})\left[\frac{\partial f(\mathbf{X}_i,\boldsymbol{\gamma})}{\partial\gamma_k}\right]_{\boldsymbol{\gamma}=\mathbf{g}}=0\quad k=0,1$$
+
+Temos:
+
+$$\sum_{i=1}^nY_i\exp(g_1X_i)-\sum_{i=1}^ng_0\exp(g_1X_i)\exp(g_1X_i)=0$$
+
+$$\sum_{i=1}^nY_ig_0X_i\exp(g_1X_i)-\sum_{i=1}^ng_0\exp(g_1X_i)g_0X_i\exp(g_1X_i)=0$$
+
+
+## Exemplo - Pacientes 
+
+Simplificando:
+
+$$\sum_{i=1}^nY_i\exp(g_1X_i)-g_0\sum_{i=1}^n\exp(2g_1X_i)=0$$
+
+$$\sum_{i=1}^nY_iX_i\exp(g_1X_i)-g_0\sum_{i=1}^nX_i\exp(2g_1X_i)=0$$
+
+As equações normais não são lineares com relação a $g_0$ e $g_1$ e não possuem solução com forma fechada. Métodos numéricos devem ser empregados para obter a solução.
+
+## Exemplo - Pacientes 
+
+```{r,echo=TRUE}
+m <- nls(Y~gamma0*exp(gamma1*X),data=dados,start=list(gamma0=56.6646,gamma1=-0.03797))
+summary(m)$coef
+```
+
+## Exemplo - Pacientes {.smaller}
+
+```{r,echo=FALSE,fig.align='center', fig.width=5,fig.height=5}
+plot(y=dados$Y,x=dados$X,xlab="Dias hospitalizado",ylab="Prognóstico")
+lines(x=dados$X,predict(m),col="red",lty=2,lwd=3)
+```
+
+## Exemplo - Pacientes
+
+Para obter os valores iniciais, note que podemos linearizar:
+
+$$\log_e\gamma_0[\exp(\gamma_1X_i)]=\log_e\gamma_0+\gamma_1X_1$$
+
+$$Y^*_i=\beta_0+\beta_1X_i+\varepsilon_i$$
+
+em que $Y^*_i=\log_eY_i$, $\beta_0=\log_e\gamma_0$ e $\beta_1=\gamma_1$.
+
+```{r,echo=TRUE}
+modeloL <- lm(log(Y) ~ X,data=dados)
+summary(modeloL)$coef
+```
+
+$g_0^{(0)}=\exp(\hat{\beta}_0)=`r round(exp(coef(modeloL)[1]),3)`$ e $g_1^{(0)}=\hat{\beta}_1=`r round(coef(modeloL)[2],3)`$.
+
+
+
+## Leitura
+
+* Applied Linear Statistical Models: Seções 13.1-13.4.
+
+* Draper & Smith - [Applied Regression Analysis](http://onlinelibrary.wiley.com/book/10.1002/9781118625590): Capítulo 24.
+
+* [Nonlinear Regression and Nonlinear Least Squares in R](https://socserv.socsci.mcmaster.ca/jfox/Books/Companion/appendix/Appendix-Nonlinear-Regression.pdf)
+
