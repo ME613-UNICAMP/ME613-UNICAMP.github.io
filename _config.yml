@@ -22,7 +22,7 @@ description: Análise de Regressão
 navbar-links:
   Sobre: "sobre"
   Aulas:
-    - Parte 01:
+    - Parte 01: "aulas_pdf/parte01.pdf"
     - Parte 02:
     - Parte 03:
 
