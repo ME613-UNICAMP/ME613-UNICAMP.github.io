@@ -312,7 +312,7 @@ $$\hat{Y}_i=\hat{E}(Y\mid X=X_i)=\hat{\beta}_0+\hat{\beta}_1X_i=\bar{Y}+\hat{\be
 
 ## Dados de Galton - estimação por mínimos quadrados
 
-```{r, fig.height=5, fig.width=8, echo=FALSE,fig.align='center'}
+```{r, fig.height=5, fig.width=8, echo=FALSE,fig.align='center', message=FALSE, warning=FALSE}
 library(UsingR)
 data(galton)
 library(dplyr); library(ggplot2)
