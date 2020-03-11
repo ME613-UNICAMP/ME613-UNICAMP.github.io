@@ -18,10 +18,10 @@ subtitle:
 
 - PAD: Bruna Caroline Dias Silva
 
-    |      Dia      | Início |  Fim  | Sala | Unidade |
-    |:-------------:|:------:|:-----:|:----:|:-------:|
-    | Segunda-feira |  13h00 | 14h00 |  123 |  IMECC  |
-    |  Quarta-feira |  18h00 | 19h00 |  324 |  IMECC  |
+|      Dia      | Início |  Fim  | Sala | Unidade |
+|:-------------:|:------:|:-----:|:----:|:-------:|
+| Segunda-feira |  13h00 | 14h00 |  123 |  IMECC  |
+|  Quarta-feira |  18h00 | 19h00 |  324 |  IMECC  |
 
 ### Bibliografia
 
