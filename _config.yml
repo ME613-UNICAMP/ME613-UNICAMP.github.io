@@ -20,7 +20,7 @@ description: Análise de Regressão
 
 # List of links in the navigation bar
 navbar-links:
-  Sobre: "sobre"
+  Ementa: "ementa"
   Aulas:
     - Parte 01: "aulas_pdf/parte01.pdf"
     - Parte 02:

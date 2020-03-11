@@ -14,11 +14,10 @@ subtitle:
 - O aluno deverá proceder de forma respeitosa e honesta durante as provas bem como na resoluçãode qualquer outra atividade que seja parte da avaliação do curso.
 - O login usado para acessar o Moodle é intransferível, conforme [ConTIC-IN-01/2019](https://www.citic.unicamp.br/sites/default/files/normas/ConTIC-IN-01%202019%20-%20normas_uso_TIC.pdf).
 
-### Atendimentos PED
+### Atendimentos PAD
 
-- PED: (A determinar)
-- Dias: (A determinar)
-- Horário: (A determinar)
+- PAD: Bruna Caroline Dias Silva
+- Dias/Horários: Segundas (13h00 - 14h00); Quartas (18h00 - 19h00)
 - Local: (A determinar)
 
 ### Bibliografia
