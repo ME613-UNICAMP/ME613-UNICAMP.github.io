@@ -1,0 +1,23 @@
+---
+title: "ME613 - Atividades 01"
+author: "Benilton Carvalho"
+date: ""
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Informações
+
+As atividades devem ser realizadas pelos alunos como efetivação de aprendizado e preparação para as avaliações. Ao passo que o docente assume que as tarefas foram realizadas, os alunos não serão bonificados pela realização das mesmas. Este docente entende que a realização de atividades fora de sala de aula é essencial para a consolidação do aprendizado e que este é um pressuposto dos deveres dos alunos.
+
+
+## Exercícios
+
+1. Refaça as demonstrações apresentadas na Parte 1 do material de aula;
+2. Demonstre as propriedades dos estimadores de mínimos quadrados para $\beta_0$ e $\beta_1$;
+3. Selecione, aleatoriamente, 10 observações do conjunto de dados `Galton`, disponibilizado pelo pacote `UsingR`. Para a seleção das observações, utilize o comando `set.seed(<RA>)` (onde `<RA>` deve ser substituído pelo seu RA em modo numérico).
+    a. Com estas 10 observações, calcule manualmente (usando uma calculadora simples) os estimadores de $\beta_0$ e $\beta_1$ e suas variâncias;
+    b. Utilize o software R para calcular estas informações utilizando o comando `lm()` com o mesmo subconjunto de dados (com 10 observações).
