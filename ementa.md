@@ -17,8 +17,11 @@ subtitle:
 ### Atendimentos PAD
 
 - PAD: Bruna Caroline Dias Silva
-- Dias/Horários: Segundas (13h00 - 14h00); Quartas (18h00 - 19h00)
-- Local: (A determinar)
+
+    |      Dia      | Início |  Fim  | Sala | Unidade |
+    |:-------------:|:------:|:-----:|:----:|:-------:|
+    | Segunda-feira |  13h00 | 14h00 |  123 |  IMECC  |
+    |  Quarta-feira |  18h00 | 19h00 |  324 |  IMECC  |
 
 ### Bibliografia
 
