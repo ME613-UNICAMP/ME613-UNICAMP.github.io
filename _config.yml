@@ -23,7 +23,7 @@ navbar-links:
   Ementa: "ementa"
   Aulas:
     - Parte 01: "aulas_pdf/parte01.pdf"
-    - Parte 02:
+    - Parte 02: "aulas_pdf/parte02.pdf"
     - Parte 03:
   Atividades:
     - Parte 01: "atividades/parte01_atv.html"
