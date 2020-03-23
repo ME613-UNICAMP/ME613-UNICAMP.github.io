@@ -1,6 +1,6 @@
 ---
 title: "ME613 - Análise de Regressão"
-author: Samara F. Kiihl - IMECC - UNICAMP
+author: Benilton S Carvalho - 1S2020
 output:
   ioslides_presentation:
     widescreen: yes
@@ -669,6 +669,9 @@ Se nos testes e/ou gráficos de diagnóstico do modelo determinarmos que o mesmo
 
 > * Aplicar alguma transformação nos dados, de maneira que a regressão linear simples fique adequada.
 
+## Agradecimento
+
+* Slides criados por Samara F Kiihl / IMECC / UNICAMP
 
 
 ## Leitura
