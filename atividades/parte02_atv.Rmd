@@ -1,0 +1,27 @@
+---
+title: "ME613 - Atividades 02"
+author: "Benilton Carvalho"
+date: ""
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Informações
+
+As atividades devem ser realizadas pelos alunos como efetivação de aprendizado e preparação para as avaliações. Ao passo que o docente assume que as tarefas foram realizadas, os alunos não serão bonificados pela realização das mesmas. Este docente entende que a realização de atividades fora de sala de aula é essencial para a consolidação do aprendizado e que este é um pressuposto dos deveres dos alunos.
+
+
+## Exercícios
+
+1. Refaça as demonstrações apresentadas na Parte 2 do material de aula;
+2. Utilizando a hipótese de normalidade dos erros, determine os estimadores (por máxima verossimilhança) para $\beta_0$ e $\beta_1$;
+3. Utilizando o conjunto de dados "Toluca" (disponível no site da disciplina), determine manualmente (utilizando apenas uma calculadora):
+    a. O teste da hipótese $\beta_1 = 0$. O que esta hipótese significa? Qual é a sua decisão?
+    b. O teste da hipótese $\beta_0 = 80$. Qual é a sua decisão?
+    c. Construa o intervalo de confiança de 85% para $\beta_1$. Interprete seus achados.
+    d. Apresente o intervalo de confiança de 85% para a esperança do tempo de produção de um lote contendo 25 peças.
+    e. Apresente o intervalo de confiança de 85% para o tempo de produção de um novo lote de 25 peças.
+    f. Explique a diferença encontrada entre os itens d. e e.

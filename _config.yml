@@ -29,6 +29,7 @@ navbar-links:
     - Parte 03: "aulas_pdf/parte03.pdf"
   Atividades:
     - Parte 01: "atividades/parte01_atv.html"
+    - Parte 02: "atividades/parte02_atv.html"
   Dados:
     - Toluca: "dados/toluca.txt"
     - Bancos: "dados/bancos.txt"
