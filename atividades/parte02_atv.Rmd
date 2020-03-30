@@ -25,3 +25,4 @@ As atividades devem ser realizadas pelos alunos como efetivação de aprendizado
     d. Apresente o intervalo de confiança de 85% para a esperança do tempo de produção de um lote contendo 25 peças.
     e. Apresente o intervalo de confiança de 85% para o tempo de produção de um novo lote de 25 peças.
     f. Explique a diferença encontrada entre os itens d. e e.
+4. Refaça todos os exemplos dos slides referentes à Parte 02.
