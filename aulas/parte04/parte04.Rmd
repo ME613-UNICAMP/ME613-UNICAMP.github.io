@@ -1,6 +1,6 @@
 ---
 title: "ME613 - Análise de Regressão"
-author: Samara F. Kiihl - IMECC - UNICAMP
+author: Benilton S Carvalho - 1S2020
 output:
   ioslides_presentation:
     widescreen: yes
@@ -28,10 +28,14 @@ $X$: número de dias de treinamento recebido.
 
 $Y$: performance nas vendas.
 
-```{r,echo=FALSE}
+```{r,echo=FALSE, warning=FALSE, message=FALSE}
+library(kableExtra)
 dados <- read.table("./dados/CH03TA07.txt")
 colnames(dados) <- c("Days","Performance")
-dados
+knitr::kable(cbind(dados[1:5, ], dados[-(1:5),]),
+             booktabs=TRUE) %>% 
+  kable_styling() %>% 
+  add_header_above(c("Parte 1"=2, "Parte 2"=2))
 ```
 
 ## Exemplo: Treinamento e Performance
@@ -44,7 +48,7 @@ g = g + geom_point()
 g = g + xlab("Days")
 g = g + ylab("Performance")
 g = g + geom_smooth(method = "lm",se=FALSE)
-g
+g + theme_bw() + ggtitle("Treinamento vs. Performance")
 ```
 
 $$\hat{Y}=`r coef(modelo)[1]` + `r coef(modelo)[2]`X$$
@@ -53,33 +57,25 @@ $$\hat{Y}=`r coef(modelo)[1]` + `r coef(modelo)[2]`X$$
 
 Gráfico de resíduos: $e_i$ versus $\hat{Y}_i$.
 
-```{r,echo=FALSE,fig.align='center'}
+```{r,echo=FALSE,fig.align='center', warning=FALSE, message=FALSE}
 dados$fit <- fitted(modelo)
 dados$res <- resid(modelo)
-
-g = ggplot(dados, aes(x = fit, y = res))
-g = g + geom_point()
-g = g + xlab("Fitted")
-g = g + ylab("Residuals")+ geom_smooth(method = "loess",se=FALSE)
-g
+ggplot(dados, aes(x = fit, y = res)) +
+  geom_point() + xlab("Fitted") + ylab("Residuals") +
+  geom_smooth(method = "loess",se=FALSE) +
+  theme_bw() + ggtitle("Resíduos da Regressão")
 ```
 
 ## Exemplo: Treinamento e Performance
-
-$X'=\sqrt{X}$
 
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.align='center',fig.height=4}
 modelo2 <- lm(Performance ~ sqrt(Days),data=dados)
 dados$fit2 <- fitted(modelo2)
 dados$res2 <- resid(modelo2)
-
-g = ggplot(dados, aes(x = sqrt(Days), y = Performance))
-g = g + geom_point()
-g = g + xlab("X'")
-g = g + ylab("Performance")
-g = g + geom_smooth(method = "lm",se=FALSE)
-g
-
+ggplot(dados, aes(x = sqrt(Days), y = Performance)) +
+  geom_point() + xlab(expression(sqrt("Treinamento"))) + ylab("Performance") +
+  geom_smooth(method = "lm",se=FALSE) +
+  theme_bw() + ggtitle(expression(paste("Regressão de Performance vs. ", sqrt("Treinamento"))))
 ```
 
 $$\hat{Y}=`r round(coef(modelo2)[1],2)` + `r round(coef(modelo2)[2],2)`\sqrt{X}$$
@@ -87,14 +83,13 @@ $$\hat{Y}=`r round(coef(modelo2)[1],2)` + `r round(coef(modelo2)[2],2)`\sqrt{X}$
 
 ## Exemplo: Treinamento e Performance
 
-Gráfico de resíduos: $e_i$ versus $\hat{Y}_i$ usando $X'$ no modelo.
+Gráfico de resíduos: $e_i$ versus $\hat{Y}_i$ usando $\sqrt{\mbox{Treinamento}}$ no modelo.
 
-```{r,echo=FALSE,fig.align='center'}
-g = ggplot(dados, aes(x = fit2, y = res2))
-g = g + geom_point()
-g = g + xlab("Fitted")
-g = g + ylab("Residuals")+ geom_smooth(method = "loess",se=FALSE)
-g
+```{r,echo=FALSE,fig.align='center', warning=FALSE, message=FALSE}
+ggplot(dados, aes(x = fit2, y = res2)) + geom_point() +
+  xlab("Fitted") + ylab("Residuals") +
+  geom_smooth(method = "loess", se=FALSE) +
+  theme_bw()
 ```
 
 
@@ -116,9 +111,11 @@ $Y$: nível de poliamina no plasma
 
 
 ```{r,echo=FALSE}
-dados <- read.table("./dados/CH03TA08.txt")
+dados <- read.table("./dados/CH03TA08.txt")[, 1:2]
 colnames(dados) <- c("Idade","Poliamina")
-dados[,1:2]
+knitr::kable(cbind(dados[1:7,], dados[8:14,], dados[15:21,], dados[22:28,])) %>% 
+  kable_styling() %>% 
+  add_header_above(c("Parte 1"=2, "Parte 2"=2, "Parte 3"=2, "Parte 4"=2))
 ```
 
 ## Exemplo: Idade e nível de poliamina
@@ -126,29 +123,26 @@ dados[,1:2]
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.align='center'}
 modelo <- lm(Poliamina ~ Idade,data=dados)
 library(ggplot2)
-g = ggplot(dados, aes(x = Idade, y = Poliamina))
-g = g + geom_point()
-g = g + xlab("Idade")
-g = g + ylab("Poliamina")
-g = g + geom_smooth(method = "lm",se=FALSE)
-g
+ggplot(dados, aes(x = Idade, y = Poliamina)) +
+  geom_point() + xlab("Idade") + ylab("Poliamina") +
+  geom_smooth(method = "lm", se=FALSE) +
+  ggtitle("Poliamina vs. Idade") + theme_bw()
 ```
 
-$$\hat{Y}=`r coef(modelo)[1]` + `r coef(modelo)[2]`X$$
+$$\hat{Y}=`r coef(modelo)[1]` `r ifelse(coef(modelo)[2] > 0, "+", "-")` `r abs(coef(modelo)[2])`X$$
 
 ## Exemplo: Idade e nível de poliamina
 
 Gráfico de resíduos: $e_i$ versus $\hat{Y}_i$.
 
-```{r,echo=FALSE,fig.align='center'}
+```{r,echo=FALSE,fig.align='center', warning=FALSE, message=FALSE}
 dados$fit <- fitted(modelo)
 dados$res <- resid(modelo)
-
-g = ggplot(dados, aes(x = fit, y = res))
-g = g + geom_point()
-g = g + xlab("Fitted")
-g = g + ylab("Residuals")+ geom_smooth(method = "loess",se=FALSE)
-g
+ggplot(dados, aes(x = fit, y = res)) + geom_point() +
+  xlab("Fitted") + ylab("Residuals") +
+  geom_smooth(method = "loess", se=FALSE) +
+  ggtitle("Poliamina vs. Idade") +
+  theme_bw()
 ```
 
 
@@ -156,15 +150,13 @@ g
 
 Gráfico de resíduos: $e_i$ versus $X_i$.
 
-```{r,echo=FALSE,fig.align='center'}
+```{r,echo=FALSE,fig.align='center', warning=FALSE, message=FALSE}
 dados$fit <- fitted(modelo)
 dados$res <- resid(modelo)
-
-g = ggplot(dados, aes(x = Idade, y = res))
-g = g + geom_point()
-g = g + xlab("Idade")
-g = g + ylab("Residuals")+ geom_smooth(method = "loess",se=FALSE)
-g
+ggplot(dados, aes(x = Idade, y = res)) + geom_point() +
+  xlab("Idade") + ylab("Residuals") +
+  geom_smooth(method = "loess", se=FALSE) +
+  ggtitle("Poliamina vs. Idade") + theme_bw()
 ```
 
 
@@ -178,41 +170,36 @@ modelo2 <- lm(log10(Poliamina) ~ Idade,data=dados)
 dados$fit2 <- fitted(modelo2)
 dados$res2 <- resid(modelo2)
 
-g = ggplot(dados, aes(x = Idade, y = log10(Poliamina)))
-g = g + geom_point()
-g = g + xlab("Idade")
-g = g + ylab("Y")
-g = g + geom_smooth(method = "lm",se=FALSE)
-g
-
+ggplot(dados, aes(x = Idade, y = log10(Poliamina))) +
+  geom_point() + xlab("Idade") + ylab("Y") +
+  geom_smooth(method = "lm",se=FALSE) +
+  ggtitle("log10(Poliamina) vs. Idade") +
+  theme_bw()
 ```
 
-$$\hat{Y'}=`r round(coef(modelo2)[1],2)` + `r round(coef(modelo2)[2],2)`X$$
+$$\hat{Y'}=`r round(coef(modelo2)[1],2)` `r ifelse(coef(modelo2)[2] > 0, "+", "-")` `r abs(round(coef(modelo2)[2],2))`X$$
 
 
 ## Exemplo: Idade e nível de poliamina
 
 Gráfico de resíduos: $e_i$ versus $\hat{Y'}_i$ usando $Y'$ no modelo.
 
-```{r,echo=FALSE,fig.align='center'}
-g = ggplot(dados, aes(x = fit2, y = res2))
-g = g + geom_point()
-g = g + xlab("Fitted")
-g = g + ylab("Residuals")+ geom_smooth(method = "loess",se=FALSE)
-g
+```{r,echo=FALSE,fig.align='center', warning=FALSE, message=FALSE}
+ggplot(dados, aes(x = fit2, y = res2)) +
+  geom_point() + xlab("Fitted") + ylab("Residuals") +
+  geom_smooth(method = "loess", se=FALSE) +
+  ggtitle("Poliamina e Idade") + theme_bw()
 ```
 
 ## Exemplo: Idade e nível de poliamina
 
 Gráfico de resíduos: $e_i$ versus $X_i$.
 
-```{r,echo=FALSE,fig.align='center'}
-
-g = ggplot(dados, aes(x = Idade, y = res2))
-g = g + geom_point()
-g = g + xlab("Idade")
-g = g + ylab("Residuals")+ geom_smooth(method = "loess",se=FALSE)
-g
+```{r,echo=FALSE,fig.align='center', warning=FALSE, message=FALSE}
+ggplot(dados, aes(x = Idade, y = res2)) +
+  geom_point() + xlab("Idade") + ylab("Residuals") +
+  geom_smooth(method = "loess", se=FALSE) +
+  ggtitle("Poliamina vs. Idade") + theme_bw()
 ```
 
 ## Algumas transformações em $Y$ {.build}
@@ -245,6 +232,11 @@ $$Y_i^{\lambda}=\beta_0+\beta_1X_i+\varepsilon_i$$
 
 * O procedimento de Box-Cox utiliza o método de máxima verossimilhança para estimar $\lambda$.
 
+
+
+## Agradecimento
+
+* Slides criados por Samara F Kiihl / IMECC / UNICAMP
 
 
 
