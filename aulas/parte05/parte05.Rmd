@@ -1,6 +1,6 @@
 ---
 title: "ME613 - Análise de Regressão"
-author: Samara F. Kiihl - IMECC - UNICAMP
+author: Benilton S Carvalho - 1S2020
 output:
   ioslides_presentation:
     widescreen: yes
@@ -371,6 +371,9 @@ SQReg&=&(\mathbf{HY})^T\mathbf{HY}-\frac{1}{n}\mathbf{Y}^T\mathbf{1}\mathbf{1}^T
 &=&\mathbf{Y}^T\left[ \mathbf{H}-\frac{1}{n}\mathbf{1}\mathbf{1}^T \right]\mathbf{Y}
 \end{eqnarray}$$
 
+## Agradecimento
+
+* Slides criados por Samara F Kiihl / IMECC / UNICAMP
 
 ## Leitura
 
