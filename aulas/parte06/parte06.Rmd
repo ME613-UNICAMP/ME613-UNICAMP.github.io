@@ -1,6 +1,6 @@
 ---
 title: "ME613 - Análise de Regressão"
-author: Samara F. Kiihl - IMECC - UNICAMP
+author: Benilton S Carvalho - 1S2020
 output:
   ioslides_presentation:
     widescreen: yes
@@ -271,7 +271,7 @@ require(datasets); data(swiss); require(GGally); require(ggplot2)
 my_fn <- function(data, mapping, method="loess", ...){
       p <- ggplot(data = data, mapping = mapping) + 
       geom_point() + 
-      geom_smooth(method=method, ...)
+      geom_smooth(method=method, ...) + theme_bw()
       p
     }
 
@@ -320,7 +320,7 @@ Ao considerarmos outras variáveis no modelo, o sinal do efeito de uma dada vari
 
 ## Simulação
 
-```{r, echo = TRUE}
+```{r, echo = TRUE, message=FALSE, warning=FALSE}
 n <- 100
 x2 <- 1 : n
 x1 <- .01 * x2 + runif(n, -.1, .1)
@@ -332,12 +332,12 @@ summary(lm(y ~ x1 + x2))$coef
 
 ## Simulação
 
-```{r, echo = FALSE, fig.height=4.5, fig.width=10, results = 'show'}
+```{r, echo = FALSE, fig.height=4.5, fig.width=10, results = 'show', message=FALSE, warning=FALSE}
 dat = data.frame(y = y, x1 = x1, x2 = x2, ey = resid(lm(y ~ x2)), ex1 = resid(lm(x1 ~ x2)))
 library(ggplot2)
 g = ggplot(dat, aes(y = y, x = x1, colour = x2))
 g = g + geom_point(colour="grey50", size = 5) + geom_smooth(method = lm, se = FALSE, colour = "black") 
-g = g + geom_point(size = 4) 
+g = g + geom_point(size = 4)  + theme_bw()
 g
 ```
 
@@ -345,9 +345,9 @@ $Y$ e $X_1$ têm relação positiva (não ajustada). Note que $X_2$ também aume
 
 ## Simulação
 
-```{r, echo = FALSE, fig.height=4.5, fig.width=10, results = 'show'}
+```{r, echo = FALSE, fig.height=4.5, fig.width=10, results = 'show', message=FALSE, warning=FALSE}
 g2 = ggplot(dat, aes(y = ey, x = ex1, colour = x2))  
-g2 = g2 + geom_point(colour="grey50", size = 5) + geom_smooth(method = lm, se = FALSE, colour = "black") + geom_point(size = 4) +ylab("resid(lm(y ~ x2))")+xlab("resid(lm(x1 ~ x2))")
+g2 = g2 + geom_point(colour="grey50", size = 5) + geom_smooth(method = lm, se = FALSE, colour = "black") + geom_point(size = 4) +ylab("resid(lm(y ~ x2))")+xlab("resid(lm(x1 ~ x2))") + theme_bw()
 g2
 ```
 
@@ -368,7 +368,7 @@ swiss = mutate(swiss, CatholicBin = 1 * (Catholic > 50))
 ```{r, fig.height=5, fig.width=8, echo = FALSE,fig.align='center'}
 g = ggplot(swiss, aes(x = Agriculture, y = Fertility, colour = factor(CatholicBin)))
 g = g + geom_point(size = 6, colour = "black") + geom_point(size = 4)
-g = g + xlab("% in Agriculture") + ylab("Fertility")
+g = g + xlab("% in Agriculture") + ylab("Fertility") + theme_bw()
 g
 ```
 
@@ -558,6 +558,9 @@ Estatística do teste:
 
 $$t^*=\frac{\hat{\beta}_k}{\sqrt{\widehat{Var(\hat{\beta}_k)}}}\overset{\mbox{sob $H_0$}}{\sim}t_{n-p}$$
 
+## Agradecimento
+
+* Slides criados por Samara F Kiihl / IMECC / UNICAMP
 
 ## Leitura
 
