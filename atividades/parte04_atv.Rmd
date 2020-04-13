@@ -1,0 +1,20 @@
+---
+title: "ME613 - Atividades 04"
+author: "Benilton Carvalho"
+date: ""
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Informações
+
+As atividades devem ser realizadas pelos alunos como efetivação de aprendizado e preparação para as avaliações. Ao passo que o docente assume que as tarefas foram realizadas, os alunos não serão bonificados pela realização das mesmas. Este docente entende que a realização de atividades fora de sala de aula é essencial para a consolidação do aprendizado e que este é um pressuposto dos deveres dos alunos.
+
+
+## Exercícios
+
+1. Resolva os exercícios apontados na Parte 04;
+2. Resolva os exercícios C, E do capítulo 3 do livro [Draper, N. R., Smith, H. Applied Regression Analysis, 3rd Edition](http://onlinelibrary.wiley.com/doi/10.1002/9781118625590.ch3/pdf). Utilize apenas a calculadora.
