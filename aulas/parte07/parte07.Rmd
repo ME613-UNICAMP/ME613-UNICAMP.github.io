@@ -1,6 +1,6 @@
 ---
 title: "ME613 - Análise de Regressão"
-author: Samara F. Kiihl - IMECC - UNICAMP
+author: Benilton S Carvalho - 1S2020
 output:
   ioslides_presentation:
     widescreen: yes
@@ -602,6 +602,10 @@ lm.beta(modelo)
 ```
 
 Note que o comando apenas libera as estimativas (sem erro-padrão, testes, etc...)
+
+## Agradecimento
+
+* Slides criados por Samara F Kiihl / IMECC / UNICAMP
 
 ## Leitura
 
