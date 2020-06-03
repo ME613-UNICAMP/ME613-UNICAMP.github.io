@@ -1,6 +1,6 @@
 ---
 title: "ME613 - Análise de Regressão"
-author: Samara F. Kiihl - IMECC - UNICAMP
+author: Benilton S Carvalho - 1S2020
 output:
   ioslides_presentation:
     widescreen: yes
@@ -259,6 +259,10 @@ R <- matrix( c(0,1,0,
 q=matrix(c(2,1),ncol=1)
 linearHypothesis(modelo,R,q)
 ```
+
+## Agradecimento
+
+* Slides criados por Samara F Kiihl / IMECC / UNICAMP
 
 ## Leituras
 

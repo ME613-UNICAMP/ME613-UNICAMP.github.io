@@ -33,11 +33,13 @@ navbar-links:
     - Parte 07: "aulas_pdf/parte07.pdf"
     - Parte 08: "aulas_pdf/parte08.pdf"
     - Parte 09: "aulas_pdf/parte09.pdf"
+    - Parte 10: "aulas_pdf/parte10.pdf"
   Atividades:
     - Parte 01: "atividades/parte01_atv.html"
     - Parte 02: "atividades/parte02_atv.html"
     - Parte 03: "atividades/parte03_atv.html"
     - Parte 04: "atividades/parte04_atv.html"
+    - Parte 05: "atividades/parte05_atv.html"
   Dados:
     - Toluca: "dados/toluca.txt"
     - Bancos: "dados/bancos.txt"
