@@ -1,0 +1,58 @@
+---
+title: "Atividade 05"
+author: "Benilton Carvalho"
+date: "6/3/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Atividade 05 - COVID-19 na Região de Campinas e Estado de SP
+
+O conjunto de dados `spdata` presente no arquivo [spdata.rda](http://me613-unicamp.github.io/dados/spdata.rda) possui informações acerca do número acumulado de casos e óbitos confirmados em três diferentes níveis:
+
+  * Estado de SP
+  * Região Metropolitana de Campinas (RMC)
+  * Região Metropolitana de Campinas (RMC) + Piracicaba + Limeira: municípios atendidos por _campi_ da UNICAMP
+  * Municípios da RMC
+  
+Para carregar os dados, você precisará utilizar o pacote `tidyverse`, como sugerido abaixo:
+
+```{r, message=FALSE, warning=FALSE}
+library(tidyverse)
+load("../dados/spdata.rda")
+```
+
+```{r, message=FALSE, warning=FALSE, echo=FALSE}
+knitr::kable(spdata %>% head())
+```
+
+Para obter dados de um município, você pode aplicar filtros utilizando a coluna `city`. Por exemplo, para os casos e óbitos ocorridos em Jundiaí:
+
+```{r}
+spdata %>% filter(city == "Jundiaí") %>% head() %>%  knitr::kable()
+```
+
+Estas informações podem ser utilizadas para compor os gráficos de casos e óbitos acumulados:
+
+```{r}
+library(ggplot2)
+spdata %>% filter(city == "Jundiaí") %>% 
+  ggplot(aes(date, confirmed)) + geom_point() + theme_bw() +
+  xlab("Data") + ylab("Casos confirmados até a data") + ggtitle("Casos Confirmados")
+spdata %>% filter(city == "Jundiaí") %>% 
+  ggplot(aes(date, deaths)) + geom_point() + theme_bw() +
+  xlab("Data") + ylab("Óbitos confirmados até a data") + ggtitle("Óbitos Confirmados")
+```
+
+## Questões
+
+1. Escolha três municípios (ou regiões) de interesse;
+2. Apresente um modelo de regressão para *casos acumulados* para cada uma das escolhas acima;
+3. Apresente um modelo de regressão para *óbitos acumulados* para cada uma das escolhas acima;
+4. Apresente um modelo de regressão para *casos diários* para cada uma das escolhas acima;
+5. Apresente um modelo de regressão para *óbitos diários* para cada uma das escolhas acima;
+6. Apresente o código necessário para a realização de todas as atividades aqui descritas.
+
