@@ -1,6 +1,6 @@
 ---
 title: "ME613 - Análise de Regressão"
-author: Samara F. Kiihl - IMECC - UNICAMP
+author: Benilton S Carvalho - 1S2020
 output:
   ioslides_presentation:
     widescreen: yes
@@ -488,6 +488,9 @@ library(car)
 vif(modelo2)
 ```
 
+## Agradecimento
+
+* Slides criados por Samara F Kiihl / IMECC / UNICAMP
 
 
 ## Leitura
