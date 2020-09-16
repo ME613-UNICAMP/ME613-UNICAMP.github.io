@@ -20,9 +20,7 @@ description: Análise de Regressão
 
 # List of links in the navigation bar
 navbar-links:
-  Ementa:
-    - Original: "ementa"
-    - Pandemia: "ementa_covid19"
+  Ementa: "ementa_covid19"
   Aulas:
     - Parte 01: "aulas_pdf/parte01.pdf"
     - Parte 02: "aulas_pdf/parte02.pdf"
