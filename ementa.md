@@ -1,8 +1,5 @@
 ---
-title: "Ementa ME613 - Análise de Regressão - 2S 2020"
-output:
-  html_document:
-    df_print: paged
+title: ""
 layout: page
 ---
 
@@ -28,7 +25,7 @@ layout: page
 |  |   |  |   |  IMECC  |
 
 
-- PAD: Giovanni Torres Chaves 
+- PAD: Giovanni Torres Chaves
 
 |      Dia      | Início |  Fim  | Sala | Unidade |
 |:-------------:|:------:|:-----:|:----:|:-------:|
@@ -89,5 +86,5 @@ Para acessar alguns dos livros digitais fora da Unicamp, você poderá precisar 
 * Avaliações
      - As avaliações acontecerão com o apoio de recursos eletrônicos (incluindo, mas não restritos a, Moodle, GradeScope e Zoom), nos dias e horários indicados;
 
-* Expectativas dos Professores com respeito aos Alunos : 
+* Expectativas dos Professores com respeito aos Alunos :
      - Os alunos deverão manter uma rotina de estudo individual dos materiais disponibilizados (slides, slides com comentários, atividades, referências, além das atividades apontadas no fim de cada bloco de slides).
