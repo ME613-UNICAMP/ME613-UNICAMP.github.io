@@ -21,16 +21,16 @@ layout: page
 
 |      Dia      | Início |  Fim  | Sala | Unidade |
 |:-------------:|:------:|:-----:|:----:|:-------:|
-|  |   |  |   |  IMECC  |
-|  |   |  |   |  IMECC  |
+| Terças-feiras | 12h00  | 13h00 | Vídeo  |  [Link](https://meet.google.com/qqq-bavq-mbk)  |
+| Quintas-feiras| 12h00  | 13h00 | Vídeo  |  [Link](https://meet.google.com/qqq-bavq-mbk)  |
 
 
 - PAD: Giovanni Torres Chaves
 
 |      Dia      | Início |  Fim  | Sala | Unidade |
 |:-------------:|:------:|:-----:|:----:|:-------:|
-|  |   |  |   |  IMECC  |
-|  |   |  |   |  IMECC  |
+| Segundas-feiras | 12h00  | 13h00 | Vídeo  |  [Link](https://meet.google.com/qqq-bavq-mbk)  |
+| Quartas-feiras| 12h00  | 13h00 | Vídeo  |  [Link](https://meet.google.com/qqq-bavq-mbk)  |
 
 
 ### Bibliografia
