@@ -43,10 +43,10 @@ Para acessar alguns dos livros digitais fora da Unicamp, você poderá precisar 
 
 ### Critérios de Avaliação e Datas Importantes
 
-- **Prova 1 (P1)**: 10 de outubro  de 2020
+- **Prova 1 (P1)**: 19 de outubro  de 2020
 - **Prova 2 (P2)**: 23 de dezembro de 2020
-- **Trabalho Final - Parte 1 (T1)**: 06 de janeiro de 2021
-- **Trabalho Final - Parte 2 (T2)**: 18 de janeiro de 2021
+- **Trabalho Final - Parte 1 (T1) - Entrega**: 06 de janeiro de 2021
+- **Trabalho Final - Parte 2 (T2) - Prova**: 18 de janeiro de 2021
 - **Exame Final**: 25 de janeiro de 2021
 
 1. A nota do trabalho (T) será data pela médias arimética entre as notas atribuídas as parte 1 e parte 2: T = (T1 + T2)/2

@@ -38,7 +38,8 @@ subtitle:
 |         Recesso        	|         	|          	|                                                             	|                	|
 |                   26   	| Segunda 	|  1/4/21  	|  Gráficos de Regressão   Parcial                            	|  Parte 12 - A  	|
 |                   27   	| Quarta  	|  1/6/21  	|  Outliers                                                   	|  Parte 12 - B  	|
+|                   27   	| Quarta  	|  1/6/21  	|  Trabalho Final - Parte 1 - Entrega                                               	|  	|
 |                   28   	| Segunda 	|  1/11/21 	|  Observações Influentes   / Inflação da Variância           	|  Parte 12 - C  	|
 |                   29   	| Quarta  	|  1/13/21 	|  Regressão não   linear                                     	|    Parte 13    	|
-|                   30   	| Segunda 	|  1/18/21 	|  Avaliação do   Trabalho (Parte 2)                          	|                	|
+|                   30   	| Segunda 	|  1/18/21 	|  Trabalho Final - Parte 2 - Prova                         	|                	|
 |          Exame         	| Segunda 	|  1/25/21 	|  Exame                                                      	|                	|
