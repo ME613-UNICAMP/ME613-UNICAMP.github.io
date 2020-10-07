@@ -1,6 +1,6 @@
 ---
 title: "ME613 - Análise de Regressão"
-author: Benilton S Carvalho - 1S2020
+author: Benilton S Carvalho - 2S2020
 output:
   ioslides_presentation:
     widescreen: yes
@@ -68,6 +68,17 @@ ggplot(dados, aes(x = fit, y = res)) +
 
 ## Exemplo: Treinamento e Performance
 
+Gráfico de resíduos: $e_i$ versus $X_i$.
+
+```{r,echo=FALSE,fig.align='center', warning=FALSE, message=FALSE}
+ggplot(dados, aes(x = Days, y = res)) +
+  geom_point() + xlab("Days") + ylab("Residuals") +
+  geom_smooth(method = "loess",se=FALSE) +
+  theme_bw() + ggtitle("Resíduos da Regressão")
+```
+
+## Exemplo: Treinamento e Performance
+
 ```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.align='center',fig.height=4}
 modelo2 <- lm(Performance ~ sqrt(Days),data=dados)
 dados$fit2 <- fitted(modelo2)
@@ -88,6 +99,17 @@ Gráfico de resíduos: $e_i$ versus $\hat{Y}_i$ usando $\sqrt{\mbox{Treinamento}
 ```{r,echo=FALSE,fig.align='center', warning=FALSE, message=FALSE}
 ggplot(dados, aes(x = fit2, y = res2)) + geom_point() +
   xlab("Fitted") + ylab("Residuals") +
+  geom_smooth(method = "loess", se=FALSE) +
+  theme_bw()
+```
+
+## Exemplo: Treinamento e Performance
+
+Gráfico de resíduos: $e_i$ versus $X_i$ usando $\sqrt{\mbox{Treinamento}}$ no modelo.
+
+```{r,echo=FALSE,fig.align='center', warning=FALSE, message=FALSE}
+ggplot(dados, aes(x = sqrt(Days), y = res2)) + geom_point() +
+  xlab(expression(sqrt(Days))) + ylab("Residuals") +
   geom_smooth(method = "loess", se=FALSE) +
   theme_bw()
 ```
