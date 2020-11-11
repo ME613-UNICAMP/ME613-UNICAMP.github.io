@@ -1,9 +1,10 @@
 ---
 title: "ME613 - Análise de Regressão"
-author: Benilton S Carvalho - 1S2020
+author: "Benilton S Carvalho e Rafael P Maia - 2S2020"
 output:
   ioslides_presentation:
     widescreen: yes
+  beamer_presentation: default
 subtitle: Parte 6
 logo: ../logo-imecc.png
 ---

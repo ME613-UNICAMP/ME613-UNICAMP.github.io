@@ -19,61 +19,25 @@ logo: ../logo-imecc.png
 
 * Em resumo, a soma extra de quadrados pode nos auxiliar na decisão de inclusão ou retirada de variáveis no modelo.
 
-## Exemplo
-
-Relação entre gordura corporal e 3 medidas corporais.
-
-<center>
-<img src="figuras/exa.png" width=800>
-</center>
+## Exemplo - Relação entre gordura corporal e 3 medidas corporais.
 
 
-## Exemplo: Regressão de $Y$ em $X_1$
-
-<center>
-<img src="figuras/exb.png" width=800>
-</center>
-
-$$SQReg(X_1)=352.27$$
-
-$$SQE(X_1)=143.12$$
-
-
-
-## Exemplo: Regressão de $Y$ em $X_1$
-
-
-```{r,echo=TRUE}
+```{r, echo=TRUE}
 dat = read.table('./dados/fat.txt')
 colnames(dat) <- c("X1","X2","X3","Y")
-X1 = dat[,1]
-X2 = dat[,2]
-X3 = dat[,3]
-Y = dat[,4]
-
-modelo1 <- lm(Y ~X1)
-summary(modelo1)$coefficients
+str(dat)
 ```
-
-
+$Y$: taxa de gordura corporal;  $X1$:  Espessura da dobra cutânea do tríceps; $X2$: Circunferência da coxa; e $X3$: Circunferência do meio do braço
 
 ## Exemplo: Regressão de $Y$ em $X_1$
 
+
 ```{r,echo=TRUE}
+attach(dat)
+modelo1 <- lm(Y ~X1)
+summary(modelo1)$coefficients
 anova(modelo1)
 ```
-
-
-## Exemplo: Regressão de $Y$ em $X_2$
-
-<center>
-<img src="figuras/exc.png" width=800>
-</center>
-
-$$SQReg(X_2)=381.97$$
-
-$$SQE(X_2)=113.42$$
-
 
 ## Exemplo: Regressão de $Y$ em $X_2$
 
@@ -83,20 +47,6 @@ summary(modelo2)$coefficients
 anova(modelo2)
 ```
 
-
-
-## Exemplo: Regressão de $Y$ em $X_1$ e $X_2$
-
-<center>
-<img src="figuras/exd.png" width=800>
-</center>
-
-$$SQReg(X_1,X_2)=385.44$$
-
-$$SQE(X_1,X_2)=109.95$$
-
-
-
 ## Exemplo: Regressão de $Y$ em $X_1$ e $X_2$ {.smaller}
 
 ```{r,echo=TRUE}
@@ -104,26 +54,23 @@ modelo12 <- lm(Y ~ X1 + X2)
 summary(modelo12)$coefficients
 anova(modelo12)
 ```
-
-## Exemplo: Regressão de $Y$ em $X_1$ e $X_2$ {.smaller}
-
-```{r,echo=TRUE}
-SQReg <- sum(anova(modelo12)[1:2,2])
-SQReg
-```
-
-
 ## Exemplo: Soma extra de quadrados
 
 Quando ambos $X_1$ e $X_2$ estão no modelo, temos que $SQE(X_1,X_2)=109.95$, que é menor do que com apenas $X_1$ no modelo, $SQE(X_1)=143.12$.
 
 Esta diferença é denominada **soma extra de quadrados**:
 
-$$SQReg(X_2\mid X_1) = SQE(X_1)-SQE(X_1,X_2)=143.12-109.95=33.17$$
+$$\begin{eqnarray}
+SQReg(X_2\mid X_1) &=& SQE(X_1)-SQE(X_1,X_2)\\
+                   &=& 143.12-109.95=33.17
+\end{eqnarray}$$
 
 Equivalentemente:
 
-$$SQReg(X_2\mid X_1) = SQReg(X_1,X_2)-SQReg(X_1)=385.44-352.27=33.17$$
+$$\begin{eqnarray}
+SQReg(X_2\mid X_1) &=& SQReg(X_1,X_2)-SQReg(X_1) \\
+                   &=& 385.44-352.27=33.17
+\end{eqnarray}$$
 
 
 ## Exemplo: Soma extra de quadrados
@@ -240,9 +187,14 @@ $$SQReg(X_1,X_2)=SQReg(X_2)+SQReg(X_1\mid X_2)$$
 
 Se temos $X_1$, $X_2$ e $X_3$ no modelo, podemos escrever, por exemplo:
 
-$$SQReg(X_1,X_2,X_3)=SQReg(X_1)+SQReg(X_2\mid X_1)+SQReg(X_3\mid X_1,X_2)$$
+$$\begin{eqnarray}
+SQReg(X_1,X_2,X_3)&=&SQReg(X_1)+SQReg(X_2\mid X_1)\\
+&+&SQReg(X_3\mid X_1,X_2)
+\end{eqnarray}$$
 
-$$SQReg(X_1,X_2,X_3)=SQReg(X_2)+SQReg(X_3\mid X_2)+SQReg(X_1\mid X_2,X_3)$$
+$$\begin{eqnarray}
+SQReg(X_1,X_2,X_3) &=& SQReg(X_2)+SQReg(X_3\mid X_2) \\
+&+&SQReg(X_1\mid X_2,X_3) \end{eqnarray}$$
 
 $$SQReg(X_1,X_2,X_3)=SQReg(X_1)+SQReg(X_2,X_3\mid X_1)$$
 
@@ -265,7 +217,8 @@ Equivalentemente, podemos utilizar soma extra de quadrados para o mesmo teste de
 Estatística do teste:
 
 $$\begin{eqnarray}
-F^*&=&\frac{SQReg(X_k\mid X_1,\ldots, X_{k-1},X_{k+1},\ldots,X_{p-1})}{1}\div\frac{SQE(X_1,\ldots,X_{p-1})}{n-p}\\
+F^*=
+&&\frac{SQReg(X_k\mid X_1,\ldots, X_{k-1},X_{k+1},\ldots,X_{p-1})}{1}\div\frac{SQE(X_1,\ldots,X_{p-1})}{n-p}\\
 &\overset{\mbox{sob $H_0$}}{\sim}&F_{1,n-p}
 \end{eqnarray}$$
 
