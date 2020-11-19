@@ -16,51 +16,166 @@ library(readr)
 library(knitr)
 library(kableExtra)
 library(latex2exp)
+library(readxl)
 ```
 
 # Modelo de Regressão Polinomial
 
-## Introdução {.build}
+## Introdução 
 
 Podemos considerar funções polinomiais como um caso particular do modelo de regressão linear já visto.
 
-## Modelo com um preditor - segunda ordem {.build}
+Por exemplo, quando temos uma única variável preditora, podemos escrever $Y$ como um função polinomial de $X$ de grau $q$.
 
-$$Y=\beta_0+\beta_1X_*+\beta_2X_*^2+\varepsilon$$
+$$Y=\beta_0+\beta_1X+\beta_2X^2+\dots+\beta_2X^q + \varepsilon$$
 
-em que $X_*=X-\bar{X}$.
+## Regressão Polinomial - Multicolinearidade
 
-Função de resposta quadrática.
+Em regressão polinomial a matriz desenho do modelo $\mathbf{X}$ é formada por colunas que são potências de uma mesma variável; 
 
-$\beta_0$: valor esperado de $Y$ quando $X_*$ é zero, isto é, $X=\bar{X}$.
+Essa construção implica no mau condicionamento da matriz, ou seja, na quase dependência linear de suas colunas; 
 
-$\beta_1$: coeficiente de efeito linear.
-
-$\beta_2$: coeficiente de efeito quadrático.
-
+Uma medida corretiva consiste em usar os dados centrados (ou seja, substituir $X$ por $X_*
+= X − \bar{X}$).
 
 
-## Exemplo
+## Exemplo : Concentração de madeira dura em celulose e força de tração do papel Kraft {.smaller}
 
-<center>
-<img src="figuras/pol1.png" width=800>
-</center>
+```{r, echo = F, fig.align='center', fig.width=4.5}
+
+x <- c(1, 1.5, 2, 3, 4, 4.5, 5, 5.5, 6, 6.5, 7,8, 9, 10, 11, 12, 13, 14, 15)
+
+y <- c(6.3, 11.1, 20.0, 24.0, 26.1, 30.0, 33.8, 34.0, 38.1, 39.9, 42.0, 46.1, 53.1, 52.0,  52.5, 48.0, 42.8, 27.8, 21.9)
+
+plot(x, y, xlab = "Concentração de madeira dura (%)", ylab = "Resistência à tração (psi)", font.lab = 2)
+
+x2 <- x*x
+x3 <- x2*x
+x4 <- x2*x2
+r12 <- cor(cbind(x,x2,x3,x4))
 
 
-## Modelo com um preditor - terceira ordem {.build}
+x_c <- x - mean(x)
+x_c2 <- (x_c)^2
+x_c3 <- (x_c)^3
+x_c4 <- (x_c)^4
 
-$$Y=\beta_0+\beta_1X_*+\beta_2X_*^2+\beta_3X_*^3+\varepsilon$$
+r_c12 <- cor(cbind(x_c, x_c2, x_c3, x_c4))
+```
 
-em que $X_*=X-\bar{X}$.
+## Padronizando a variável $X$ {.smaller}
 
-Exemplos:
+Correlação entre $X$, $X^2$, $X^3$, $X^4$ 
+```{r, echo = F}
+round(r12,3)
+```
+Seja $X_* = X - \bar{X}$
 
-<center>
-<img src="figuras/pol2.png" width=600>
-</center>
+Correlação entre $X_*$, $X_*^2$, $X_*^3$, $X_*^4$
 
-## Modelo com dois preditores - segunda ordem {.build}
+```{r, echo = F}
+round(r_c12,3)
+```
 
+
+
+## Ajuste regressão linear simples {.smaller}
+
+```{r, echo = F, fig.align='center', fig.width=9}
+
+m1 <- lm(y ~ x_c)
+round(summary(m1)$coefficients,5)
+par(mfrow = c(1,2))
+plot(x_c, y, xlab = "Concentração de madeira dura padronizada", ylab = "Resistência à tração (psi)", font.lab = 2,
+     main = paste("R2 =", round(summary(m1)$"r.squared",4)))
+points(x_c, predict(m1), type = "b", col = "red", pch = 19, lwd = 2)
+qqnorm(residuals(m1), col = "red",
+       xlab = "Quantis teóricos da distr. normal padrão",
+       ylab = "Quantis empíricos dos resíduos", font.lab = 2,
+       main = "Gráfico quantil-quantil")
+qqline(residuals(m1))
+```
+
+
+## Ajuste polinômio grau 2 {.smaller}
+
+```{r, echo = F, fig.align='center', fig.width=9}
+
+m2 <- lm(y ~ x_c + x_c2)
+round(summary(m2)$coefficients,6)
+par(mfrow = c(1,2))
+plot(x_c, y, xlab = "Concentração de madeira dura padronizada", ylab = "Resistência à tração (psi)", font.lab = 2,
+     main = paste("R2 =", round(summary(m2)$"r.squared",4)))
+points(x_c, predict(m1), type = "b", col = "red", pch = 19, lwd = 2)
+points(x_c, predict(m2), type = "b", col = "blue", pch = 19, lwd = 2)
+
+qqnorm(residuals(m2), col = "blue",
+       xlab = "Quantis teóricos da distr. normal padrão",
+       ylab = "Quantis empíricos dos resíduos", font.lab = 2,
+       main = "Gráfico quantil-quantil")
+qqline(residuals(m2))
+
+```
+
+## Ajuste polinômio grau 3 {.smaller}
+
+```{r, echo = F, fig.align='center', fig.width=9}
+
+m3 <- lm(y ~ x_c + x_c2 + x_c3)
+round(summary(m3)$coefficients,5)
+par(mfrow = c(1,2))
+plot(x_c, y, xlab = "Concentração de madeira dura padronizada", ylab = "Resistência à tração (psi)", font.lab = 2,
+     main = paste("R2 =", round(summary(m3)$"r.squared",4)))
+points(x_c, predict(m1), type = "b", col = "red", pch = 19, lwd = 2)
+points(x_c, predict(m2), type = "b", col = "blue", pch = 19, lwd = 2)
+points(x_c, predict(m3), type = "b", col = "orange", pch = 19, lwd = 2)
+
+qqnorm(residuals(m3), col = "orange",
+       xlab = "Quantis teóricos da distr. normal padrão",
+       ylab = "Quantis empíricos dos resíduos", font.lab = 2,
+       main = "Gráfico quantil-quantil")
+qqline(residuals(m3))
+```
+
+## Ajuste polinômio grau 4 {.smaller}
+
+```{r, echo = F, fig.align='center', fig.width=9}
+
+m4 <- lm(y ~ x_c + x_c2 + x_c3 + x_c4)
+round(summary(m4)$coefficients,5)
+par(mfrow = c(1,2))
+plot(x_c, y, xlab = "Concentração de madeira dura padronizada", ylab = "Resistência à tração (psi)", font.lab = 2,
+     main = paste("R2 =", round(summary(m4)$"r.squared",4)))
+points(x_c, predict(m1), type = "b", col = "red", pch = 19, lwd = 2)
+points(x_c, predict(m2), type = "b", col = "blue", pch = 19, lwd = 2)
+points(x_c, predict(m3), type = "b", col = "orange", pch = 19, lwd = 2)
+points(x_c, predict(m4), type = "b", col = "purple", pch = 19, lwd = 2)
+
+qqnorm(residuals(m4), col = "purple",
+       xlab = "Quantis teóricos da distr. normal padrão",
+       ylab = "Quantis empíricos dos resíduos", font.lab = 2,
+       main = "Gráfico quantil-quantil")
+qqline(residuals(m4))
+
+```
+
+## Soma extra de quadrados e teste F {.smaller}
+
+```{r, echo = TRUE}
+anova(m4)
+round(summary(m3)$coefficient,5)
+```
+
+## Extrapolação
+
+
+A extrapolação de modelos polinomiais para valores de $x$ fora do intervalo observado nos dados pode ser extremamente perigosa. 
+
+
+
+## Modelo com dois preditores - segunda ordem
+
+Vamos considerar um modelo de segunda ordem com duas variáveis preditoras $X_1$ e $X_2$
 
 $$Y=\beta_0+\beta_1X_{1*}+\beta_2X_{1*}^2+\beta_3X_{2*}+\beta_4X_{2*}^2+\beta_5X_{1*}X_{2*}+\varepsilon$$
 
@@ -69,120 +184,55 @@ em que $X_{1*}=X_1-\bar{X}_1$ e $X_{2*}=X_2-\bar{X}_2$.
 
 ## Exemplo
 
-$$E(Y)=1740-4X_{1*}^2-3X_{2*}^2-3X_{1*}X_{2*}$$
-
+$$E(Y)=\beta_0+\beta_1X_{1*}+\beta_2X_{1*}^2+\beta_3X_{2*}+\beta_4X_{2*}^2+\beta_5X_{1*}X_{2*}$$
 
 <center>
 <img src="figuras/pol3.png" width=700>
 </center>
 
-## Método hierárquico de ajuste de modelo {.build}
+## Método hierárquico de ajuste de modelo
 
 Pode-se começar com um modelo de segunda ou terceira ordem e ir testando se os coeficientes de ordem maiores são significativos.
 
 Por exemplo:
 
+
 $$Y=\beta_0+\beta_1X_{*}+\beta_2X_*^2+\beta_3X_*^3+\varepsilon$$
 
-Para testar se $\beta_3=0$ podemos utilizar $SQReg(X_*^3\mid X_*,X_*^2)$. Se quisermos testar se $\beta_2=\beta_3=0$: $SQReg(X_*^2,X_*^3\mid X_*)=SQReg(X_*^2\mid X_*)+SQReg(X_*^3\mid X_*, X_*^2)$
+Para testar se $\beta_3=0$ podemos utilizar $SQReg(X_*^3\mid X_*,X_*^2)$. Se quisermos testar se $\beta_2=\beta_3=0$:
 
-Se um termo de ordem mais alta é mantido no modelo, os de ordem mais baixa devem obrigatoriamente ser mantidos também.
+$$SQReg(X_*^2,X_*^3\mid X_*)=SQReg(X_*^2\mid X_*)+SQReg(X_*^3\mid X_*, X_*^2)$$
 
-## Exemplo
-
-$Y$: número de ciclos
-
-$X_1$: carga, $X_{1*}=(X_1-\bar{X}_1)/0.4$.
-
-$X_2$: temperatura, $X_{2*}=(X_2-\bar{X}_2)/10$.
-
-```{r,echo=TRUE, message=FALSE, warning=FALSE}
-dados = read_table(file.path("dados", "CH08TA01.txt"),
-                   col_names = c("Y", "X1", "X2")) %>% 
-  mutate(x1 = (X1 - mean(X1))/0.4,
-         x2 = (X2 - mean(X2))/10)
-```
+**Se um termo de ordem mais alta é mantido no modelo, os de ordem mais baixa devem obrigatoriamente ser mantidos também.**
 
 ## Exemplo
 
-```{r, echo=FALSE}
-kable(dados, align=rep('c', 5)) %>%
-  kable_styling(bootstrap_options = c("striped", "hover")) %>%
-  column_spec(1:5, width="5em", border_left = TRUE, border_right = TRUE)
+Dados de um experimento realizado para estudar o efeito de duas variáveis, temperatura de reação $(T)$ e concentração de reagente $(C)$, na conversão percentual de um processo químico $(Y)$
+
+```{r, echo = F}
+T <- c(200, 250, 200, 250, 189.65, 260.35, 
+225, 225, 225, 225, 225, 225)
+C <- c(15, 15, 25, 25, 20, 20, 12.93, 27.07, 
+20, 20, 20, 20)
+Y <- c(43, 78, 69, 73, 48, 76, 65, 74, 76, 79, 83, 81)
+T_p <- (T - mean(T))/sd(T)
+C_p <- (C - mean(C))/sd(C)
+cbind(T, C, Y, T_p, C_p)
 ```
 
-## Exemplo {.build}
-
-```{r,echo=FALSE}
-cor1 <- cor(dados$X1,dados$X1^2)
-cor2 <- cor(dados$X2,dados$X2^2)
-cor1a <- cor(dados$x1,dados$x1^2)
-cor2a <- cor(dados$x2,dados$x2^2)
-```
-
-Correlação entre $X_1$ e $X_1^2$: `r round(cor1,2)`.
-
-Correlação entre $X_{1*}$ e $X_{1*}^2$: `r round(cor1a,2)`.
-
-Correlação entre $X_2$ e $X_2^2$: `r round(cor2,2)`.
-
-Correlação entre $X_{2*}$ e $X_{2*}^2$: `r round(cor2a,2)`.
-
-## Exemplo
-
-$$Y=\beta_0+\beta_1X_{1*}+\beta_2X_{2*}+\beta_3X_{1*}^2+\beta_4X_{2*}^2+\beta_5X_{1*}X_{2*}+\varepsilon$$
-
-
-```{r,echo=TRUE}
-modelo <- lm(Y ~ x1 + x2 + I(x1^2) + I(x2^2) + I(x1*x2),data=dados)
-summary(modelo)$coef
-```
-
-
-## Exemplo
-
-```{r,echo=FALSE,fig.align='center',fig.width=5.5,fig.height=5.5,message=FALSE,warning=FALSE}
-tibble(x=fitted(modelo), y=resid(modelo)) %>%
-  ggplot(aes(x, y)) + geom_point() +
-  xlab(TeX('$\\hat{Y}$')) + ylab(TeX('$Y-\\hat{Y}$')) +
-  theme_bw()
-```
-
-## Exemplo
-
-```{r,echo=FALSE,fig.align='center',fig.width=5,fig.height=5}
-tibble(x=resid(modelo)) %>%
-  ggplot(aes(sample=x)) + stat_qq() + stat_qq_line() +
-  xlab("Quantis Teóricos") + ylab("Quantis Amostrais") +
-  theme_bw()
-```
 
 ## Exemplo {.smaller}
 
-
-```{r,echo=TRUE,warning=FALSE,message=FALSE}
-library(alr3)
-pureErrorAnova(modelo)
-```
-
-Não rejeitamos $H_0$, isto é, não encontramos evidências para rejeitar que o modelo de segunda ordem é um bom ajuste
-
-## Exemplo {.build .smaller}
-
-Será que um modelo de primeira ordem já seria suficiente?
-
 $$Y=\beta_0+\beta_1X_{1*}+\beta_2X_{2*}+\beta_3X_{1*}^2+\beta_4X_{2*}^2+\beta_5X_{1*}X_{2*}+\varepsilon$$
-
-
-$H_0$: $\beta_3=\beta_4=\beta_5=0$.
-
-$H_a$: pelo menos um entre $\beta_3, \beta_4$ e $\beta_5$ é diferente de zero.
-
-```{r,echo=FALSE}
+```{r,echo=F}
+modelo <- lm(Y ~ C_p + T_p + I(C_p^2) + I(T_p^2) + I(C_p*T_p))
+summary(modelo)$coef
 anova(modelo)
+p <- length(coef(modelo))
+n <- length(y)
 ```
 
-## Exemplo
+## Será que um modelo de primeira ordem já seria suficiente? { .smaller}
 
 * $H_0$: $\beta_q=\beta_{q+1}=\ldots=\beta_{p-1}=0$.
 
@@ -198,15 +248,11 @@ F^*&=&\frac{SQReg(X_q,\ldots, X_{p-1}\mid X_1,\ldots,X_{q-1})}{p-q}\div\frac{SQE
 \end{eqnarray}$$
 
 
-## Exemplo {.build .smaller}
+## Exemplo {.smaller}
 
-$p=`r length(coef(modelo))`$
+$p =`r length(coef(modelo))`$ ; $n = `r length(Y)`$ e $q = 3$
 
-$n = `r dim(dados)[1]`$
-
-$q=3$
-
-$$F^*=\frac{SQReg(X_{1*}^2,X_{2*}^2,X_{1*}X_{2*}\mid X_{1*},X_{2*})/`r length(coef(modelo))-3`}{SQE(X_{1*},X_{2*},X_{1*}^2,X_{2*}^2,X_{1*}X_{2*})/`r dim(dados)[1]-length(coef(modelo))`}\overset{\mbox{sob $H_0$}}{\sim}F_{`r length(coef(modelo))-3`,`r dim(dados)[1]-length(coef(modelo))`}$$
+$$F^*=\frac{SQReg(X_{1*}^2,X_{2*}^2,X_{1*}X_{2*}\mid X_{1*},X_{2*})/`r p-3`}{SQE(X_{1*},X_{2*},X_{1*}^2,X_{2*}^2,X_{1*}X_{2*})/`r n-p`}\overset{\mbox{sob $H_0$}}{\sim}F_{`r p-3`,`r n-p`}$$
 
 
 $$\begin{eqnarray}
@@ -219,50 +265,19 @@ SQReg(X_{1*}^2,X_{2*}^2,X_{1*}X_{2*}\mid X_{1*},X_{2*}) &=& SQReg(X_{1*}^2\mid X
 
 $$F_{obs}=\frac{`r round(anova(modelo)[3,2],1) + round(anova(modelo)[4,2],1) + anova(modelo)[5,2]`/`r length(coef(modelo))-3`}{`r round(anova(modelo)[6,3],1)`}=`r ((round(anova(modelo)[3,2],1) + round(anova(modelo)[4,2],1) + anova(modelo)[5,2])/(length(coef(modelo))-3))/ round(anova(modelo)[6,3],1)`$$
 
-Comparando com $F(0.95;`r length(coef(modelo))-3`,`r dim(dados)[1]-length(coef(modelo))`)=`r round(qf(.95,df1=length(coef(modelo))-3,df2=dim(dados)[1]-length(coef(modelo))),2)`$, não encontramos evidências contra a hipótese nula.
+Comparando com $F(0.95;`r length(coef(modelo))-3`,`r n-length(coef(modelo))`)=`r round(qf(.95,df1=length(coef(modelo))-3,df2=n-length(coef(modelo))),2)`$. Portanto, encontramos evidências contra a hipótese nula.
 
 
 ## Exemplo
 
 ```{r,echo=TRUE}
-modeloreduz <- lm(Y ~ x1 + x2,data=dados)
+modeloreduz <- lm(Y ~ C_p + T_p)
 anova(modeloreduz, modelo)
 ```
 
-## Exemplo {.build}
-
-Modelo de primeira ordem:
-
-$$Y=\beta_0+\beta_1X_{1*}+\beta_2X_{2*}+\varepsilon$$
-
-```{r,echo=TRUE}
-modelo1 <- lm(Y ~ x1 + x2,data=dados)
-summary(modelo1)$coef
-```
-
-## Exemplo {.build}
-
-Modelo de primeira ordem (variáveis nas escalas originais):
-
-
-$$Y=\beta_0+\beta_1X_{1}+\beta_2X_{2}+\varepsilon$$
-
-```{r,echo=TRUE}
-modelo1 <- lm(Y ~ X1 + X2,data=dados)
-summary(modelo1)$coef
-```
-
-## Exemplo
-
-
-<center>
-<img src="figuras/pol4.png" width=700>
-</center>
-
-
 # Modelo de Regressão com Interação
 
-## Efeitos de interação {.build}
+## Efeitos de interação 
 
 Um modelo de regressão com $p-1$ variáveis preditoras com efeitos aditivos tem função de regressão da forma:
 
@@ -276,19 +291,19 @@ $$E(Y)=\underbrace{\beta_0+\beta_1X_1+\beta_2X_1^2}_{f_1(X_1)}+\underbrace{\beta
 
 O efeito de $X_1$ e $X_2$ em $Y$ é **aditivo**.
 
-## Efeitos de interação {.build}
+## Efeitos de interação 
 
 Já no exemplo a seguir, o efeito não é aditivo, há efeito de interação:
 
 
-$$E(Y)=\beta_0+\beta_1X_1+\beta_2X_1^2+\beta_3X_2+\beta_3X_1X_2$$
+$$E(Y)=\beta_0+\beta_1X_1+\beta_2X_1^2+\beta_3X_2+\beta_4X_1X_2$$
 
 
 Outro exemplo:
 
 $$E(Y)=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\beta_4X_1X_2+\beta_5X_1X_3$$
 
-O efeito de uma variável sobre $Y$ irá depender do nível da variável com a qual ela interage.
+**O efeito de uma variável sobre $Y$ irá depender do nível da variável com a qual ela interage.**
 
 ## Interpretação: interação e efeitos lineares {.build}
 
@@ -496,7 +511,7 @@ $Y$ = meses até a implementação
 $X_1$ = tamanho da firma (em milhões de dólares)
 
 $$\begin{eqnarray}
-X_2 = \begin{cases} 1, & \mbox{se a firma tem açoes na bolsa} \\ 0, & \mbox{caso contrário} \end{cases}
+X_2 = \begin{cases} 1, & \mbox{se a firma tem ações na bolsa} \\ 0, & \mbox{caso contrário} \end{cases}
 \end{eqnarray}$$
 
 $$Y=\beta_0+\beta_1X_1+\beta_2X_2+\varepsilon$$
@@ -526,21 +541,18 @@ $$E(Y)=(\beta_0+\beta_2)+\beta_1X_1$$
 </center>
 
 
-## Exemplo: Seguros
+## Exemplo: Seguros {.smaller}
 
-```{r, echo=FALSE, message=FALSE}
-dados = read_table(file.path("dados", "CH08TA02.txt"),
-                   col_names=c("Y", "X1", "X2"))
-modelo <- lm(Y ~ ., data=dados)
-kable(summary(modelo)$coef, align=rep('c', 4), digits=4) %>%
-  kable_styling(bootstrap_options = c("striped", "hover")) %>%
-  column_spec(1:4, width="6em", border_right = TRUE)
+```{r, echo=F, message=FALSE}
+dados <- read_table(file.path("dados", "CH08TA02.txt"), col_names=c("Y", "X1", "X2"))
+as.data.frame(dados)
 ```
 
 
-## Exemplo: Seguros
+## Exemplo: Seguros {.smaller}
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.align='center',fig.width=5,fig.height=5}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.align='center',fig.width=6,fig.height=4}
+modelo <- lm(Y ~ ., data=dados); summary(modelo)$coef
 ggplot(dados, aes(X1, Y, colour=factor(X2))) +
   geom_point() +
   geom_abline(colour='red',
@@ -554,7 +566,7 @@ ggplot(dados, aes(X1, Y, colour=factor(X2))) +
 ```
 
 
-## Exemplo: Seguros {.build}
+## Exemplo: Seguros {.smaller}
 
 Incluindo termo de interação:
 
@@ -584,17 +596,15 @@ $$E(Y)=(\beta_0+\beta_2)+(\beta_1+\beta_3)X_1$$
 
 ## Exemplo: Seguros
 
-```{r,echo=FALSE}
-modelo <- lm(Y ~ X1 + X2 + I(X1*X2),data=dados)
-kable(summary(modelo)$coef, align=rep('c', 4), digits=4) %>%
-  kable_styling(bootstrap_options = c("striped", "hover")) %>%
-  column_spec(1:4, width="6em", border_right = TRUE)
-```
+```{r,echo=TRUE}
+modelo <- lm(Y ~ X1 + X2 + X1*X2, data=dados); round(summary(modelo)$coef,5)
 
+modelo <- lm(Y ~ X1*X2, data=dados); round(summary(modelo)$coef,5)
+```
 
 ## Exemplo: Seguros
 
-```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.align='center',fig.width=5,fig.height=5}
+```{r,echo=FALSE,warning=FALSE,message=FALSE,fig.align='center',fig.width=6,fig.height=4}
 ggplot(dados, aes(X1, Y, colour=factor(X2))) +
   geom_point() +
   geom_abline(colour='red',
@@ -608,96 +618,108 @@ ggplot(dados, aes(X1, Y, colour=factor(X2))) +
 ```
 
 
-## Variável preditora com mais de duas classes {.build}
+## Variável preditora com **mais de duas classes** {.smaller}
 
-Exemplo: Desgaste ($Y$), velocidade ($X_1$) e modelo de uma peça.
+Exemplo: Salário $(Y)$, anos de experiência desde a última titulação $(X_1)$ e uma variável qualitativa $titulo$ que indica o grau de titulação do funcionário.
 
-Existem 4 tipos de modelos: M1, M2, M3 e M4.
+Existem 3 níveis de titulação: bacharel, mestre e doutor.
 
-Definimos 3 variáveis "dummy":
+Definimos 2 variáveis *dummy* ou indicadoras:
 
 $$\begin{eqnarray}
-X_2 = \begin{cases} 1, & \mbox{se M1} \\ 0, & \mbox{caso contrário} \end{cases}
+X_2 = \begin{cases} 1, & \mbox{se mestre} \\ 0, & \mbox{caso contrário} \end{cases}
 \end{eqnarray}$$
 
 $$\begin{eqnarray}
-X_3 = \begin{cases} 1, & \mbox{se M2} \\ 0, & \mbox{caso contrário} \end{cases}
+X_3 = \begin{cases} 1, & \mbox{se doutor} \\ 0, & \mbox{caso contrário} \end{cases}
 \end{eqnarray}$$
 
-$$\begin{eqnarray}
-X_4 = \begin{cases} 1, & \mbox{se M3} \\ 0, & \mbox{caso contrário} \end{cases}
-\end{eqnarray}$$
+Paramétrização por *casela de referência* a escolha de qual o nível será a referência é arbitrária.
 
-## Variável preditora com mais de duas classes {.build}
+## Variável preditora com mais de duas classes {.smaller}
 
-$$E(Y)=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3+\beta_4X_4$$
+$$E(Y)=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3$$
 
-Se a peça é do tipo M4:
+Se título = bacharel:
 
-$$E(Y)=\beta_0+\beta_1X_1+\beta_2\times0+\beta_3\times0+\beta_4\times0=\beta_0+\beta_1X_1$$
+$$E(Y)=\beta_0+\beta_1X_1+\beta_2\times0+\beta_3\times0=\beta_0+\beta_1X_1$$
 
 
-Se a peça é do tipo M1:
+Se o título = mestre:
 
-$$E(Y)=\beta_0+\beta_1X_1+\beta_2\times1+\beta_3\times0+\beta_4\times0=(\beta_0+\beta_2)+\beta_1X_1$$
+$$E(Y)=\beta_0+\beta_1X_1+\beta_2\times1+\beta_3\times0=(\beta_0+\beta_2)+\beta_1X_1$$
 
-Se a peça é do tipo M2:
+Se o título = doutor:
 
-$$E(Y)=\beta_0+\beta_1X_1+\beta_2\times0+\beta_3\times1+\beta_4\times0=(\beta_0+\beta_3)+\beta_1X_1$$
+$$E(Y)=\beta_0+\beta_1X_1+\beta_2\times0+\beta_3\times1=(\beta_0+\beta_3)+\beta_1X_1$$
 
-Se a peça é do tipo M3:
+O modelo de primeira ordem implica no fato de que o efeito dos anos de experiência é linear e com o mesmo coeficiente angular para todos os níveis de titularidade. Temos diferentes interceptos para cada modelo.
 
-$$E(Y)=\beta_0+\beta_1X_1+\beta_2\times0+\beta_3\times0+\beta_4\times1=(\beta_0+\beta_4)+\beta_1X_1$$
+## Variável preditora com mais de duas classes
 
+* $\beta_1$: mudança esperada no salário médio $(Y)$ para cada unidade de aumento nos anos de experiência $(X_1)$, considerando o mesmo nível de titularidade.
 
-## Variável preditora com mais de duas classes {.build}
+* $\beta_2$: diferença esperada no salário médio do bacharel para o mestre, considerando a mesma velocidade.
 
-O modelo de primeira ordem implica no fato de que o efeito da velocidade é linear e com o mesmo coeficiente angular para todos os modelos de peça. Temos diferentes interceptos para cada modelo.
+* $\beta_3$: diferença esperada no salário médio do bacharel para o doutor, considerando a mesma velocidade.
 
+## Variável preditora com mais de duas classes {.smaller}
+```{r, echo = F}
+dados <- read_excel(file.path("dados", "CH11PR08.xlsx"))
+head(as.data.frame(dados), n = 10)
+dados$titulo <- factor(dados$titulo, levels = c("bacharel", "mestre", "doutor"))
+```
 
-<center>
-<img src="figuras/qual3.png" width=400>
-</center>
+## Variável preditora com mais de duas classes {.smaller}
+```{r, echo = F}
+m <- lm(Y ~ X1 + titulo, dados)
+summary(m)$coefficient
+anova(m)
+```
 
+## Variável preditora com mais de duas classes 
 
-## Variável preditora com mais de duas classes {.build}
+Qual a diferença esperada no salário médio entre o mestre o doutor?
 
-* $\beta_1$: mudança esperada no desgaste da peça ($Y$) para cada unidade de aumento na velocidade ($X_1$), considerando mesmo modelo de peça.
+Quando o título é mestre temos que:
 
-* $\beta_2$: diferença esperada do desgaste da peça entre modelos M1 e M4, considerando a mesma velocidade.
-
-* $\beta_3$: diferença esperada do desgaste da peça entre modelos M2 e M4, considerando a mesma velocidade.
-
-* $\beta_4$: diferença esperada do desgaste da peça entre modelos M3 e M4, considerando a mesma velocidade.
-
-
-## Variável preditora com mais de duas classes {.build}
-
-Qual a diferença esperada do desgaste da peça entre modelos M3 e M2, mantendo a mesma velocidade?
-
-Para modelo M3:
-
-$$E(Y)=(\beta_0+\beta_4)+\beta_1X_1$$
+$$E(Y)=(\beta_0+\beta_2)+\beta_1X_1$$
 
 
-Para modelo M2:
+Quando o título é doutor temos que:
 
 $$E(Y)=(\beta_0+\beta_3)+\beta_1X_1$$
 
 
-A diferença entre M3 e M2, mantendo a mesma velocidade:
+A diferença entre mestre e doutor, mantendo os anos de experiência:
 
-$$(\beta_0+\beta_4)+\beta_1X_1 - [(\beta_0+\beta_3)+\beta_1X_1] = \beta_4-\beta_3$$
+$$(\beta_0+\beta_3)+\beta_1X_1 - [(\beta_0+\beta_2)+\beta_1X_1] = \beta_3-\beta_2$$
 
 
-## Variável preditora com mais de duas classes {.build}
+## Variável preditora com mais de duas classes 
 
-Após obtermos estimativas: $\hat{\beta}_4-\hat{\beta}_3$ e devemos também fornecer o erro-padrão da estimativa.
+Após obtermos estimativas: $\hat{\beta}_3-\hat{\beta}_2$ e devemos também fornecer o erro-padrão da estimativa.
 
 Lembre que:
 
-$$Var(\hat{\beta}_4-\hat{\beta}_3)=Var(\hat{\beta}_4)+Var(\hat{\beta}_3)-2Cov(\hat{\beta}_4,\hat{\beta}_3)$$
+$$Var(\hat{\beta}_3-\hat{\beta}_2)=Var(\hat{\beta}_3)+Var(\hat{\beta}_2)-2Cov(\hat{\beta}_3,\hat{\beta}_2)$$
 
+## Variável preditora com mais de duas classes {.smaller}
+```{r, echo = F}
+b2 <- coef(m)[3]
+b3 <- coef(m)[4]
+dif = b3 - b2
+```
+
+$\hat{\beta}_3$ - $\hat{\beta}_2$ = `r round(b3,2)` - `r round(b2,2)` = `r round(dif,2)`
+
+$\hat{Var{(\hat{\beta})}}$
+
+```{r, echo = F}
+round(vcov(m),2)
+```
+
+$$Var(\hat{\beta}_3-\hat{\beta}_2) = 24.02 + 21.22 - 2 \times 13.48 = 18.28$$
 
 ## Exemplo: Fábrica de sabão
 
@@ -718,16 +740,7 @@ X_2 = \begin{cases} 1, & \mbox{se produção na linha 1} \\ 0, & \mbox{caso cont
 ## Exemplo: Fábrica de Sabão
 
 ```{r, echo=FALSE, results='asis'}
-# kable(list(dados[1:9,],
-#            dados[10:18,],
-#            dados[-(1:18),]),
-#       align=rep('c', 3)) %>%
-#   kable_styling(bootstrap_options = c("striped", "hover")) %>% 
-#  column_spec(1:3, width="15em", border_left = TRUE, border_right = TRUE)
-kable(dados[1:15,],
-      align=rep('c', 3)) %>%
-  kable_styling(bootstrap_options = c("striped", "hover")) %>% 
-  column_spec(1:3, width="15em", border_left = TRUE, border_right = TRUE)
+dados
 ```
 
 ## Exemplo: Fábrica de sabão
@@ -849,6 +862,8 @@ Comparando com $F(0.95;`r length(coef(modelo))-3`,`r dim(dados)[1]-length(coef(m
 ## Agradecimento
 
 * Slides criados por Samara F Kiihl / IMECC / UNICAMP
+
+* Editado por Rafael P Maia / IMECC / UNICAMP
 
 ## Leitura
 
