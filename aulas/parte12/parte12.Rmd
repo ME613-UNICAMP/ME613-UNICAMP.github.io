@@ -1,6 +1,6 @@
 ---
 title: "ME613 - Análise de Regressão"
-author: Benilton S Carvalho - 1S2020
+author: ""
 output:
   ioslides_presentation:
     widescreen: yes
@@ -87,11 +87,13 @@ plot(y=resid(modelo),x=dados$X1,ylab=TeX('$Y-\\hat{Y}$'),xlab=TeX('$X_1$'))
 
 ## Exemplo: Salário de gerentes {.smaller}
 
-```{r,echo=TRUE}
+```{r,echo=-6}
 modelo1 <- lm(Y ~ X2, data=dados)
 y_x2 <- resid(modelo1)
 modelo2 <- lm(X1 ~ X2, data=dados)
 x1_x2 <- resid(modelo2)
+modelo3r <- lm(y_x2 ~ x1_x2)
+kable(summary(modelo3r)$coef[-1,, drop=FALSE],col.names = c("Estimativa","Erro-Padrão","t","valor de p"))
 ```
 
 ```{r,echo=FALSE,fig.align='center',fig.height=3.5,fig.width=4,warning=FALSE,message=FALSE}
@@ -508,3 +510,9 @@ vif(modelo2)
 <center>
 <img src="figuras/sad-laff-working-from-home-joke1-e1392532216836.jpg" width=800>
 </center>
+
+## Agradecimentos
+
+- Samara F Kiihl
+- Benilton S Carvalho
+- Rafael P Maia
