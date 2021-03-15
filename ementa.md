@@ -5,29 +5,21 @@ layout: page
 
 ### Informações Gerais
 
-- *Professores*: Benilton de Sá Carvalho e Rafael Pimentel Maia
-- *e-mail*: benilton < arr > unicamp.br ; rpmaia < arr > unicamp.br (troque _arr_ por @)
+- *Professor*: Benilton de Sá Carvalho
+- *e-mail*: benilton < arr > unicamp.br  (troque _arr_ por @)
 - *Ao enviar email*: utilizar **[ME613]+assunto** no campo *subject*; *apenas* emails do domínio XXX.unicamp.br são recebidos;
-- *Atividades e notas*: disponibilizados [via Moodle](https://moodle.ggte.unicamp.br/course/view.php?id=7544);
+- *Atividades e notas*: disponibilizados [via Moodle](https://moodle.ggte.unicamp.br/course/view.php?id=10597);
+- *Vídeos* (Canal no YouTube): [ME 613 - YouTube](https://www.youtube.com/channel/UC32yXuhmT8leh5o7WRRY-SQ)
 - O aluno deverá proceder de forma respeitosa e honesta durante as provas bem como na resolução de qualquer outra atividade que seja parte da avaliação do curso.
 - O login usado para acessar o Moodle é intransferível, conforme [ConTIC-IN-01/2019](https://www.citic.unicamp.br/sites/default/files/normas/ConTIC-IN-01%202019%20-%20normas_uso_TIC.pdf).
 
-### Atendimentos PED & PAD
+### Atendimentos PED
 
-- PED: João Vitor Bastos de Freitas
-
-|      Dia      | Início |  Fim  | Sala | Unidade |
-|:-------------:|:------:|:-----:|:----:|:-------:|
-| Terças-feiras | 12h00  | 13h00 | Vídeo  |  [Link](https://meet.google.com/qqq-bavq-mbk)  |
-| Quintas-feiras| 12h00  | 13h00 | Vídeo  |  [Link](https://meet.google.com/qqq-bavq-mbk)  |
-
-
-- PAD: Giovanni Torres Chaves
+- PED: Fernanda Lang Schumacher
 
 |      Dia      | Início |  Fim  | Sala | Unidade |
 |:-------------:|:------:|:-----:|:----:|:-------:|
-| Segundas-feiras | 12h00  | 13h00 | Vídeo  |  [Link](https://meet.google.com/qqq-bavq-mbk)  |
-| Quartas-feiras| 12h00  | 13h00 | Vídeo  |  [Link](https://meet.google.com/qqq-bavq-mbk)  |
+|               |        |       |      |         |
 
 
 ### Bibliografia
@@ -41,15 +33,15 @@ layout: page
 Para acessar alguns dos livros digitais fora da Unicamp, você poderá precisar do VPN. Veja instruções de instalação [aqui](http://www.ccuec.unicamp.br/ccuec/acesso_remoto_vpn).
 
 
-### Critérios de Avaliação e Datas Importantes
+### Critérios de Avaliação e Datas Importantes (*EM PREPARACAO*)
 
-- **Prova 1 (P1)**: 19 de outubro  de 2020
-- **Prova 2 (P2)**: 23 de dezembro de 2020
-- **Trabalho Final - Parte 1 (T1) - Entrega**: 06 de janeiro de 2021
-- **Trabalho Final - Parte 2 (T2) - Prova**: 18 de janeiro de 2021
-- **Exame Final**: 25 de janeiro de 2021
+- **Prova 1 (P1)**:
+- **Prova 2 (P2)**:
+- **Trabalho Final - Parte 1 (T1) - Entrega**:
+- **Trabalho Final - Parte 2 (T2) - Prova**:
+- **Exame Final**:
 
-1. A nota do trabalho (T) será data pela médias arimética entre as notas atribuídas as parte 1 e parte 2: T = (T1 + T2)/2
+1. A nota do trabalho (T) será dada pela médias arimética entre as notas atribuídas as parte 1 e parte 2: T = (T1 + T2)/2
 2. Média Geral (MG) será dada por: MG = (P1 + P2 + T)/3;
 3. Se houver algum impedimento para a realização de alguma(s) avaliação(ões), o(s) peso(s) da(s) avaliação(ões) realizada(s) ser(á/ão) normalizados apropriadamente;
 4. Se nehuma prova for realizada, todos os alunos farão o Exame Final e, neste caso, MF=EF;
@@ -59,7 +51,7 @@ Para acessar alguns dos livros digitais fora da Unicamp, você poderá precisar 
   - Se 2.5 <= MG < 7.0, o aluno deverá fazer exame e MF = mínimo(7.0 ; (MG+EF)/2);
   - se MG < 2.5, o aluno está reprovado, não poderá realizar exame e MF=MG;
 
-### Notas Importantes
+### Notas Importantes (*EM PREPARACAO*)
 
 1. Cópia dessa ementa está disponível na página da disciplina no Moodle. Sua leitura é fortemente recomendada, não cabendo aos alunos desculpas por ignorância quanto ao seu conteúdo.
 
