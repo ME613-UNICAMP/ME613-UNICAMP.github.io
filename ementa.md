@@ -6,6 +6,7 @@ layout: page
 ### Informações Gerais
 
 - *Professor*: Benilton de Sá Carvalho
+- *Disciplina*: Análise de Regressão - ME613
 - *e-mail*: benilton < arr > unicamp.br  (troque _arr_ por @)
 - *Ao enviar email*: utilizar **[ME613]+assunto** no campo *subject*; *apenas* emails do domínio XXX.unicamp.br são recebidos;
 - *Atividades e notas*: disponibilizados [via Moodle](https://moodle.ggte.unicamp.br/course/view.php?id=10597);
@@ -19,7 +20,8 @@ layout: page
 
 |      Dia      | Início |  Fim  | Sala | Unidade |
 |:-------------:|:------:|:-----:|:----:|:-------:|
-|               |        |       |      |         |
+|  Segundas             | 13:00       |  14:00     | [link](https://meet.google.com/jpr-jgtm-zcs)     |         |
+|  Quartas             | 18:00       |  19:00     | [link](https://meet.google.com/jpr-jgtm-zcs)     |         |
 
 
 ### Bibliografia
@@ -35,14 +37,18 @@ Para acessar alguns dos livros digitais fora da Unicamp, você poderá precisar 
 
 ### Critérios de Avaliação e Datas Importantes (*EM PREPARACAO*)
 
-- **Prova 1 (P1)**:
-- **Prova 2 (P2)**:
-- **Trabalho Final - Parte 1 (T1) - Entrega**:
-- **Trabalho Final - Parte 2 (T2) - Prova**:
-- **Exame Final**:
+As avaliações acontecerão por meio de atividades individuais, disponibilizadas e corrigidos via Moodle. Um trabalho com análise de dados também será parte do processo de avaliação.
 
-1. A nota do trabalho (T) será dada pela médias arimética entre as notas atribuídas as parte 1 e parte 2: T = (T1 + T2)/2
-2. Média Geral (MG) será dada por: MG = (P1 + P2 + T)/3;
+- **Atividade 1**: 5 de abril de 2021
+- **Atividade 2**: 26 de abril de 2021
+- **Atividade 3**: 12 de maio de 2021
+- **Atividade 4**: 31 de maio de 2021
+- **Atividade 5**: 16 de junho de 2021
+- **Atividade 6**: 30 de junho de 2021 (Entrega de Trabalho)
+- **Atividade 7**: 7 de julho de 2021
+- **Exame Final**: 19 de julho de 2021
+
+1. Média Geral (MG) será dada por: MG = (A1 + A2 + A3 + A4 + A5 + A6 + A7)/7;
 3. Se houver algum impedimento para a realização de alguma(s) avaliação(ões), o(s) peso(s) da(s) avaliação(ões) realizada(s) ser(á/ão) normalizados apropriadamente;
 4. Se nehuma prova for realizada, todos os alunos farão o Exame Final e, neste caso, MF=EF;
 
