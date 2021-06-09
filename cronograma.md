@@ -36,7 +36,7 @@ subtitle:
 |                   28   	| Quarta  	|  23-JUN 	|  Validação de Modelos                                     	  |  Parte 11 - C  	|
 |                   29   	| Segunda  	|  28-JUN 	|  Gráficos de Regressão   Parcial                            	|  Parte 12 - A  	|
 |                   30   	| Quarta  	|  30-JUN 	|  Outliers / Observações Influentes   / Inflação da Variância 	|  Parte 12 - B/C |
-|                   31   	| Quarta  	|  30-JUN 	|  Entrega Trabalho - Análise de Dados                         	|               	|
+|                   31   	| Quarta  	|  30-JUN 	|  Atividade 6 - Entrega Trabalho - Análise de Dados           	|               	|
 |                   32   	| Segunda  	|  05-JUL  	|  Regressão não linear                                       	|    Parte 13    	|
-|                   33   	| Quarta  	|  07-JUL  	|  Atividade 6 - Item para avaliação                           	|               	|
+|                   33   	| Quarta  	|  07-JUL  	|  Atividade 7 - Item para avaliação                           	|               	|
 |          Exame         	| Segunda 	|  19-JUL 	|  Exame                                                      	|                	|
