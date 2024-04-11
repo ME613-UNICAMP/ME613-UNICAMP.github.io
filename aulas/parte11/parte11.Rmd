@@ -1,6 +1,6 @@
 ---
 title: "ME613 - Análise de Regressão"
-author: Benilton S Carvalho - 1S2020
+author: Samara F. Kiihl - IMECC - UNICAMP
 output:
   ioslides_presentation:
     widescreen: yes
@@ -878,9 +878,6 @@ $X_8$ | `r summary(modelo3)$coef[7,1]`  | `r summary(modelo3)$coef[7,2]`
 
 $MSE$ é `r round(anova(modelo3)[7,3],3)` e $MSPR$ é `r round(MSPR(yhat,dadosT$lnY),3)`
 
-## Agradecimento
-
-* Slides criados por Samara F Kiihl / IMECC / UNICAMP
 
 
 ## Leitura

@@ -1,6 +1,6 @@
 ---
 title: "ME613 - Análise de Regressão"
-author: Benilton S Carvalho e Rafael P Maia - 2S2020
+author: Samara F. Kiihl - IMECC - UNICAMP
 output:
   ioslides_presentation:
     widescreen: yes
@@ -413,7 +413,7 @@ Isto acarreta menos problemas de arredondamento para inverter $\mathbf{X}^T\math
 
 ## Falta de comparabilidade entre coeficientes {.build}
 
-Em geral, não podemos comparar os coeficientes de regressão entre si, dado que não estão nas mesmas unidades.
+Em geral, não podemos compara os coeficientes de regressão entre si, dado que não estão nas mesmas unidades.
 
 Exemplo:
 
@@ -537,9 +537,7 @@ $$\hat{\boldsymbol\beta}^*=r_{XX}^{-1}r_{YX}\,.$$
 ## Exemplo
 
 ```{r,echo=TRUE,message=FALSE,warning=FALSE}
-#ds = read.csv("http://www.math.smith.edu/r/data/help.csv")
-ds = read.csv("help.csv")
-
+ds = read.csv("http://www.math.smith.edu/r/data/help.csv")
 female = subset(ds, female==1)
 
 lm1 = lm(pcs ~ mcs + homeless, data=female)
@@ -604,10 +602,6 @@ lm.beta(modelo)
 ```
 
 Note que o comando apenas libera as estimativas (sem erro-padrão, testes, etc...)
-
-## Agradecimento
-
-* Slides criados por Samara F Kiihl / IMECC / UNICAMP
 
 ## Leitura
 

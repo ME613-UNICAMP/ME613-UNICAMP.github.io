@@ -1,6 +1,6 @@
 ---
 title: "ME613 - Análise de Regressão"
-author: Benilton S Carvalho - 1S2020
+author: Samara F. Kiihl - IMECC - UNICAMP
 output:
   ioslides_presentation:
     widescreen: yes
@@ -89,18 +89,16 @@ Considerando apenas as alturas dos filhos:
 
 
 ```{r,echo=TRUE,eval=FALSE}
-library(manipulate); library(ggplot2); library(UsingR)
-data(galton)
-library(manipulate); library(ggplot2); library(UsingR)
-data(galton)
-
+library(UsingR); data(galton); library(reshape); long <- melt(galton)
+library(manipulate)
+library(ggplot2)
 myHist <- function(mu){
-  mse <- mean((galton$child - mu)^2)
-  ggplot(galton, aes(x=child)) +
-    geom_histogram(fill="salmon", colour="black", binwidth=1) +
-    geom_vline(xintercept=mu, size = 3) +
-    ggtitle(paste("mu = ", mu, ", MSE = ", round(mse, 2), sep = "")) +
-    theme_bw()
+    mse <- mean((galton$child - mu)^2)
+    g <- ggplot(galton, aes(x = child)) + geom_histogram(fill = "salmon", 
+                                                         colour = "black", binwidth=1)
+    g <- g + geom_vline(xintercept = mu, size = 3)
+    g <- g + ggtitle(paste("mu = ", mu, ", MSE = ", round(mse, 2), sep = ""))
+    g
 }
 manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 ```
@@ -108,15 +106,14 @@ manipulate(myHist(mu), mu = slider(62, 74, step = 0.5))
 ## A estimativa por mínimos quadrados é a média
 
 ```{r , fig.height=4, fig.width=4, fig.align='center',echo=FALSE}
-xbarra = mean(galton$child)
-mse <- mean((galton$child - xbarra)^2)
-ggplot(galton, aes(x = child)) +
-  geom_histogram(fill = "salmon", colour = "black", binwidth=1) +
-  geom_vline(xintercept = mean(galton$child), size = 3) +
-  ggtitle(paste("mu =",  round(xbarra,2), ", MSE =", round(mse, 2)))
+g <- ggplot(galton, aes(x = child)) + geom_histogram(fill = "salmon", colour = "black", binwidth=1)
+g <- g + geom_vline(xintercept = mean(galton$child), size = 3)
+mse <- mean((galton$child - mean(galton$child))^2)
+g <- g + ggtitle(paste("mu = ",  round(mean(galton$child),2), ", MSE = ", round(mse, 2), sep = ""))
+g
 ```
 
-$\bar{y}=`r round(xbarra, 2)`$
+$\bar{y}=`r round(mean(galton$child),2)`$
 
 ## Matematicamente {.smaller}
 
@@ -137,27 +134,23 @@ $$\begin{eqnarray}
 > * Será que há alguma relação entre essas alturas? Como descobrir?
 
 ```{r, dependson="galton",fig.height=4,fig.width=4, fig.align='center',echo=FALSE}
-ggplot(galton, aes(x = parent, y = child)) +
-  geom_point() +
-  theme_bw()
+ggplot(galton, aes(x = parent, y = child)) + geom_point()
 ```
 
 ## Utilizando os dados dos pais
 
 ```{r freqGalton, dependson="galton",fig.height=5,fig.width=6,echo=FALSE,message=FALSE,warning=FALSE,fig.align='center'}
-ggplot(galton, aes(parent, child)) +
-  geom_hex() + theme_bw()
-#library(dplyr)
-#freqData <- as.data.frame(table(galton$child, galton$parent))
-#names(freqData) <- c("child", "parent", "freq")
-#freqData$child <- as.numeric(as.character(freqData$child))
-#freqData$parent <- as.numeric(as.character(freqData$parent))
-#ggplot(filter(freqData, freq > 0), aes(x = parent, y = child))  +
-#  scale_size(range = c(2, 20), guide = "none" ) +
-#  geom_point(colour="grey50", aes(size = freq+20, show_guide = FALSE)) +
-#  geom_point(aes(colour=freq, size = freq)) +
-#  scale_colour_gradient(low = "lightblue", high="white") +
-#  theme_bw()
+library(dplyr)
+freqData <- as.data.frame(table(galton$child, galton$parent))
+names(freqData) <- c("child", "parent", "freq")
+freqData$child <- as.numeric(as.character(freqData$child))
+freqData$parent <- as.numeric(as.character(freqData$parent))
+g <- ggplot(filter(freqData, freq > 0), aes(x = parent, y = child))
+g <- g  + scale_size(range = c(2, 20), guide = "none" )
+g <- g + geom_point(colour="grey50", aes(size = freq+20, show_guide = FALSE))
+g <- g + geom_point(aes(colour=freq, size = freq))
+g <- g + scale_colour_gradient(low = "lightblue", high="white")                    
+g
 ```
 
 ## Regressão pela origem {.build}
@@ -180,17 +173,25 @@ $$\sum_{i=1}^n (Y_i - X_i \beta)^2$$
 ## 
 
 ```{r, echo = TRUE, eval = FALSE}
-myPlot = function(beta){
-  tmp = galton %>% mutate(parent=parent-mean(parent),
-                          child=child-mean(child))
-  mse = with(tmp, mean((child-(parent*beta))^2))
-  ggplot(tmp, aes(parent, child)) +
-    geom_hex() +
-    geom_abline(intercept = 0, slope=beta) +
-    ggtitle(paste("beta =", beta, " \t MSE =", round(mse, 4))) +
-    theme_bw()
+myPlot <- function(beta){
+  y <- galton$child - mean(galton$child)
+  x <- galton$parent - mean(galton$parent)
+  freqData <- as.data.frame(table(x, y))
+  names(freqData) <- c("child", "parent", "freq")
+  plot(
+    as.numeric(as.vector(freqData$parent)), 
+    as.numeric(as.vector(freqData$child)),
+    pch = 21, col = "black", bg = "lightblue",
+    cex = .15 * freqData$freq, 
+    xlab = "parent", 
+    ylab = "child"
+    )
+  abline(0, beta, lwd = 3)
+  points(0, 0, cex = 2, pch = 19)
+  mse <- mean( (y - beta * x)^2 )
+  title(paste("beta = ", beta, "mse = ", round(mse, 3)))
 }
-manipulate(myPlot(beta), beta=slider(0.44, 0.84, step=0.02))
+manipulate(myPlot(beta), beta = slider(0.6, 1.2, step = 0.02))
 ```
 
 
@@ -202,24 +203,18 @@ lm(I(child - mean(child))~ I(parent - mean(parent)) - 1, data = galton)
 
 ---
 ```{r, fig.height=6,fig.width=7,echo=FALSE,fig.align='center'}
-fit = lm(child ~ parent -1, data=galton)
-ggplot(galton, aes(parent, child)) +
-  geom_hex() +
-  geom_abline(slope=coef(fit)) +
-  theme_bw()
-
-# freqData <- as.data.frame(table(galton$child, galton$parent))
-# names(freqData) <- c("child", "parent", "freq")
-# freqData$child <- as.numeric(as.character(freqData$child))
-# freqData$parent <- as.numeric(as.character(freqData$parent))
-# g <- ggplot(filter(freqData, freq > 0), aes(x = parent, y = child))
-# g <- g  + scale_size(range = c(2, 20), guide = "none" )
-# g <- g + geom_point(colour="grey50", aes(size = freq+20, show_guide = FALSE))
-# g <- g + geom_point(aes(colour=freq, size = freq))
-# g <- g + scale_colour_gradient(low = "lightblue", high="white")                    
-# lm1 <- lm(galton$child ~ galton$parent)
-# g <- g + geom_abline(intercept = coef(lm1)[1], slope = coef(lm1)[2], size = 3, colour = grey(.5))
-# g
+freqData <- as.data.frame(table(galton$child, galton$parent))
+names(freqData) <- c("child", "parent", "freq")
+freqData$child <- as.numeric(as.character(freqData$child))
+freqData$parent <- as.numeric(as.character(freqData$parent))
+g <- ggplot(filter(freqData, freq > 0), aes(x = parent, y = child))
+g <- g  + scale_size(range = c(2, 20), guide = "none" )
+g <- g + geom_point(colour="grey50", aes(size = freq+20, show_guide = FALSE))
+g <- g + geom_point(aes(colour=freq, size = freq))
+g <- g + scale_colour_gradient(low = "lightblue", high="white")                    
+lm1 <- lm(galton$child ~ galton$parent)
+g <- g + geom_abline(intercept = coef(lm1)[1], slope = coef(lm1)[2], size = 3, colour = grey(.5))
+g
 ```
 
 
@@ -312,7 +307,7 @@ $$\hat{Y}_i=\hat{E}(Y\mid X=X_i)=\hat{\beta}_0+\hat{\beta}_1X_i=\bar{Y}+\hat{\be
 
 ## Dados de Galton - estimação por mínimos quadrados
 
-```{r, fig.height=5, fig.width=8, echo=FALSE,fig.align='center', message=FALSE, warning=FALSE}
+```{r, fig.height=5, fig.width=8, echo=FALSE,fig.align='center'}
 library(UsingR)
 data(galton)
 library(dplyr); library(ggplot2)
@@ -341,7 +336,7 @@ g
   S=\sum_{i=1}^n \{Y_i - (\beta_0 + \beta_1 X_i)\}^2
   $$
 
-> * Resultado: $\hat{\beta}_1=\frac{\sum_{i=1}^n(X_i-\bar{X})(Y_i-\bar{Y})}{\sum_{i=1}^n(X_i-\bar{X})^2} = Cor(X,Y)\frac{DP(Y)}{DP(X)}$ e $\hat{\beta}_0=\bar{Y}-\hat{\beta}_1\bar{X}$.
+> * Resultado: $\hat{\beta}_1=\frac{\sum_{i=1}^n(X_i-\bar{X})(Y_i-\bar{Y})}{\sum_{i=1}^n(X_i-\bar{X})^2} = Cor(X,Y)\frac{DP(X)}{DP(Y)}$ e $\hat{\beta}_0=\bar{Y}-\hat{\beta}_1\bar{X}$.
 
 ## Usando o R
 
@@ -559,10 +554,6 @@ Um estimador não viesado para $\sigma^ 2$ é:
 $$s^2=QME=\frac{SQE}{n-2}=\frac{\sum_{i=1}^n(Y_i-\hat{Y}_i)^2}{n-2}$$
 
 [comment]: <> (Kutner 1.7 pag 24, Weisberg 2.3 pag 25)
-
-## Agradecimento
-
-* Slides criados por Samara F Kiihl / IMECC / UNICAMP
 
 ## Leitura
 

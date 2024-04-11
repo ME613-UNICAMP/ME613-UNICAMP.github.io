@@ -1,6 +1,6 @@
 ---
 title: "ME613 - Análise de Regressão"
-author: Benilton S Carvalho - 1S2020
+author: Samara F. Kiihl - IMECC - UNICAMP
 output:
   ioslides_presentation:
     widescreen: yes
@@ -489,11 +489,7 @@ matplot(new$x, cbind(pred.w.clim, pred.w.plim[,-1]),
 
 
 [coment]: <> (https://onlinecourses.science.psu.edu/stat501/node/271)
-
-## Agradecimento
-
-* Slides criados por Samara F Kiihl / IMECC / UNICAMP
-
+  
 ## Leitura
 
 * Applied Linear Statistical Models: 1.8, 2.1-2.9.
