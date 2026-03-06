@@ -34,13 +34,13 @@ A partir de agora iremos assumir:
 
 ## Propriedades de $Y_i$ {.build}
 
-Já tínhamos visto que valor esperado para a resposta $Y_i$ é:
+Já tínhamos visto que valor esperado para a resposta $Y_i$, fixando $X_i$ é:
 
 $$
 E(Y_i)=\beta_0+\beta_1X_i
 $$
 
-> E a variância para a resposta $Y_i$ é:
+> E a variância para a resposta $Y_i$, fixando $X_i$ é:
 
 $$
 Var(Y_i)=\sigma^2

@@ -57,7 +57,7 @@ Considere que tenhamos interesse nas seguintes questões:
 
 
 ```{r galton,fig.height=3.1,fig.width=8,message = F, warning = F,echo=FALSE, fig.align='center'}
-library(UsingR); data(galton); library(reshape); long <- melt(galton)
+library(UsingR); data(galton); library(reshape); library(ggplot2); long <- melt(galton)
 g <- ggplot(long, aes(x = value, fill = variable)) 
 g <- g + geom_histogram(colour = "black", binwidth=1) 
 g <- g + facet_grid(. ~ variable)
@@ -91,7 +91,6 @@ Considerando apenas as alturas dos filhos:
 ```{r,echo=TRUE,eval=FALSE}
 library(UsingR); data(galton); library(reshape); long <- melt(galton)
 library(manipulate)
-library(ggplot2)
 myHist <- function(mu){
     mse <- mean((galton$child - mu)^2)
     g <- ggplot(galton, aes(x = child)) + geom_histogram(fill = "salmon", 
@@ -381,7 +380,7 @@ A partir de agora iremos assumir:
 
 ## Propriedades de $Y_i$ {.build}
 
-O valor esperado para a resposta $Y_i$ é:
+O valor esperado para a resposta $Y_i$, fixando $X_i$ é:
 
 $$\begin{eqnarray}
 E(Y_i) & = & E(\beta_0+\beta_1 X_i+\varepsilon_i)\\
@@ -390,7 +389,7 @@ E(Y_i) & = & E(\beta_0+\beta_1 X_i+\varepsilon_i)\\
 \end{eqnarray}
 $$
 
-> A variância para a resposta $Y_i$ é:
+> A variância para a resposta $Y_i$, fixando $X_i$ é:
 
 $$\begin{eqnarray}
 Var(Y_i) & = & Var(\beta_0+\beta_1 X_i+\varepsilon_i)\\
